@@ -1,4 +1,4 @@
-import { AxesHelper, Object3D } from 'three'
+import { Object3D, AxesHelper, FontLoader, TextGeometry, MeshPhongMaterial, Mesh } from 'three'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
@@ -27,6 +27,7 @@ export default class World {
     this.setAmbientLight()
     this.setPointLight()
     this.setSuzanne()
+    this.setText()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -73,5 +74,24 @@ export default class World {
       assets: this.assets,
     })
     this.container.add(this.suzanne.container)
+  }
+  setText() {
+    const loader = new FontLoader();
+    this.loader.load('./Haboro-Contrast-Regular.json', (font) => {
+      console.log(font)
+        this.textGeo = new TextGeometry("My Text", {
+            font: font,
+            size: 20,
+            height: 50,
+            curveSegments: 12,
+            bevelThickness: 2,
+            bevelSize: 5,
+            bevelEnabled: true
+        })
+        this.textMaterial = new MeshPhongMaterial({ color: 0xff0000 })
+        this.mesh = new Mesh(this.textGeo, this.textMaterial)
+        this.mesh.position.set(0, 0, 0)
+        this.container.add(this.mesh)
+    } )
   }
 }
