@@ -1,4 +1,5 @@
 import { Object3D } from 'three'
+import { DragControls } from 'three/examples/jsm/controls/DragControls'
 import * as THREE from 'three'
 
 export default class Bottle {
@@ -20,7 +21,7 @@ export default class Bottle {
     this.bottle.cap = this.bottle.children[0].children[0]
     this.bottle.label = this.bottle.children[0].children[1]
     this.bottle.shape = this.bottle.children[0].children[2]
-
+    console.log(this)
     this.bottle.shape.material = new THREE.MeshPhongMaterial({
       color: 0xffffff,
       opacity: 0.3,
@@ -31,6 +32,7 @@ export default class Bottle {
     this.bottle.scale.set(0.1, 0.1, 0.1)
     this.bottle.rotation.set(-0.1, 5, 0)
     this.bottle.position.set(0, -3, 0)
+
     this.container.add(this.bottle)
   }
   setMovement() {
