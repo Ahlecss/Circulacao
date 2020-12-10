@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import { AxesHelper, Object3D } from 'three'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Suzanne from './Suzanne'
 import Bottle from './Bottle'
+=======
+import { Object3D, AxesHelper, FontLoader, TextGeometry, MeshPhongMaterial, Mesh, MeshLambertMaterial } from 'three'
+
+import AmbientLightSource from './AmbientLight'
+import PointLightSource from './PointLight'
+>>>>>>> 6e57f395d7a380590b5be14a1c09bd1e001d03a7
 
 export default class World {
   constructor(options) {
@@ -27,8 +34,12 @@ export default class World {
   init() {
     this.setAmbientLight()
     this.setPointLight()
+<<<<<<< HEAD
     // this.setSuzanne()
     this.setBottle()
+=======
+    this.setText()
+>>>>>>> 6e57f395d7a380590b5be14a1c09bd1e001d03a7
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -69,6 +80,7 @@ export default class World {
     })
     this.container.add(this.light.container)
   }
+<<<<<<< HEAD
   setSuzanne() {
     this.suzanne = new Suzanne({
       time: this.time,
@@ -82,5 +94,25 @@ export default class World {
       assets: this.assets,
     })
     this.container.add(this.bottle.container)
+=======
+  setText() {
+    var loader = new FontLoader();
+    loader.load('../Haboro-Contrast-Regular.json', (font) => {
+      console.log(font)
+        this.textGeo = new TextGeometry("My Text", {
+            font: font,
+            size: 10,
+            height: 50,
+            curveSegments: 120,
+            bevelThickness: 2,
+            bevelSize: 1,
+            bevelEnabled: true
+        })
+        this.textMaterial = new MeshLambertMaterial({ color: 0xff0000 })
+        this.mesh = new Mesh(this.textGeo, this.textMaterial)
+        this.mesh.position.set(0, 0, 0)
+        this.container.add(this.mesh)
+    } )
+>>>>>>> 6e57f395d7a380590b5be14a1c09bd1e001d03a7
   }
 }
