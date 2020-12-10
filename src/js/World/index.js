@@ -18,10 +18,13 @@ export default class World {
     this.time = options.time
     this.debug = options.debug
     this.assets = options.assets
+    this.camera = options.camera
 
     // Set up
     this.container = new Object3D()
     this.container.name = 'World'
+    this.mouseX = 0
+    this.mouseY = 2
 
     if (this.debug) {
       this.container.add(new AxesHelper(5))
@@ -34,8 +37,8 @@ export default class World {
   init() {
     this.setAmbientLight()
     this.setPointLight()
-    this.setBottle()
     // this.setText()
+    this.setBottle()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -57,10 +60,10 @@ export default class World {
       this.assets.on('ressourcesReady', () => {
         setTimeout(() => {
           this.init()
-          // this.loadDiv.style.opacity = 0
-          // setTimeout(() => {
-          //   this.loadDiv.remove()
-          // }, 550)
+          this.loadDiv.style.opacity = 0
+          setTimeout(() => {
+            this.loadDiv.remove()
+          }, 550)
         }, 1000)
       })
     }
@@ -72,10 +75,16 @@ export default class World {
     this.container.add(this.ambientlight.container)
   }
   setPointLight() {
+    console.log(this.camera)
     this.light = new PointLightSource({
       debug: this.debugFolder,
+      posX: this.mouseX,
+      posY: this.mouseY,
+      posZ: 1000,
+      camera: this.camera,
     })
     this.container.add(this.light.container)
+    // When the mouse moves, call the given function
   }
   setBottle() {
     this.bottle = new Bottle({
