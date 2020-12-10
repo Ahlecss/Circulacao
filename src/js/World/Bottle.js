@@ -21,11 +21,12 @@ export default class Bottle {
     this.bottle.label = this.bottle.children[0].children[1]
     this.bottle.shape = this.bottle.children[0].children[2]
 
-    this.bottle.shape.material = new THREE.MeshPhongMaterial({
+    this.bottle.shape.material = new THREE.MeshLambertMaterial({
       color: 0xffffff,
-      opacity: 0.3,
+      opacity: 0.2,
       transparent: true,
-      refractionRatio: 0.8,
+      refractionRatio: 1,
+      reflectivity: 1,
     })
 
     this.bottle.scale.set(0.1, 0.1, 0.1)

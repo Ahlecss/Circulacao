@@ -1,4 +1,4 @@
-import { Object3D, PointLight, Color, Vector3 } from 'three'
+import { Object3D, PointLight, Color, Vector3, DirectionalLight } from 'three'
 
 export default class PointLightSource {
   constructor(options) {
@@ -27,7 +27,7 @@ export default class PointLightSource {
     }
   }
   createPointLight() {
-    this.light = new PointLight(this.params.color)
+    this.light = new DirectionalLight(this.params.color)
     this.light.castShadow = true
     this.light.position.set(
       this.params.positionX,
@@ -39,7 +39,7 @@ export default class PointLightSource {
   }
   updatePointLight(){
     document.addEventListener('mousemove', event => {
-      console.log(this.camera)
+      console.log(this.light.position)
 
       event.preventDefault();
       this.params.positionX = (event.clientX / window.innerWidth) * 2 - 1;
@@ -47,12 +47,14 @@ export default class PointLightSource {
 
        // Make the sphere follow the mouse
       var vector = new Vector3(this.params.positionX, this.params.positionY, 0.5);
-      console.log(this.camera.position);
+      console.log(this.camera.camera.position);
       vector.unproject( this.camera.camera );
       var dir = vector.sub( this.camera.camera.position ).normalize();
+      console.log(dir)
       var distance = - this.camera.camera.position.z / dir.z;
       var pos = this.camera.camera.position.clone().add( dir.multiplyScalar( distance ) );
-      console.log(pos)
+      // I changed Z of pos to have a nicer light angle
+      pos.z = 5;
       this.light.position.copy(pos);
       
     }, false);

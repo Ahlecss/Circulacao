@@ -71,7 +71,7 @@ export default class World {
       debug: this.debugFolder,
       posX: this.mouseX,
       posY: this.mouseY,
-      posZ: 1000,
+      posZ: -10,
       camera: this.camera
     })
     this.container.add(this.light.container)
