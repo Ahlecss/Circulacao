@@ -1,8 +1,7 @@
-import { Object3D, AxesHelper, FontLoader, TextGeometry, MeshPhongMaterial, Mesh } from 'three'
+import { Object3D, AxesHelper, FontLoader, TextGeometry, MeshPhongMaterial, Mesh, MeshLambertMaterial } from 'three'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
-import Suzanne from './Suzanne'
 
 export default class World {
   constructor(options) {
@@ -26,7 +25,6 @@ export default class World {
   init() {
     this.setAmbientLight()
     this.setPointLight()
-    this.setSuzanne()
     this.setText()
   }
   setLoader() {
@@ -68,27 +66,20 @@ export default class World {
     })
     this.container.add(this.light.container)
   }
-  setSuzanne() {
-    this.suzanne = new Suzanne({
-      time: this.time,
-      assets: this.assets,
-    })
-    this.container.add(this.suzanne.container)
-  }
   setText() {
-    const loader = new FontLoader();
-    this.loader.load('./Haboro-Contrast-Regular.json', (font) => {
+    var loader = new FontLoader();
+    loader.load('../Haboro-Contrast-Regular.json', (font) => {
       console.log(font)
         this.textGeo = new TextGeometry("My Text", {
             font: font,
-            size: 20,
+            size: 10,
             height: 50,
-            curveSegments: 12,
+            curveSegments: 120,
             bevelThickness: 2,
-            bevelSize: 5,
+            bevelSize: 1,
             bevelEnabled: true
         })
-        this.textMaterial = new MeshPhongMaterial({ color: 0xff0000 })
+        this.textMaterial = new MeshLambertMaterial({ color: 0xff0000 })
         this.mesh = new Mesh(this.textGeo, this.textMaterial)
         this.mesh.position.set(0, 0, 0)
         this.container.add(this.mesh)
