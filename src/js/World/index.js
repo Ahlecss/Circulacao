@@ -3,6 +3,7 @@ import { AxesHelper, Object3D } from 'three'
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Suzanne from './Suzanne'
+import Bottle from './Bottle'
 
 export default class World {
   constructor(options) {
@@ -26,7 +27,8 @@ export default class World {
   init() {
     this.setAmbientLight()
     this.setPointLight()
-    this.setSuzanne()
+    // this.setSuzanne()
+    this.setBottle()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -73,5 +75,12 @@ export default class World {
       assets: this.assets,
     })
     this.container.add(this.suzanne.container)
+  }
+  setBottle() {
+    this.bottle = new Bottle({
+      time: this.time,
+      assets: this.assets,
+    })
+    this.container.add(this.bottle.container)
   }
 }
