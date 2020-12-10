@@ -9,10 +9,13 @@ export default class World {
     this.time = options.time
     this.debug = options.debug
     this.assets = options.assets
+    this.camera = options.camera
 
     // Set up
     this.container = new Object3D()
     this.container.name = 'World'
+    this.mouseX = 0;
+    this.mouseY = 2;
 
     if (this.debug) {
       this.container.add(new AxesHelper(5))
@@ -61,10 +64,16 @@ export default class World {
     this.container.add(this.ambientlight.container)
   }
   setPointLight() {
+    console.log(this.camera)
     this.light = new PointLightSource({
       debug: this.debugFolder,
+      posX: this.mouseX,
+      posY: this.mouseY,
+      posZ: 1000,
+      camera: this.camera
     })
     this.container.add(this.light.container)
+      // When the mouse moves, call the given function
   }
   setText() {
     var loader = new FontLoader();
