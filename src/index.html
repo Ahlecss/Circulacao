@@ -11,9 +11,70 @@
     <div class="loadScreen">
       <h1 class="load">0%</h1>
       <div class="progressBar">
-        <div class="progress"></div>
+        <!-- <div class="progress"></div> -->
       </div>
     </div>
-    <canvas id="_canvas"></canvas>
+    <div class="container">
+      <div data-scroll-container class="container">
+        <div class="hero para">
+          <div data-scroll data-scroll-speed="7" class="copy">
+            <blockquote>
+              “It’s one thing to make a <span>picture</span> of what 
+              a person looks like, it’s another thing 
+              to make a <span>potrait</span> of who they are.”
+            </blockquote>
+          </div>
+
+        </div>
+        
+        <div class="section-0 para" data-scroll data-scroll-speed="2">
+            <p 
+                data-scroll 
+                data-scroll-direction="horizontal" 
+                data-scroll-speed="-5"
+            >
+                Travelling leaves you speechless
+            </p>
+            <p 
+                data-scroll 
+                data-scroll-direction="horizontal" 
+                data-scroll-speed="2"
+            >
+                Then it turns you to a storyteller
+            </p>
+        </div>
+
+        <div class="section-1">
+            <div class="image-mask"></div>
+        </div>
+        
+        <div class="section-2 para">
+          <div id="pinSection" class="pinned-quote">
+            <blockquote data-scroll data-scroll-sticky data-scroll-target="#pinSection">
+              “To me, photography is an art of observation. 
+              It’s about finding something interesting in 
+              an ordinary place… I’ve found it has little 
+              to do with the things you see and everything 
+              to do with the way you see them.”
+      
+              <cite>
+                — Elliott Erwitt
+              </cite>
+            </blockquote>
+          </div>
+          
+        </div>
+        
+        <div class="section-3 para">
+          <div class="copy">
+            <blockquote data-scroll-speed="3" data-scroll>
+              If a picture is worth a thousand words,
+              words must be priceless
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <canvas id="_canvas" ></canvas>
+    </div>  
 </body>
 </html>
