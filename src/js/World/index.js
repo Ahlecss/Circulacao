@@ -3,6 +3,7 @@ import { Object3D, AxesHelper, FontLoader, TextGeometry, MeshPhongMaterial, Mesh
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
+import Sticker from './Sticker'
 
 export default class World {
   constructor(options) {
@@ -31,6 +32,7 @@ export default class World {
     this.setPointLight()
     // this.setSuzanne()
     this.setBottle()
+    this.setSticker()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -90,6 +92,13 @@ export default class World {
       assets: this.assets,
     })
     this.container.add(this.bottle.container)
+  }
+  setSticker() {
+    this.sticker = new Sticker({
+      time: this.time,
+      assets: this.assets,
+    })
+    this.container.add(this.sticker.container)
   }
   setText() {
     var loader = new FontLoader();
