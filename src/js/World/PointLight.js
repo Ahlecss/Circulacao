@@ -35,30 +35,38 @@ export default class PointLightSource {
       this.params.positionZ
     )
     this.container.add(this.light)
-
   }
-  updatePointLight(){
-    document.addEventListener('mousemove', event => {
-      console.log(this.light.position)
+  updatePointLight() {
+    document.addEventListener(
+      'mousemove',
+      (event) => {
+        // console.log(this.light.position)
 
-      this.light.intensity = 1; 
-      event.preventDefault();
-      this.params.positionX = (event.clientX / window.innerWidth) * 2 - 1;
-      this.params.positionY = - (event.clientY / window.innerHeight) * 2 + 1;
+        this.light.intensity = 1
+        event.preventDefault()
+        this.params.positionX = (event.clientX / window.innerWidth) * 2 - 1
+        this.params.positionY = -(event.clientY / window.innerHeight) * 2 + 1
 
-       // Make the sphere follow the mouse
-      var vector = new Vector3(this.params.positionX, this.params.positionY, 0.5);
-      console.log(this.camera.camera.position);
-      vector.unproject( this.camera.camera );
-      var dir = vector.sub( this.camera.camera.position ).normalize();
-      console.log(dir)
-      var distance = - this.camera.camera.position.z / dir.z;
-      var pos = this.camera.camera.position.clone().add( dir.multiplyScalar( distance ) );
-      // I changed Z of pos to have a nicer light angle
-      pos.z = 5;
-      this.light.position.copy(pos);
-      
-    }, false);
+        // Make the sphere follow the mouse
+        var vector = new Vector3(
+          this.params.positionX,
+          this.params.positionY,
+          0.5
+        )
+        // console.log(this.camera.camera.position);
+        vector.unproject(this.camera.camera)
+        var dir = vector.sub(this.camera.camera.position).normalize()
+        // console.log(dir)
+        var distance = -this.camera.camera.position.z / dir.z
+        var pos = this.camera.camera.position
+          .clone()
+          .add(dir.multiplyScalar(distance))
+        // I changed Z of pos to have a nicer light angle
+        pos.z = 5
+        this.light.position.copy(pos)
+      },
+      false
+    )
   }
   setDebug() {
     // Color debug
