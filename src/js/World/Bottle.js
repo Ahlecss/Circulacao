@@ -1,6 +1,8 @@
-import { Object3D } from 'three'
+import { Object3D, MeshBasicMaterial, Mesh, Vector3, Euler } from 'three'
 import { DragControls } from 'three/examples/jsm/controls/DragControls'
+
 import * as THREE from 'three'
+import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js'
 
 export default class Bottle {
   constructor(options) {
@@ -22,9 +24,9 @@ export default class Bottle {
     this.bottle.label = this.bottle.children[0].children[1]
     this.bottle.shape = this.bottle.children[0].children[2]
 
-    this.bottle.shape.material = new THREE.MeshLambertMaterial({
+    this.bottle.shape.material = new THREE.MeshPhongMaterial({
       color: 0xffffff,
-      opacity: 0.2,
+      opacity: 0.1,
       transparent: true,
       refractionRatio: 1,
       reflectivity: 1,

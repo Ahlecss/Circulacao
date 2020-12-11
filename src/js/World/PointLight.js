@@ -41,6 +41,7 @@ export default class PointLightSource {
     document.addEventListener('mousemove', event => {
       console.log(this.light.position)
 
+      this.light.intensity = 1; 
       event.preventDefault();
       this.params.positionX = (event.clientX / window.innerWidth) * 2 - 1;
       this.params.positionY = - (event.clientY / window.innerHeight) * 2 + 1;
