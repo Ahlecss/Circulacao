@@ -1,6 +1,6 @@
 import { Object3D, MeshBasicMaterial, Mesh, Vector3, Euler } from 'three'
 import * as THREE from 'three'
-import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js';
+import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js'
 
 export default class Bottle {
   constructor(options) {
@@ -18,6 +18,10 @@ export default class Bottle {
   createBottle() {
     this.bottle = this.assets.models.bottle.scene
 
+    this.bottle.scale.set(0.1, 0.1, 0.1)
+    this.bottle.rotation.set(-0.1, 5, 0)
+    this.bottle.position.set(0, -3, 0)
+
     this.bottle.cap = this.bottle.children[0].children[0]
     this.bottle.label = this.bottle.children[0].children[1]
     this.bottle.shape = this.bottle.children[0].children[2]
@@ -27,12 +31,9 @@ export default class Bottle {
       opacity: 0.1,
       transparent: true,
       refractionRatio: 1,
-      reflectivity: 1
+      reflectivity: 1,
     })
 
-    this.bottle.scale.set(0.1, 0.1, 0.1)
-    this.bottle.rotation.set(-0.1, 5, 0)
-    this.bottle.position.set(0, -3, 0)
     this.container.add(this.bottle)
   }
   setMovement() {
