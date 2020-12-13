@@ -81,7 +81,7 @@ export default class World {
     this.container.add(this.ambientlight.container)
   }
   setPointLight() {
-    console.log(this.camera)
+    // console.log(this.camera)
     this.light = new PointLightSource({
       debug: this.debugFolder,
       posX: this.mouseX,
@@ -110,7 +110,7 @@ export default class World {
   setText() {
     var loader = new FontLoader()
     loader.load('../Haboro-Contrast-Regular.json', (font) => {
-      console.log(font)
+      // console.log(font)
       this.textGeo = new TextGeometry('My Text', {
         font: font,
         size: 10,
