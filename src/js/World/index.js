@@ -7,6 +7,7 @@ import {
   Mesh,
   MeshLambertMaterial,
 } from 'three'
+import LocomotiveScroll from 'locomotive-scroll'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
@@ -38,6 +39,7 @@ export default class World {
   init() {
     this.setAmbientLight()
     this.setPointLight()
+    this.setScroll()
     // this.setText()
     this.setBottle()
     // this.setSticker()
@@ -73,6 +75,15 @@ export default class World {
         }, 1000)
       })
     }
+  }
+  setScroll() {
+    const scroller = new LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true,
+      direction: 'horizontal',
+      lerp: 0.05,
+      scrollbarContainer: document.querySelector('[data-scroll-container]'),
+    })
   }
   setAmbientLight() {
     this.ambientlight = new AmbientLightSource({
