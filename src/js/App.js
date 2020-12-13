@@ -33,7 +33,7 @@ export default class App {
       antialias: true,
     })
     // Set background color
-    this.renderer.setClearColor(0x212121, 1)
+    // this.renderer.setClearColor(0x212121, 1)
     // Set renderer pixel ratio & sizes
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)
@@ -65,7 +65,7 @@ export default class App {
       time: this.time,
       debug: this.debug,
       assets: this.assets,
-      camera: this.camera
+      camera: this.camera,
     })
     // Add world to scene
     this.scene.add(this.world.container)
