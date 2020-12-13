@@ -42,20 +42,36 @@ export default class World {
     this.setBottle()
     // this.setSticker()
   }
+  setAmbientLight() {
+    this.ambientlight = new AmbientLightSource({
+      debug: this.debugFolder,
+    })
+    this.container.add(this.ambientlight.container)
+  }
+  setPointLight() {
+    this.light = new PointLightSource({
+      debug: this.debugFolder,
+    })
+    this.container.add(this.light.container)
+  }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
     this.loadModels = this.loadDiv.querySelector('.load')
-    this.progress = this.loadDiv.querySelector('.progress')
+    this.progress = this.loadDiv.querySelector('.progressBar')
 
     if (this.assets.total === 0) {
       this.init()
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
-        console.log((this.assets.done / this.assets.total) * 100)
-        this.progress.style.width = this.loadModels.innerHTML = `${
+        this.loadModels.innerHTML = `${
           Math.floor((this.assets.done / this.assets.total) * 100) +
           Math.floor((1 / this.assets.total) * this.assets.currentPercent)
+        }%`
+        this.progress.style.top = `${
+          100 -
+          (Math.floor((this.assets.done / this.assets.total) * 100) +
+            Math.floor((1 / this.assets.total) * this.assets.currentPercent))
         }%`
       })
 
@@ -69,24 +85,6 @@ export default class World {
         }, 1000)
       })
     }
-  }
-  setAmbientLight() {
-    this.ambientlight = new AmbientLightSource({
-      debug: this.debugFolder,
-    })
-    this.container.add(this.ambientlight.container)
-  }
-  setPointLight() {
-    console.log(this.camera)
-    this.light = new PointLightSource({
-      debug: this.debugFolder,
-      posX: this.mouseX,
-      posY: this.mouseY,
-      posZ: -10,
-      camera: this.camera,
-    })
-    this.container.add(this.light.container)
-    // When the mouse moves, call the given function
   }
   setBottle() {
     this.bottle = new Bottle({
