@@ -40,7 +40,7 @@ export default class World {
     this.setPointLight()
     // this.setText()
     this.setBottle()
-    this.setSticker()
+    // this.setSticker()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -99,7 +99,7 @@ export default class World {
     this.sticker = new Sticker({
       time: this.time,
       assets: this.assets,
-      bottle: this.bottle
+      bottle: this.bottle,
     })
     this.container.add(this.sticker.container)
   }
