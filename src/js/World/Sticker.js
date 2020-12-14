@@ -36,7 +36,6 @@ export default class Sticker {
 
     this.createSticker()
     this.createControls()
-    // this.setMovement()
   }
   createSticker() {
     const textureEtiquette = new TextureLoader().load(etiquette)

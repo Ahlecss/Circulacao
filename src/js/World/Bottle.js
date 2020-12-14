@@ -46,7 +46,7 @@ export default class Bottle {
     })
 
     this.bottle.scale.set(0.1, 0.1, 0.1)
-    this.bottle.rotation.set(-0.1, 4.7, 0)
+    this.bottle.rotation.set(0.1, 4.7, 0)
     this.bottle.position.set(0, -3, 0)
     this.container.add(this.bottle)
   }
@@ -56,7 +56,7 @@ export default class Bottle {
       (event) => {
         event.preventDefault()
         var rotationX = ((event.clientX / window.innerWidth) * 2 - 1) / 4
-        this.bottle.rotation.set(-0.1, 4.7 + rotationX, 0)
+        this.bottle.rotation.set(0.1, 4.7 + rotationX, 0)
       },
       false
     )
