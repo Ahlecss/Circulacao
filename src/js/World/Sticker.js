@@ -48,18 +48,15 @@ export default class Bottle {
       this.camera.camera,
       this.renderer.domElement
     )
-    /* 
-    console.log(controls)
-   
+
     controls.addEventListener('dragstart', function (event) {
-      event.object.material.emissive.set( 0x000000 );
+      console.log(this.objects[0])
     })
- 
-  this.controls.addEventListener( 'dragend', function ( event ) {
 
-      event.object.material.emissive.set( 0x000000 );
-
-  } );*/
+    controls.addEventListener('dragend', function (event) {
+      console.log(this.objects[0])
+      // event.object.material.emissive.set(0x000000)
+    })
   }
   setMovement() {
     this.time.on('tick', () => {
