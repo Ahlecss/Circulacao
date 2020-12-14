@@ -4,6 +4,7 @@
   "description": "Three template",
   "main": "index.js",
   "dependencies": {
+    "locomotive-scroll": "^4.0.6",
     "three-decal-geometry": "^1.0.0"
   },
   "devDependencies": {

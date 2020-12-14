@@ -1,7 +1,8 @@
-import { Object3D, MeshBasicMaterial, Mesh, Vector3, Euler } from 'three'
+import { Object3D, MeshBasicMaterial, Mesh, Vector3, Euler, TextureLoader } from 'three'
 import * as THREE from 'three'
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js'
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
+import CocaTexture from '@textures/coca.png'
 
 export default class Sticker {
   constructor(options) {
@@ -22,19 +23,10 @@ export default class Sticker {
     // this.setMovement()
   }
   createSticker() {
-    // console.log(this.bottle.bottle.label.geometry)
-    // console.log(this.bottle.bottle.shape.geometry)
-    // this.bottle.bottle.scale.set(0.1, 0.1, 0.1)
-    // this.bottle.bottle.rotation.set(-0.1, 5, 0)
-    // this.bottle.bottle.position.set(0, -3, 0)
+    const texture = new TextureLoader().load(CocaTexture);
 
-    const box = new THREE.BoxGeometry(1, 1, 1)
-    // console.log(box)
-    const material = new MeshBasicMaterial({ color: 0x0000ff })
-    const meshBox = new Mesh(box, material)
+    const material = new MeshBasicMaterial({ map: texture })
     const mesh3D = new Mesh(this.bottle.bottle.label.geometry, material)
-    // console.log(meshBox);
-    // console.log(mesh3D);
     mesh3D.scale.set(0.05, 0.05, 0.05)
     this.objects.push( mesh3D )
     this.container.add(mesh3D)
@@ -42,7 +34,7 @@ export default class Sticker {
     const position = new THREE.Vector3(1, 1, 1)
     const orientation = new THREE.Euler(1, 1, 1, 1, 'ui')
     const size = new THREE.Vector3(1, 1, 1)
-    const geometry = new DecalGeometry(meshBox, position, orientation, size)
+    const geometry = new DecalGeometry(mesh3D, position, orientation, size)
     const material2 = new MeshBasicMaterial({ color: 0x00ff00 })
     const mesh2 = new Mesh(geometry, material2)
     this.container.add(mesh2)
