@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js'
 import { DragControls } from 'three/examples/jsm/controls/DragControls'
 import etiquette from '@textures/etiquette.jpg'
+import etiquetteCoca from '@textures/etiquetteCoca.png'
 
 export default class Sticker {
   constructor(options) {
@@ -23,15 +24,15 @@ export default class Sticker {
     // this.setMovement()
   }
   createSticker() {
-    const texture = new TextureLoader().load(etiquette);
-
-    const material = new MeshLambertMaterial({ map: texture })
+    const textureEtiquette = new TextureLoader().load(etiquette);
+    
+    const material = new MeshLambertMaterial({ map: textureEtiquette })
     const mesh3D = new Mesh(this.bottle.bottle.sticker.geometry, material)
     mesh3D.scale.set(0.1, 0.1, 0.1)
-    mesh3D.rotation.set(-0.15, 0, 0)
-    mesh3D.position.set(0, -1.5, -0.1)
+    mesh3D.rotation.set(-0.15, 0, 0)  
+    mesh3D.position.set(0, -1.5, 0.1)
     this.container.add(mesh3D)
-
+    
     const position = new THREE.Vector3(1, 1, 1)
     const orientation = new THREE.Euler(1, 1, 1, 1, 'ui')
     const size = new THREE.Vector3(1, 1, 1)
@@ -49,6 +50,10 @@ export default class Sticker {
     controls.addEventListener( 'drag', function ( event ) {
       event.object.position.y = objectsY;
       event.object.position.z = objectsZ;
+    
+    } );
+    controls.addEventListener( 'dragend', function ( event ) {
+      //if(event.object.position.y)
     
     } );
   }
