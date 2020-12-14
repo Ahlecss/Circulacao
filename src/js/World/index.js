@@ -24,6 +24,7 @@ export default class World {
     this.debug = options.debug
     this.assets = options.assets
     this.camera = options.camera
+    this.renderer = options.renderer
 
     // Set up
     this.container = new Object3D()
@@ -119,6 +120,8 @@ export default class World {
       time: this.time,
       assets: this.assets,
       bottle: this.bottle,
+      camera: this.camera,
+      renderer: this.renderer,
     })
     this.container.add(this.sticker.container)
   }
