@@ -13,7 +13,7 @@ export default class Bottle {
     this.container.name = 'Bottle'
 
     this.createBottle()
-    this.setMovement()
+    //this.setMovement()
   }
   createBottle() {
     // this.bottle = this.assets.models.bottle.scene

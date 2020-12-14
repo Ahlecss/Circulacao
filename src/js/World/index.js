@@ -52,7 +52,7 @@ export default class World {
     this.setBottle()
     this.addPlanes()
     this.setBackground()
-    // this.setSticker()
+    this.setSticker()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -91,6 +91,7 @@ export default class World {
       if (this.camera.camera.position.x >= 0) {
         this.camera.camera.position.x += e.deltaY * 0.01
         this.bottle.bottle.position.x += e.deltaY * 0.01
+        this.bottle.bottle.sticker.position.x += e.deltaY * 0.01
       } else {
         this.bottle.bottle.position.x = 0
         this.camera.camera.position.x = 0
@@ -146,6 +147,7 @@ export default class World {
     this.container.add(this.bottle.container)
   }
   setSticker() {
+    console.log('perer')
     this.sticker = new Sticker({
       time: this.time,
       assets: this.assets,

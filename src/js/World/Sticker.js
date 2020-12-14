@@ -32,49 +32,50 @@ export default class Sticker {
     this.tweenTopLeft = 0
     this.tweenBottomLeft = 0
     this.tweenOpacity = 0
-    this.material
+    this.mesh3D
 
     this.createSticker()
     this.createControls()
+    this.setScroll()
   }
   createSticker() {
     const textureEtiquette = new TextureLoader().load(etiquette)
 
     const material = new MeshLambertMaterial({ map: textureEtiquette })
-    const mesh3D = new Mesh(this.bottle.bottle.sticker.geometry, material)
-    mesh3D.scale.set(0.1, 0.1, 0.1)
-    mesh3D.rotation.set(-0.15, 0, 0)
-    mesh3D.position.set(0, -1.5, 0.1)
-    this.container.add(mesh3D)
+    this.mesh3D = new Mesh(this.bottle.bottle.sticker.geometry, material)
+    this.mesh3D.scale.set(0.1, 0.1, 0.1)
+    this.mesh3D.rotation.set(-0.15, 0, 0)
+    this.mesh3D.position.set(0, -1.5, 0.1)
+    this.container.add(this.mesh3D)
 
     const position = new THREE.Vector3(1, 1, 1)
     const orientation = new THREE.Euler(1, 1, 1, 1, 'ui')
     const size = new THREE.Vector3(1, 1, 1)
-    const geometry = new DecalGeometry(mesh3D, position, orientation, size)
+    const geometry = new DecalGeometry(this.mesh3D, position, orientation, size)
     const material2 = new MeshBasicMaterial({ color: 0x00ff00 })
     const mesh2 = new Mesh(geometry, material2)
-    this.objects.push(mesh3D)
+    this.objects.push(this.mesh3D)
     console.log(this.objects)
 
-    this.tweenTopRight = gsap.to(mesh3D.position, {
+    this.tweenTopRight = gsap.to(this.mesh3D.position, {
       duration: 0.8,
       x: 10,
       y: -10,
     })
     this.tweenTopRight.pause()
-    this.tweenBottomRight = gsap.to(mesh3D.position, {
+    this.tweenBottomRight = gsap.to(this.mesh3D.position, {
       duration: 0.8,
       x: 10,
       y: 10,
     })
     this.tweenBottomRight.pause()
-    this.tweenTopLeft = gsap.to(mesh3D.position, {
+    this.tweenTopLeft = gsap.to(this.mesh3D.position, {
       duration: 0.8,
       x: -10,
       y: -10,
     })
     this.tweenTopLeft.pause()
-    this.tweenBottomLeft = gsap.to(mesh3D.position, {
+    this.tweenBottomLeft = gsap.to(this.mesh3D.position, {
       duration: 0.8,
       x: -10,
       y: 10,
@@ -121,6 +122,16 @@ export default class Sticker {
           tweenBottomLeft.play()
           tweenOpacity.play()
         }
+      }
+    })
+  }
+  setScroll() {
+    window.addEventListener('wheel', (e) => {
+      if (this.camera.camera.position.x >= 0) {
+        console.log(this.mesh3D)
+        this.mesh3D.position.x += e.deltaY * 0.01
+      } else {
+        this.mesh3D.position.x = 0
       }
     })
   }
