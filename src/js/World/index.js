@@ -10,12 +10,12 @@ import {
   PlaneBufferGeometry,
   MeshBasicMaterial,
 } from 'three'
-import LocomotiveScroll from 'locomotive-scroll'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
+import Noise from '@textures/Noise.png'
 
 export default class World {
   constructor(options) {
@@ -46,8 +46,9 @@ export default class World {
     this.setScroll()
     // this.setText()
     this.setBottle()
-    // this.addPlanes()
-    this.setSticker()
+    this.addPlanes()
+    this.setBackground()
+    // this.setSticker()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -82,13 +83,34 @@ export default class World {
     }
   }
   setScroll() {
-    const scroller = new LocomotiveScroll({
-      el: document.querySelector('[data-scroll-container]'),
-      smooth: true,
-      direction: 'horizontal',
-      lerp: 0.05,
-      scrollbarContainer: document.querySelector('[data-scroll-container]'),
+    window.addEventListener('wheel', (e) => {
+      if (this.camera.camera.position.x >= 0) {
+        this.camera.camera.position.x += e.deltaY * 0.003
+        this.bottle.bottle.position.x += e.deltaY * 0.003
+      } else {
+        this.bottle.bottle.position.x = 0
+        this.camera.camera.position.x = 0
+      }
     })
+  }
+  setBackground() {
+    var loader = new TextureLoader()
+    var texture = loader.load(Noise)
+
+    this.geometry = new PlaneBufferGeometry()
+    this.material = new MeshBasicMaterial({
+      map: texture,
+      opacity: 1,
+      transparent: true,
+      normalmap: texture,
+    })
+
+    this.plane = new Mesh(this.geometry, this.material)
+    this.plane.position.set(0, 0, -20)
+    this.plane.scale.set(150, 150, 2)
+    this.plane.castShadow = true
+    this.plane.receiveShadow = true
+    this.container.add(this.plane)
   }
   setAmbientLight() {
     this.ambientlight = new AmbientLightSource({
@@ -145,22 +167,20 @@ export default class World {
     })
   }
   addPlanes() {
-    var loader = new TextureLoader()
-    var texture = loader.load('https://i.imgur.com/RoNmD7W.png')
-
-    this.geometry = new PlaneBufferGeometry()
-    this.material = new MeshBasicMaterial({
-      map: texture,
-      opacity: 1,
-      transparent: true,
-      normalmap: texture,
-    })
-
-    this.plane = new Mesh(this.geometry, this.material)
-    this.plane.position.set(-2, 0, 2)
-    this.plane.scale.set(6, 6, 6)
-    this.plane.castShadow = true
-    this.plane.receiveShadow = true
-    this.container.add(this.plane)
+    // var loader = new TextureLoader()
+    // var texture = loader.load(Noise)
+    // this.geometry = new PlaneBufferGeometry()
+    // this.material = new MeshBasicMaterial({
+    //   map: texture,
+    //   opacity: 1,
+    //   transparent: true,
+    //   normalmap: texture,
+    // })
+    // this.plane = new Mesh(this.geometry, this.material)
+    // this.plane.position.set(-2, 0, 2)
+    // this.plane.scale.set(4, 4, 4)
+    // this.plane.castShadow = true
+    // this.plane.receiveShadow = true
+    // this.container.add(this.plane)
   }
 }

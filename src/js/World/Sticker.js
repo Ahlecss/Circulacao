@@ -19,27 +19,15 @@ export default class Bottle {
 
     this.createSticker()
     this.createControls()
-    // this.setMovement()
   }
   createSticker() {
-    // const box = new THREE.BoxGeometry(1, 1, 1)
     const material = new MeshBasicMaterial({ color: 0x0000ff })
-    // const meshBox = new Mesh(box, material)
     const mesh3D = new Mesh(this.bottle.bottle.sticker.geometry, material)
     mesh3D.scale.set(0.1, 0.1, 0.1)
     mesh3D.rotation.set(-0.15, 0, 0)
     mesh3D.position.set(0, -1.5, -0.1)
     this.container.add(mesh3D)
 
-    // const position = new THREE.Vector3(1, 1, 1)
-    // const orientation = new THREE.Euler(1, 1, 1, 1, 'ui')
-    // const size = new THREE.Vector3(1, 1, 1)
-    // const sticker = new DecalGeometry(meshBox, position, orientation, size)
-    // const stickermaterial = new MeshBasicMaterial({ color: 0x00ff00 })
-    // const meshSticker = new Mesh(sticker, stickermaterial)
-
-    // this.container.add(meshSticker)
-    // this.objects.push(meshSticker)
     this.objects.push(mesh3D)
   }
   createControls() {
@@ -49,18 +37,13 @@ export default class Bottle {
       this.renderer.domElement
     )
 
-    controls.addEventListener('dragstart', function (event) {
-      console.log(this.objects[0])
-    })
+    // controls.addEventListener('dragstart', function (event) {
+    //   console.log(this.objects[0])
+    // })
 
-    controls.addEventListener('dragend', function (event) {
-      console.log(this.objects[0])
-      // event.object.material.emissive.set(0x000000)
-    })
-  }
-  setMovement() {
-    this.time.on('tick', () => {
-      this.bottle.rotation.y += 0.005
-    })
+    // controls.addEventListener('dragend', function (event) {
+    //   console.log(this.objects[0])
+    //   // event.object.material.emissive.set(0x000000)
+    // })
   }
 }
