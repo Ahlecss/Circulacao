@@ -46,7 +46,7 @@ export default class World {
     // this.setText()
     this.setBottle()
     // this.addPlanes()
-    // this.setSticker()
+    this.setSticker()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
