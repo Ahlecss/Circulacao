@@ -33,7 +33,7 @@ export default class App {
       antialias: true,
     })
     // Set background color
-    // this.renderer.setClearColor(0x212121, 1)
+    this.renderer.setClearColor(0x000000, 0.8)
     // Set renderer pixel ratio & sizes
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)

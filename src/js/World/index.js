@@ -6,6 +6,9 @@ import {
   MeshPhongMaterial,
   Mesh,
   MeshLambertMaterial,
+  TextureLoader,
+  PlaneBufferGeometry,
+  MeshBasicMaterial,
 } from 'three'
 import LocomotiveScroll from 'locomotive-scroll'
 
@@ -42,6 +45,7 @@ export default class World {
     this.setScroll()
     // this.setText()
     this.setBottle()
+    // this.addPlanes()
     // this.setSticker()
   }
   setLoader() {
@@ -136,5 +140,24 @@ export default class World {
       this.mesh.position.set(0, 0, 0)
       this.container.add(this.mesh)
     })
+  }
+  addPlanes() {
+    var loader = new TextureLoader()
+    var texture = loader.load('https://i.imgur.com/RoNmD7W.png')
+
+    this.geometry = new PlaneBufferGeometry()
+    this.material = new MeshBasicMaterial({
+      map: texture,
+      opacity: 1,
+      transparent: true,
+      normalmap: texture,
+    })
+
+    this.plane = new Mesh(this.geometry, this.material)
+    this.plane.position.set(-2, 0, 2)
+    this.plane.scale.set(6, 6, 6)
+    this.plane.castShadow = true
+    this.plane.receiveShadow = true
+    this.container.add(this.plane)
   }
 }

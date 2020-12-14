@@ -126,18 +126,28 @@ html.has-scroll-dragging {
 
 .container {
   background: #dfdfdf;
-  height 100vh;
-  width 500vw
-  overflow-y hidden scroll
+  height 100vh
+  width 200vw
+  overflow-y hidden 
   display: flex;
-  flex-direction row
+  justifify-content space-around
   margin:0;
   padding:0
+
+  .usine, .atelier {
+    position relative
+    height 100vh
+    width 100vw
+    margin 0
+    padding 0
+  }
 
   .section {
     height: 100vh;
     width:100vw;
     position absolute
+    background-repeat no-repeat
+    background-size cover
   }
     
   .section-0 {
