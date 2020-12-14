@@ -2,7 +2,7 @@ import { Object3D, MeshBasicMaterial, Mesh, Vector3, Euler, TextureLoader } from
 import * as THREE from 'three'
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js'
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
-import CocaTexture from '@textures/coca.png'
+import CocaTexture from '@textures/etiquette.jpg'
 
 export default class Sticker {
   constructor(options) {
