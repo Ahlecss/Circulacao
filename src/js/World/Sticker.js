@@ -4,6 +4,7 @@ import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js'
 import { DragControls } from 'three/examples/jsm/controls/DragControls'
 import etiquette from '@textures/etiquette.jpg'
 import etiquetteCoca from '@textures/etiquetteCoca.png'
+import gsap from 'gsap'
 
 export default class Sticker {
   constructor(options) {
@@ -18,6 +19,12 @@ export default class Sticker {
     this.container = new Object3D()
     this.container.name = 'Sticker'
     this.objects = []
+    this.tweenTopRight = 0
+    this.tweenBottomRight = 0
+    this.tweenTopLeft = 0
+    this.tweenBottomLeft = 0
+    this.tweenOpacity = 0
+    this.material
 
     this.createSticker()
     this.createControls()
@@ -42,19 +49,51 @@ export default class Sticker {
     this.objects.push(mesh3D);
     console.log(this.objects);
 
+    this.tweenTopRight = gsap.to(mesh3D.position, {duration: 0.8, x: 10, y: -10});
+    this.tweenTopRight.pause()
+    this.tweenBottomRight = gsap.to(mesh3D.position, {duration: 0.8, x: 10, y: 10});
+    this.tweenBottomRight.pause()
+    this.tweenTopLeft  = gsap.to(mesh3D.position, {duration: 0.8, x: -10, y: -10});
+    this.tweenTopLeft.pause()
+    this.tweenBottomLeft  = gsap.to(mesh3D.position, {duration: 0.8, x: -10, y: 10});
+    this.tweenBottomLeft.pause()
+    this.tweenOpacity = gsap.to(material, {duration: 0.8, opacity: 0, transparent: true});
+    this.tweenOpacity.pause()
+    
   }
   createControls() {
     const controls = new DragControls( [...this.objects], this.camera.camera, this.renderer.domElement );
+    const tweenTopRight = this.tweenTopRight;
+    const tweenBottomRight = this.tweenBottomRight;
+    const tweenTopLeft = this.tweenTopLeft;
+    const tweenBottomLeft = this.tweenBottomLeft;
+    const tweenOpacity = this.tweenOpacity;
     const objectsY = this.objects[0].position.y;
     const objectsZ = this.objects[0].position.z;
     controls.addEventListener( 'drag', function ( event ) {
-      event.object.position.y = objectsY;
-      event.object.position.z = objectsZ;
-    
+      //event.object.position.y = objectsY;
+      //event.object.position.z = objectsZ;
+      
     } );
     controls.addEventListener( 'dragend', function ( event ) {
-      //if(event.object.position.y)
-    
+      if(event.object.position.x > 1.25) {
+        if(event.object.position.y > 1.25) {
+        tweenTopRight.play();
+        tweenOpacity.play();
+      } else if(event.object.position.y > -1.25) {
+        tweenBottomRight.play();
+        tweenOpacity.play();
+        }
+      }
+      else if(event.object.position.x < -1.25) {
+        if(event.object.position.y < -1.25) {
+          tweenTopLeft.play();
+          tweenOpacity.play();
+        } else if(event.object.position.y < 1.25) {
+          tweenBottomLeft.play();
+          tweenOpacity.play();
+          }
+      }
     } );
   }
   setMovement() {
