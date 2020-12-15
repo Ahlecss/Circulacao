@@ -18,11 +18,13 @@ export default class Bottle {
   createBottle() {
     // this.bottle = this.assets.models.bottle.scene
     this.bottle = this.assets.models.bouteille.scene
-
+    console.log(this.bottle)
     this.bottle.cap = this.bottle.children[0].children[0]
     this.bottle.sticker = this.bottle.children[0].children[1]
     this.bottle.label = this.bottle.children[0].children[2]
     this.bottle.shape = this.bottle.children[0].children[3]
+
+    this.bottle.label.scale.z = -1
 
     this.bottle.shape.material = new THREE.MeshPhongMaterial({
       shininess: 100,

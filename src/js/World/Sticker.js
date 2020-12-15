@@ -45,7 +45,7 @@ export default class Sticker {
     this.mesh3D = new Mesh(this.bottle.bottle.sticker.geometry, material)
     this.mesh3D.scale.set(0.1, 0.1, 0.1)
     this.mesh3D.rotation.set(-0.15, 0, 0)
-    this.mesh3D.position.set(0, -1.5, 0.1)
+    this.mesh3D.position.set(0, -1.5, 0.3)
     this.container.add(this.mesh3D)
 
     const position = new THREE.Vector3(1, 1, 1)
@@ -60,13 +60,13 @@ export default class Sticker {
     this.tweenTopRight = gsap.to(this.mesh3D.position, {
       duration: 0.8,
       x: 10,
-      y: -10,
+      y: 10,
     })
     this.tweenTopRight.pause()
     this.tweenBottomRight = gsap.to(this.mesh3D.position, {
       duration: 0.8,
       x: 10,
-      y: 10,
+      y: -10,
     })
     this.tweenBottomRight.pause()
     this.tweenTopLeft = gsap.to(this.mesh3D.position, {
@@ -107,10 +107,10 @@ export default class Sticker {
     })
     controls.addEventListener('dragend', function (event) {
       if (event.object.position.x > 1.25) {
-        if (event.object.position.y > 1.25) {
+        if (event.object.position.y > .25) {
           tweenTopRight.play()
           tweenOpacity.play()
-        } else if (event.object.position.y > -1.25) {
+        } else if (event.object.position.y < -1.25) {
           tweenBottomRight.play()
           tweenOpacity.play()
         }
