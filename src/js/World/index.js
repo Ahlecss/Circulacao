@@ -192,29 +192,18 @@ export default class WorldUsine {
 
     this.frontmaterial = new MeshLambertMaterial({
       map: fronttexture,
-      
     })
 
     this.secondmaterial = new MeshLambertMaterial({
       map: secondtexture,
-      shininess: 100,
-      specular: 0xffffff,
-      color: 0xffffff,
-      opacity: 0.2,
+      opacity: 1,
       transparent: true,
-      refractionRatio: -1,
-      depthWrite: false
     })
 
     this.thirdmaterial = new MeshLambertMaterial({
       map: thirdtexture,
-      shininess: 100,
-      specular: 0xffffff,
-      color: 0xffffff,
-      opacity: 0.2,
+      opacity: 1,
       transparent: true,
-      refractionRatio: 1,
-      depthWrite: false
     })
 
     this.fourthmaterial = new MeshLambertMaterial({
