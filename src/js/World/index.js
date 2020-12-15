@@ -15,11 +15,15 @@ import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
+import Sound from './Sound'
+import Lottie from 'lottie-web'
+
 import PPlanUsine from '@textures/1erPlan_USINE.png'
 import DPlanUsine from '@textures/2emePlan_USINE.png'
 import TPlanUsine from '@textures/3emePlan_USINE.png'
 import QPlanUsine from '@textures/4emePlan_USINE.png'
 import FPlanUsine from '@textures/5emePlan_USINE.png'
+// import Animation from '../../img/lueur.json'
 
 export default class World {
   constructor(options) {
@@ -53,10 +57,16 @@ export default class World {
     this.addPlanes()
     this.setBackground()
     this.setSticker()
+    this.addAnimation()
+    this.setSound()
+  }
+  setSound() {
+    this.audio = new Sound()
+    // this.audio.soundPlay()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
-    this.loadModels = this.loadDiv.querySelector('.load')
+    // this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progressBar')
 
     if (this.assets.total === 0) {
@@ -64,10 +74,10 @@ export default class World {
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
-        this.loadModels.innerHTML = `${
-          Math.floor((this.assets.done / this.assets.total) * 100) +
-          Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-        }%`
+        // this.loadModels.innerHTML = `${
+        //   Math.floor((this.assets.done / this.assets.total) * 100) +
+        //   Math.floor((1 / this.assets.total) * this.assets.currentPercent)
+        // }%`
         this.progress.style.top = `${
           100 -
           (Math.floor((this.assets.done / this.assets.total) * 100) +
@@ -76,18 +86,18 @@ export default class World {
       })
 
       this.assets.on('ressourcesReady', () => {
-        setTimeout(() => {
-          this.init()
+        this.init()
+        this.loadDiv.addEventListener('wheel', (e) => {
           this.loadDiv.style.opacity = 0
-          setTimeout(() => {
-            this.loadDiv.remove()
-          }, 550)
-        }, 1000)
+          this.loadDiv.remove()
+          e.preventDefault()
+        })
       })
     }
   }
   setScroll() {
     window.addEventListener('wheel', (e) => {
+      // console.log(e)
       if (this.camera.camera.position.x >= 0) {
         this.camera.camera.position.x += e.deltaY * 0.01
         this.bottle.bottle.position.x += e.deltaY * 0.01
@@ -147,7 +157,6 @@ export default class World {
     this.container.add(this.bottle.container)
   }
   setSticker() {
-    console.log('perer')
     this.sticker = new Sticker({
       time: this.time,
       assets: this.assets,
@@ -159,7 +168,7 @@ export default class World {
   }
   setText() {
     var loader = new FontLoader()
-    loader.load('../Haboro-Contrast-Regular.json', (font) => {
+    loader.load('/Haboro-Contrast-Regular.json', (font) => {
       // console.log(font)
       this.textGeo = new TextGeometry('My Text', {
         font: font,
@@ -248,5 +257,17 @@ export default class World {
       this.thirdplane,
       this.fourthplane
     )
+  }
+  addAnimation() {
+    var container = document.getElementById('anim_container')
+
+    var animData = {
+      container: container,
+      renderer: 'svg',
+      autoplay: true,
+      loop: true,
+      path: '/lueur.json',
+    }
+    var anim = Lottie.loadAnimation(animData)
   }
 }

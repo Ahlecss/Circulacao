@@ -20,14 +20,14 @@ module.exports = {
       '@js': path.resolve(__dirname, '../src/js/'),
       '@tools': path.resolve(__dirname, '../src/js/Tools/'),
       '@world': path.resolve(__dirname, '../src/js/World/'),
-    }
+    },
   },
   plugins: [
-    new CopyWebpackPlugin({ 
+    new CopyWebpackPlugin({
       patterns: [
         { from: 'static', to: '' },
-        { from: 'node_modules/three/examples/js/libs/draco/', to: './draco' }
-      ]
+        { from: 'node_modules/three/examples/js/libs/draco/', to: './draco' },
+      ],
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../src/index.html'),
@@ -86,33 +86,28 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: { outputPath: 'assets/audios/' }
+            options: { outputPath: 'assets/audios/' },
           },
-        ]
+        ],
       },
       {
-        test: /\.(mp4|webm)$/,
+        test: /\.(mp4|webm|mov)$/,
         use: [
           {
             loader: 'file-loader',
-            options: { outputPath: 'assets/videos/' }
+            options: { outputPath: 'assets/videos/' },
           },
-        ]
+        ],
       },
       {
         test: /\.(glsl|vs|fs|vert|frag)$/,
         exclude: /node_modules/,
-        use: [
-          'raw-loader',
-          'glslify-loader'
-        ]
+        use: ['raw-loader', 'glslify-loader'],
       },
       {
         test: /\.(md)$/,
         exclude: /node_modules/,
-        use: [
-          'file-loader'
-        ]
+        use: ['file-loader'],
       },
     ],
   },
