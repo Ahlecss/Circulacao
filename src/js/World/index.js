@@ -9,19 +9,20 @@ import {
   TextureLoader,
   PlaneBufferGeometry,
   MeshBasicMaterial,
+  SpotLight,
 } from 'three'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
-import PPlanUsine from '@textures/1erPlan_USINE.png'
-import DPlanUsine from '@textures/2emePlan_USINE.png'
-import TPlanUsine from '@textures/3emePlan_USINE.png'
-import QPlanUsine from '@textures/4emePlan_USINE.png'
-import FPlanUsine from '@textures/5emePlan_USINE.png'
+import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
+import DPlanUsine from '@textures/usine/2emePlan_USINE.png'
+import TPlanUsine from '@textures/usine/3emePlan_USINE.png'
+import QPlanUsine from '@textures/usine/4emePlan_USINE.png'
+import FPlanUsine from '@textures/usine/5emePlan_USINE.png'
 
-export default class World {
+export default class WorldUsine {
   constructor(options) {
     // Set options
     this.time = options.time
@@ -32,13 +33,13 @@ export default class World {
 
     // Set up
     this.container = new Object3D()
-    this.container.name = 'World'
+    this.container.name = 'WorldUsine'
     this.mouseX = 0
     this.mouseY = 2
 
     if (this.debug) {
       this.container.add(new AxesHelper(5))
-      this.debugFolder = this.debug.addFolder('World')
+      this.debugFolder = this.debug.addFolder('WorldUsine')
       this.debugFolder.open()
     }
 
@@ -107,10 +108,14 @@ export default class World {
       window.innerHeight / 130,
       5
     )
-    this.material = new MeshBasicMaterial({
-      map: texture,
-      opacity: 1,
+    this.material = new MeshPhongMaterial({
+      shininess: 100,
+      specular: 0xaaaaaa,
+      color: 0xaaaaaa,
+      opacity: 0.2,
       transparent: true,
+      refractionRatio: 1,
+      depthWrite: false,
     })
 
     this.plane = new Mesh(this.geometry, this.material)
@@ -122,7 +127,7 @@ export default class World {
     this.container.add(this.plane, this.plane2)
   }
   setAmbientLight() {
-    this.ambientlight = new AmbientLightSource({
+    this.ambientlight = new SpotLight({
       debug: this.debugFolder,
     })
     this.container.add(this.ambientlight.container)
@@ -185,25 +190,34 @@ export default class World {
     var thirdtexture = loader.load(TPlanUsine)
     var fourthtexture = loader.load(QPlanUsine)
 
-    this.frontmaterial = new MeshBasicMaterial({
+    this.frontmaterial = new MeshLambertMaterial({
       map: fronttexture,
-      opacity: 1,
-      transparent: true,
+      
     })
 
-    this.secondmaterial = new MeshBasicMaterial({
+    this.secondmaterial = new MeshLambertMaterial({
       map: secondtexture,
-      opacity: 1,
+      shininess: 100,
+      specular: 0xffffff,
+      color: 0xffffff,
+      opacity: 0.2,
       transparent: true,
+      refractionRatio: -1,
+      depthWrite: false
     })
 
-    this.thirdmaterial = new MeshBasicMaterial({
+    this.thirdmaterial = new MeshLambertMaterial({
       map: thirdtexture,
-      opacity: 1,
+      shininess: 100,
+      specular: 0xffffff,
+      color: 0xffffff,
+      opacity: 0.2,
       transparent: true,
+      refractionRatio: 1,
+      depthWrite: false
     })
 
-    this.fourthmaterial = new MeshBasicMaterial({
+    this.fourthmaterial = new MeshLambertMaterial({
       map: fourthtexture,
       opacity: 1,
       transparent: true,

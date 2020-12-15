@@ -6,7 +6,8 @@ import Time from '@tools/Time'
 import Assets from '@tools/Loader'
 
 import Camera from './Camera'
-import World from '@world/index'
+import WorldUsine from '@world/index'
+import WorldBar from '@world/BarScene'
 
 export default class App {
   constructor(options) {
@@ -21,7 +22,8 @@ export default class App {
     this.setConfig()
     this.setRenderer()
     this.setCamera()
-    this.setWorld()
+    //this.setWorldUsine()
+    this.setWorldBar()
   }
   setRenderer() {
     // Set scene
@@ -33,7 +35,7 @@ export default class App {
       antialias: true,
     })
     // Set background color
-    this.renderer.setClearColor(0x000000, 0.5)
+    this.renderer.setClearColor(0x000000, 0.8)
     // Set renderer pixel ratio & sizes
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)
@@ -59,9 +61,21 @@ export default class App {
     // Add camera to scene
     this.scene.add(this.camera.container)
   }
-  setWorld() {
+  setWorldUsine() {
     // Create world instance
-    this.world = new World({
+    this.world = new WorldUsine({
+      time: this.time,
+      debug: this.debug,
+      assets: this.assets,
+      camera: this.camera,
+      renderer: this.renderer,
+    })
+    // Add world to scene
+    this.scene.add(this.world.container)
+  }
+  setWorldBar() {
+    // Create world instance
+    this.world = new WorldBar({
       time: this.time,
       debug: this.debug,
       assets: this.assets,
