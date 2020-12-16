@@ -1,4 +1,11 @@
-import { Object3D, PointLight, Color, Vector3, DirectionalLight, SpotLight } from 'three'
+import {
+  Object3D,
+  PointLight,
+  Color,
+  Vector3,
+  DirectionalLight,
+  SpotLight,
+} from 'three'
 
 export default class PointLightSource {
   constructor(options) {
@@ -8,6 +15,7 @@ export default class PointLightSource {
     this.posY = options.posY
     this.posZ = options.posZ
     this.camera = options.camera
+    this.bottle = options.bottle
 
     // Set up
     this.container = new Object3D()

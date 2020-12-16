@@ -55,7 +55,7 @@ export default class Sticker {
     const material2 = new MeshBasicMaterial({ color: 0x00ff00 })
     const mesh2 = new Mesh(geometry, material2)
     this.objects.push(this.mesh3D)
-    console.log(this.objects)
+    // console.log(this.objects)
 
     this.tweenTopRight = gsap.to(this.mesh3D.position, {
       duration: 0.8,
@@ -107,7 +107,7 @@ export default class Sticker {
     })
     controls.addEventListener('dragend', function (event) {
       if (event.object.position.x > 1.25) {
-        if (event.object.position.y > .25) {
+        if (event.object.position.y > 0.25) {
           tweenTopRight.play()
           tweenOpacity.play()
         } else if (event.object.position.y < -1.25) {
@@ -128,7 +128,7 @@ export default class Sticker {
   setScroll() {
     window.addEventListener('wheel', (e) => {
       if (this.camera.camera.position.x >= 0) {
-        console.log(this.mesh3D)
+        // console.log(this.mesh3D)
         this.mesh3D.position.x += e.deltaY * 0.01
       } else {
         this.mesh3D.position.x = 0

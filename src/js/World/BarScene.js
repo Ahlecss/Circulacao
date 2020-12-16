@@ -12,8 +12,8 @@ import {
   SpotLight,
 } from 'three'
 
-import AmbientLightSource from './AmbientLight'
-import PointLightSource from './PointLight'
+// import AmbientLightSource from './AmbientLight'
+// import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
 import PERSO from '@textures/bar/PERSO.png'
@@ -49,9 +49,9 @@ export default class WorldBar {
     this.setLoader()
   }
   init() {
-    this.setAmbientLight()
-    this.setPointLight()
-    this.setScroll()
+    // this.setAmbientLight()
+    // this.setPointLight()
+    // this.setScroll()
     // this.setText()
     this.setBottle()
     this.addPlanes()
@@ -60,7 +60,6 @@ export default class WorldBar {
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
-    this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progressBar')
 
     if (this.assets.total === 0) {
@@ -68,10 +67,6 @@ export default class WorldBar {
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
-        /*this.loadModels.innerHTML = `${
-            Math.floor((this.assets.done / this.assets.total) * 100) +
-            Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-          }%`*/
         this.progress.style.top = `${
           100 -
           (Math.floor((this.assets.done / this.assets.total) * 100) +
@@ -112,24 +107,24 @@ export default class WorldBar {
     this.backgroundplane.castShadow = true
     this.container.add(this.backgroundplane)
   }
-  setAmbientLight() {
-    this.ambientlight = new SpotLight({
-      debug: this.debugFolder,
-    })
-    this.container.add(this.ambientlight.container)
-  }
-  setPointLight() {
-    // console.log(this.camera)
-    this.light = new PointLightSource({
-      debug: this.debugFolder,
-      posX: this.mouseX,
-      posY: this.mouseY,
-      posZ: -10,
-      camera: this.camera,
-    })
-    this.container.add(this.light.container)
-    // When the mouse moves, call the given function
-  }
+  // setAmbientLight() {
+  //   this.ambientlight = new SpotLight({
+  //     debug: this.debugFolder,
+  //   })
+  //   this.container.add(this.ambientlight.container)
+  // }
+  // setPointLight() {
+  //   // console.log(this.camera)
+  //   this.light = new PointLightSource({
+  //     debug: this.debugFolder,
+  //     posX: this.mouseX,
+  //     posY: this.mouseY,
+  //     posZ: -10,
+  //     camera: this.camera,
+  //   })
+  //   this.container.add(this.light.container)
+  //   // When the mouse moves, call the given function
+  // }
   setBottle() {
     this.bottle = new Bottle({
       time: this.time,
