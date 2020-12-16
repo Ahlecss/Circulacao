@@ -54,6 +54,7 @@ export default class WorldUsine {
     this.addPlanes()
     this.setBackground()
     this.setSticker()
+    this.setChapters()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -152,7 +153,6 @@ export default class WorldUsine {
     this.container.add(this.bottle.container)
   }
   setSticker() {
-    console.log('perer')
     this.sticker = new Sticker({
       time: this.time,
       assets: this.assets,
@@ -180,6 +180,18 @@ export default class WorldUsine {
       this.mesh.position.set(0, 0, 0)
       this.container.add(this.mesh)
     })
+  }
+  setChapters() {
+      var chapter = document.createElement('div');
+      var chaptering = document.createElement('h2');
+      var title = document.createElement('h3');
+      chapter.appendChild(chaptering)
+      chapter.appendChild(title)
+      chapter.classList.add('chapters')
+      title.classList.add('title')
+      chaptering.innerHTML = "Chapitre 1 -&nbsp;";
+      title.innerHTML = "L'Usine";
+      document.body.appendChild(chapter);   
   }
   addPlanes() {
     var loader = new TextureLoader()
