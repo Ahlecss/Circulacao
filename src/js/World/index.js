@@ -58,11 +58,13 @@ export default class WorldUsine {
     this.setBackground()
     this.setSticker()
     this.addAnimation()
+    this.setChapters()
     // this.setSound()
   }
   setSound() {
     this.audio = new Sound()
     // this.audio.soundPlay()
+    
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
