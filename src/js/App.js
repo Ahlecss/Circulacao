@@ -22,6 +22,7 @@ export default class App {
     this.time = new Time()
     this.sizes = new Sizes()
     this.assets = new Assets()
+    this.composer = 0
 
     this.setConfig()
     this.setRenderer()
@@ -30,7 +31,6 @@ export default class App {
     this.setWorldBar()
     this.setNoise()
     this.setMovement()
-    
   }
   setRenderer() {
     // Set scene
@@ -92,14 +92,14 @@ export default class App {
     // Add world to scene
     this.scene.add(this.world.container)
   }
-  setNoise(){
-    console.log(this.renderer);
-    console.log(this.scene);
-    console.log(this.camera);
-    this.composer = new EffectComposer(this.renderer);
-    var renderPass = new RenderPass(this.scene, this.camera.camera);
-    
-    this.composer.addPass(renderPass);
+  setNoise() {
+    // console.log(this.renderer);
+    // console.log(this.scene);
+    // console.log(this.camera);
+    this.composer = new EffectComposer(this.renderer)
+    var renderPass = new RenderPass(this.scene, this.camera.camera)
+
+    this.composer.addPass(renderPass)
 
     this.filmPass = new FilmPass(
       0.6, // noise intensity
@@ -109,13 +109,12 @@ export default class App {
     )
     this.filmPass.renderToScreen = true
     this.composer.addPass(this.filmPass)
-    console.log(this.composer)
+    // console.log(this.composer)
   }
-  setMovement(){
+  setMovement() {
     this.time.on('tick', () => {
-      this.composer.render();
+      this.composer.render()
     })
-
   }
   setConfig() {
     if (window.location.hash === '#debug') {

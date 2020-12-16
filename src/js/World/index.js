@@ -16,6 +16,9 @@ import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
+// import Sound from './Sound'
+import Lottie from 'lottie-web'
+
 import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
 import DPlanUsine from '@textures/usine/2emePlan_USINE.png'
 import TPlanUsine from '@textures/usine/3emePlan_USINE.png'
@@ -54,11 +57,16 @@ export default class WorldUsine {
     this.addPlanes()
     this.setBackground()
     this.setSticker()
+    this.addAnimation()
     this.setChapters()
+    // this.setSound()
+  }
+  setSound() {
+    this.audio = new Sound()
+    // this.audio.soundPlay()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
-    this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progressBar')
 
     if (this.assets.total === 0) {
@@ -66,10 +74,6 @@ export default class WorldUsine {
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
-        this.loadModels.innerHTML = `${
-          Math.floor((this.assets.done / this.assets.total) * 100) +
-          Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-        }%`
         this.progress.style.top = `${
           100 -
           (Math.floor((this.assets.done / this.assets.total) * 100) +
@@ -78,18 +82,18 @@ export default class WorldUsine {
       })
 
       this.assets.on('ressourcesReady', () => {
-        setTimeout(() => {
-          this.init()
+        this.init()
+        this.loadDiv.addEventListener('wheel', (e) => {
           this.loadDiv.style.opacity = 0
-          setTimeout(() => {
-            this.loadDiv.remove()
-          }, 550)
-        }, 1000)
+          this.loadDiv.remove()
+          e.preventDefault()
+        })
       })
     }
   }
   setScroll() {
     window.addEventListener('wheel', (e) => {
+      // console.log(e)
       if (this.camera.camera.position.x >= 0) {
         this.camera.camera.position.x += e.deltaY * 0.01
         this.bottle.bottle.position.x += e.deltaY * 0.01
@@ -110,13 +114,9 @@ export default class WorldUsine {
       5
     )
     this.material = new MeshPhongMaterial({
-      shininess: 100,
-      specular: 0xaaaaaa,
-      color: 0xaaaaaa,
-      opacity: 0.2,
+      opacity: 1,
       transparent: true,
-      refractionRatio: 1,
-      depthWrite: false,
+      map: texture,
     })
 
     this.plane = new Mesh(this.geometry, this.material)
@@ -182,16 +182,16 @@ export default class WorldUsine {
     })
   }
   setChapters() {
-      var chapter = document.createElement('div');
-      var chaptering = document.createElement('h2');
-      var title = document.createElement('h3');
-      chapter.appendChild(chaptering)
-      chapter.appendChild(title)
-      chapter.classList.add('chapters')
-      title.classList.add('title')
-      chaptering.innerHTML = "Chapitre 1 -&nbsp;";
-      title.innerHTML = "L'Usine";
-      document.body.appendChild(chapter);   
+    var chapter = document.createElement('div')
+    var chaptering = document.createElement('h2')
+    var title = document.createElement('h3')
+    chapter.appendChild(chaptering)
+    chapter.appendChild(title)
+    chapter.classList.add('chapters')
+    title.classList.add('title')
+    chaptering.innerHTML = 'Chapitre 1 -&nbsp;'
+    title.innerHTML = "L'Usine"
+    document.body.appendChild(chapter)
   }
   addPlanes() {
     var loader = new TextureLoader()
@@ -204,6 +204,8 @@ export default class WorldUsine {
 
     this.frontmaterial = new MeshLambertMaterial({
       map: fronttexture,
+      opacity: 1,
+      transparent: true,
     })
 
     this.secondmaterial = new MeshLambertMaterial({
@@ -263,5 +265,17 @@ export default class WorldUsine {
       this.thirdplane,
       this.fourthplane
     )
+  }
+  addAnimation() {
+    var container = document.getElementById('anim_container')
+
+    var animData = {
+      container: container,
+      renderer: 'svg',
+      autoplay: true,
+      loop: true,
+      path: '/lueur.json',
+    }
+    var anim = Lottie.loadAnimation(animData)
   }
 }
