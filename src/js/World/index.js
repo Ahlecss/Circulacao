@@ -53,7 +53,7 @@ export default class WorldUsine {
     this.setAmbientLight()
     this.setPointLight()
     this.setScroll()
-    // this.setText()
+    this.setText()
     this.setBottle()
     this.addPlanes()
     this.setBackground()
@@ -170,20 +170,23 @@ export default class WorldUsine {
   }
   setText() {
     var loader = new FontLoader()
-    loader.load('/Haboro-Contrast-Regular.json', (font) => {
-      // console.log(font)
-      this.textGeo = new TextGeometry('My Text', {
+    loader.load('/Andika_New_Basic_Bold.json', (font) => {
+      this.textGeo = new TextGeometry('En 1964, avec le soutien des Américains, le \n maréchal Castelo Branco renverse le \n président Brésilien Joao Goulart afin de faire \n barrière à l’ascension du communisme en \n Amérique latine. \n\n Ce coup d’État marque le début d’une \n dictature qui dure jusqu’en 1985.', {
         font: font,
-        size: 10,
-        height: 50,
-        curveSegments: 120,
+        size: 0.1,
+        height: 0,
+        curveSegments: 1,
         bevelThickness: 2,
-        bevelSize: 1,
-        bevelEnabled: true,
+        bevelSize: 3,
+        bevelEnabled: false,
       })
-      this.textMaterial = new MeshLambertMaterial({ color: 0xff0000 })
+      this.textMaterial = new MeshLambertMaterial({ 
+        color: 0x111111,
+        opacity: 1,
+        transparent: true, 
+      })
       this.mesh = new Mesh(this.textGeo, this.textMaterial)
-      this.mesh.position.set(0, 0, 0)
+      this.mesh.position.set(-8.5, 1.25, -2)
       this.container.add(this.mesh)
     })
   }
@@ -243,8 +246,8 @@ export default class WorldUsine {
     this.thirdplane.scale.set(1, 2, 0.5)
 
     this.fourthplane = new Mesh(this.verticalgeometry, this.fourthmaterial)
-    this.fourthplane.position.set(-8, -2, -4)
-    this.fourthplane.scale.set(2, 1, 0.5)
+    this.fourthplane.position.set(-7, 1, -2)
+    this.fourthplane.scale.set(1, 0.5, 0.25)
 
     var position = -10
     for (let i = 0; i < 20; i++) {
