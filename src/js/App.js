@@ -188,6 +188,30 @@ export default class App {
       this.composer.render()
     })
   }
+  setNoise() {
+    console.log(this.renderer)
+    console.log(this.scene)
+    console.log(this.camera)
+    this.composer = new EffectComposer(this.renderer)
+    var renderPass = new RenderPass(this.scene, this.camera.camera)
+
+    this.composer.addPass(renderPass)
+
+    this.filmPass = new FilmPass(
+      0.6, // noise intensity
+      0, // scanline intensity
+      100, // scanline count
+      false // grayscale
+    )
+    this.filmPass.renderToScreen = true
+    this.composer.addPass(this.filmPass)
+    console.log(this.composer)
+  }
+  setMovement() {
+    this.time.on('tick', () => {
+      this.composer.render()
+    })
+  }
   setConfig() {
     if (window.location.hash === '#debug') {
       this.debug = new dat.GUI({ width: 420 })
