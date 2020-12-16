@@ -1,4 +1,4 @@
-import { Scene, WebGLRenderer } from 'three'
+import { Scene, WebGLRenderer, SpotLight } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
@@ -14,6 +14,9 @@ import WorldBar from '@world/BarScene'
 import WorldAtelier from '@world/AtelierScene'
 //import Cirka from 'static/Cirka_Bold.json'
 
+import AmbientLightSource from './World/AmbientLight'
+import PointLightSource from './World/PointLight'
+
 export default class App {
   constructor(options) {
     // Set options
@@ -24,13 +27,17 @@ export default class App {
     this.sizes = new Sizes()
     this.assets = new Assets()
     this.composer = 0
+    this.mouseX = 0
+    this.mouseY = 2
 
     this.setConfig()
     this.setRenderer()
     this.setCamera()
+    this.setScroll()
     // this.setWorldUsine()
-    // this.setWorldBar()
-    this.setWorldAtelier()
+    this.setWorldBar()
+    this.setAmbientLight()
+    this.setPointLight()
     this.setNoise()
     this.setMovement()
   }
@@ -58,6 +65,45 @@ export default class App {
     // Set RequestAnimationFrame with 60ips
     this.time.on('tick', () => {
       this.renderer.render(this.scene, this.camera.camera)
+    })
+  }
+  setAmbientLight() {
+    this.ambientlight = new SpotLight({
+      debug: this.debugFolder,
+    })
+    this.scene.add(this.ambientlight.container)
+  }
+  setPointLight() {
+    // console.log(this.camera)
+    console.log(this.world)
+    this.light = new PointLightSource({
+      debug: this.debugFolder,
+      posX: this.mouseX,
+      posY: this.mouseY,
+      posZ: -10,
+      camera: this.camera,
+      bottle: this.world.bottle,
+    })
+    this.scene.add(this.light.container)
+    // When the mouse moves, call the given function
+  }
+  setScroll() {
+    window.addEventListener('wheel', (e) => {
+      // console.log(this.light.light.target.position)
+      if (this.camera.camera.position.x >= 0) {
+        this.camera.camera.position.x += e.deltaY * 0.01
+        this.world.bottle.bottle.position.x += e.deltaY * 0.01
+        this.world.bottle.bottle.sticker.position.x += e.deltaY * 0.01
+        // this.light.params.positionX = (e.clientX / window.innerWidth) * 2 - 1
+        // this.light.light.target.position.set +=
+        //   (e.deltaX / window.innerWidth) * 2 - 1
+      } else {
+        this.world.bottle.bottle.position.x = 0
+        this.camera.camera.position.x = 0
+        // this.light.params.positionX = (e.clientX / window.innerWidth) * 2 - 1
+        // this.light.light.target.position.set +=
+        //   (e.deltaX / window.innerWidth) * 2 - 1
+      }
     })
   }
   setCamera() {
@@ -107,9 +153,6 @@ export default class App {
     this.scene.add(this.world.container)
   }
   setNoise() {
-    console.log(this.renderer)
-    console.log(this.scene)
-    console.log(this.camera)
     this.composer = new EffectComposer(this.renderer)
     var renderPass = new RenderPass(this.scene, this.camera.camera)
 

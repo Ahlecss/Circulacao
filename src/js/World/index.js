@@ -4,16 +4,16 @@ import {
   FontLoader,
   TextGeometry,
   MeshPhongMaterial,
+  SpotLight,
   Mesh,
   MeshLambertMaterial,
   TextureLoader,
   PlaneBufferGeometry,
   MeshBasicMaterial,
-  SpotLight,
 } from 'three'
 
-import AmbientLightSource from './AmbientLight'
-import PointLightSource from './PointLight'
+// import AmbientLightSource from './AmbientLight'
+// import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
 import Sound from './Sound'
