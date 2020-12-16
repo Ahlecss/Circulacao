@@ -52,7 +52,7 @@ import {
       this.setAmbientLight()
       this.setPointLight()
       this.setScroll()
-      // this.setText()
+      this.setText()
       this.setBottle()
       this.addPlanes()
       this.setBackground()
@@ -147,25 +147,6 @@ import {
         renderer: this.renderer,
       })
       this.container.add(this.sticker.container)
-    }
-    setText() {
-      var loader = new FontLoader()
-      loader.load('../Haboro-Contrast-Regular.json', (font) => {
-        // console.log(font)
-        this.textGeo = new TextGeometry('My Text', {
-          font: font,
-          size: 10,
-          height: 50,
-          curveSegments: 120,
-          bevelThickness: 2,
-          bevelSize: 1,
-          bevelEnabled: true,
-        })
-        this.textMaterial = new MeshLambertMaterial({ color: 0xff0000 })
-        this.mesh = new Mesh(this.textGeo, this.textMaterial)
-        this.mesh.position.set(0, 0, 0)
-        this.container.add(this.mesh)
-      })
     }
     setScroll() {
         window.addEventListener('wheel', (event) => {

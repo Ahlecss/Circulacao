@@ -34,6 +34,10 @@ export default class PointLightSource {
       this.params.positionY,
       this.params.positionZ
     )
+    /*this.light.distance = 10000
+    this.light.shadow.camera.near = 0;
+    this.light.shadow.camera.far = 0;
+    this.light.shadow.camera.fov = 0;*/
     this.container.add(this.light)
   }
   updatePointLight() {
