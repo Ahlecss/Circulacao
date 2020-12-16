@@ -11,19 +11,18 @@ import {
   MeshBasicMaterial,
   SpotLight,
 } from 'three'
+import Lottie from 'lottie-web'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sound from './Sound'
-import Lottie from 'lottie-web'
 
 import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
 import DPlanUsine from '@textures/usine/2emePlan_USINE.png'
 import TPlanUsine from '@textures/usine/3emePlan_USINE.png'
 import QPlanUsine from '@textures/usine/4emePlan_USINE.png'
 import FPlanUsine from '@textures/usine/5emePlan_USINE.png'
-
 
 export default class WorldUsine {
   constructor(options) {
@@ -61,9 +60,8 @@ export default class WorldUsine {
     //this.setSound()
   }
   setSound() {
-    this.audio = new Sound({soundScene: 'usineSound'})
+    this.audio = new Sound({ soundScene: 'usineSound' })
     // this.audio.soundPlay()
-    
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -93,7 +91,7 @@ export default class WorldUsine {
     }
   }
   setScroll() {
-     window.addEventListener('wheel', (e) => {
+    window.addEventListener('wheel', (e) => {
       // console.log(e)
       if (this.camera.camera.position.x >= 0) {
         this.camera.camera.position.x += e.deltaY * 0.01
@@ -103,7 +101,7 @@ export default class WorldUsine {
         this.camera.camera.position.x = 0
       }
     })
-   // window.removeEventListener('wheel', wheelScroll)
+    // window.removeEventListener('wheel', wheelScroll)
   }
   setBackground() {
     var loader = new TextureLoader()
@@ -156,19 +154,22 @@ export default class WorldUsine {
   setText() {
     var loader = new FontLoader()
     loader.load('/Andika_New_Basic_Bold.json', (font) => {
-      this.textGeo = new TextGeometry('En 1964, avec le soutien des Américains, le \nmaréchal Castelo Branco renverse le \nprésident Brésilien Joao Goulart afin de faire \nbarrière à l’ascension du communisme en \nAmérique latine. \n\nCe coup d’État marque le début d’une \ndictature qui dure jusqu’en 1985.', {
-        font: font,
-        size: 0.12,
-        height: 0,
-        curveSegments: 1,
-        bevelThickness: 2,
-        bevelSize: 30,
-        bevelEnabled: false,
-      })
-      this.textMaterial = new MeshLambertMaterial({ 
+      this.textGeo = new TextGeometry(
+        'En 1964, avec le soutien des Américains, le \nmaréchal Castelo Branco renverse le \nprésident Brésilien Joao Goulart afin de faire \nbarrière à l’ascension du communisme en \nAmérique latine. \n\nCe coup d’État marque le début d’une \ndictature qui dure jusqu’en 1985.',
+        {
+          font: font,
+          size: 0.12,
+          height: 0,
+          curveSegments: 1,
+          bevelThickness: 2,
+          bevelSize: 30,
+          bevelEnabled: false,
+        }
+      )
+      this.textMaterial = new MeshLambertMaterial({
         color: 0x111111,
         opacity: 1,
-        transparent: true, 
+        transparent: true,
       })
       this.mesh = new Mesh(this.textGeo, this.textMaterial)
       this.mesh.position.set(-9.75, 0.55, -2)
@@ -176,16 +177,16 @@ export default class WorldUsine {
     })
   }
   setChapters() {
-      var chapter = document.getElementById('chapters');
-      chapter.innerHTML = "";
-      var chaptering = document.createElement('h2');
-      var title = document.createElement('h3');
-      chapter.appendChild(chaptering)
-      chapter.appendChild(title)
-      chapter.classList.add('chapters')
-      title.classList.add('title')
-      chaptering.innerHTML = "Chapitre 1 -&nbsp;";
-      title.innerHTML = "L'Usine"; 
+    var chapter = document.getElementById('chapters')
+    chapter.innerHTML = ''
+    var chaptering = document.createElement('h2')
+    var title = document.createElement('h3')
+    chapter.appendChild(chaptering)
+    chapter.appendChild(title)
+    chapter.classList.add('chapters')
+    title.classList.add('title')
+    chaptering.innerHTML = 'Chapitre 1 -&nbsp;'
+    title.innerHTML = "L'Usine"
   }
   addPlanes() {
     var loader = new TextureLoader()
