@@ -1,85 +1,103 @@
-@font-face
-  src url('@fonts/Amagro-bold.woff2')
-  font-family Amagro Bold
+@font-face {
+   src: url('@fonts/Amagro-bold.woff2');
+   font-family: Amagro Bold;
+}
 
-@font-face
-  src url('@fonts/AndikaNewBasic-Regular.woff2')
-  font-family Andika New Basic Regular
+@font-face {
+   src: url('@fonts/AndikaNewBasic-Regular.woff2');
+   font-family: Andika New Basic Regular;
+}
 
-@font-face
-   src url('@fonts/AndikaNewBasic-Regular.woff2')
-   font-family Andika
+@font-face {
+   src: url('@fonts/AndikaNewBasic-Regular.woff2');
+   font-family: Andika;
+}
 
-@font-face
-   src url('@fonts/Cirka-Bold.woff2')
-   font-family CirkaBold
+@font-face {
+   src: url('@fonts/Cirka-Bold.woff2');
+   font-family: CirkaBold;
+}
 
-@font-face
-   src url('@fonts/Cirka-Light.woff2')
-   font-family CirkaLight
+@font-face {
+   src: url('@fonts/Cirka-Light.woff2');
+   font-family: CirkaLight;
+}
 
-@font-face
-   src url('@fonts/Amagro-bold.woff2')
-   font-family Amagro
+@font-face {
+   src: url('@fonts/Amagro-bold.woff2');
+   font-family: Amagro;
+}
 
-@import './common.styl'
-@import './loading.styl'
+@import './common.styl';
+@import './loading.styl';
 
 .dg.ac {
-  z-index 100!important
-  }
-
-button{
-  background red
-  position absolute
-  z-index: 1100
-  bottom 200px
-  left 150px
-}
-.chapters{
-  font-size 24px
-  color white
-  position absolute
-  bottom 100px
-  right 100px
-  z-index 999
-  width 400px
-  height 100px
-  display flex
-  align-items center
-  justify-content center
-  letter-spacing: 4px
+   z-index: 100 !important;
 }
 
-h2{
-  font-family CirkaLight
-  font-size 24px
-  text-transform uppercase
-  font-weight: 100;
+button {
+   background: red;
+   position: absolute;
+   z-index: 1100;
+   bottom: 200px;
+   left: 150px;
 }
 
-.title{
-  font-family CirkaBold
+.chapters {
+   font-size: 24px;
+   color: white;
+   position: absolute;
+   bottom: 100px;
+   right: 100px;
+   z-index: 999;
+   width: 400px;
+   height: 100px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   letter-spacing: 4px;
+}
+
+h2 {
+   font-family: CirkaLight;
+   font-size: 24px;
+   text-transform: uppercase;
+   font-weight: 100;
+}
+
+.title {
+   font-family: CirkaBold;
 }
 
 .screen-change {
-    animation-name: screen-change;
-    animation-duration: 3s;
+   animation-name: screen-change;
+   animation-duration: 3s;
 }
 
 #curtain {
-    background: black;
-    opacity: 0;
-    z-index : 1000
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
+   background: black;
+   opacity: 0;
+   z-index: 1000;
+   position: absolute;
+   width: 100vw;
+   height: 100vh;
 }
 
 @keyframes screen-change {
-    0% {opacity: 0;}
-    30% {opacity: 1;}
-    /* Waiting time */
-    70% {opacity: 1;}
-    100% {opacity: 0;}
+   0% {
+      opacity: 0;
+   }
+
+   30% {
+      opacity: 1;
+   }
+
+   /* Waiting time */
+   70% {
+      opacity: 1;
+   }
+
+   100% {
+      opacity: 0;
+   }
 }

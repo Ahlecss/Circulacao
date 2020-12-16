@@ -23,12 +23,12 @@ export default class App {
     this.time = new Time()
     this.sizes = new Sizes()
     this.assets = new Assets()
-    this.composer = 0;
-    this.reachedValue = 0;
-    this.currentScene = "usine";
-    this.worldUsine;
-    this.worldBar;
-    this.worldAtelier;
+    this.composer = 0
+    this.reachedValue = 0
+    this.currentScene = 'usine'
+    this.worldUsine
+    this.worldBar
+    this.worldAtelier
 
     this.setConfig()
     this.setRenderer()
@@ -39,7 +39,6 @@ export default class App {
     this.setNoise()
     this.setMovement()
     this.setScroll()
-    
   }
   setRenderer() {
     // Set scene
@@ -69,20 +68,20 @@ export default class App {
   }
   setScroll() {
     //pour être sur de ne pas rendre trop de fois les scènes (en scrollant comme un porc), on met des booleans qui renforcent les conditions
-    var callOnceBar = false;
-    var callOnceAtelier = false;
+    var callOnceBar = false
+    var callOnceAtelier = false
     window.addEventListener('wheel', (event) => {
-      if(this.camera.camera.position.x > 100 && !callOnceBar){
-        callOnceBar = true;
-        this.setTransition();
+      if (this.camera.camera.position.x > 100 && !callOnceBar) {
+        callOnceBar = true
+        this.setTransition()
       }
       // On ne peut pas faire remonter la position d'un plane de l'atelier vers ici, donc on simule avec reachedValue (approximatif mais ça marche :p )
-      this.scale = event.deltaY * 0.01;
+      this.scale = event.deltaY * 0.01
       this.reachedValue += this.scale
       console.log(this.reachedValue)
-      if(this.reachedValue > 150 && !callOnceAtelier) {
-        callOnceAtelier = true;
-        this.setTransition();
+      if (this.reachedValue > 150 && !callOnceAtelier) {
+        callOnceAtelier = true
+        this.setTransition()
       }
       //this.camera.camera.position.z = 0.2 + 5 * this.scale;
     })
@@ -110,7 +109,7 @@ export default class App {
     this.scene.add(this.worldUsine.container)
   }
   setWorldBar() {
-    if(this.currentScene === 'bar') {
+    if (this.currentScene === 'bar') {
       // Create world instance
       this.worldBar = new WorldBar({
         time: this.time,
@@ -124,7 +123,7 @@ export default class App {
     }
   }
   setWorldAtelier() {
-    if(this.currentScene === "atelier") {
+    if (this.currentScene === 'atelier') {
       // Create world instance
       this.worldAtelier = new WorldAtelier({
         time: this.time,
@@ -139,40 +138,40 @@ export default class App {
   }
   setTransition() {
     console.log(this.camera.camera.position.x)
-    var curtain = document.getElementById("curtain");
-    curtain.classList.remove("screen-change");
-    curtain.offsetWidth;
-    curtain.classList.add("screen-change");
+    var curtain = document.getElementById('curtain')
+    curtain.classList.remove('screen-change')
+    curtain.offsetWidth
+    curtain.classList.add('screen-change')
 
-    if(this.currentScene === 'usine') {
+    if (this.currentScene === 'usine') {
       setTimeout(() => {
         console.log(this.worldUsine)
         this.scene.remove(this.worldUsine.container)
-        this.currentScene = "bar"
-        this.setWorldBar();
-        this.camera.camera.position.x = 0;
-      }, 2000);
+        this.currentScene = 'bar'
+        this.setWorldBar()
+        this.camera.camera.position.x = 0
+      }, 2000)
     }
 
-    if(this.currentScene === 'bar') {
+    if (this.currentScene === 'bar') {
       setTimeout(() => {
         console.log(this.worldBar)
         this.scene.remove(this.worldBar.container)
-        this.currentScene = "atelier"
+        this.currentScene = 'atelier'
         //On vire le masque qui passait devant le sticker pour pouvoir le drag n drop
-        curtain.remove();
-        this.setWorldAtelier();
-      }, 2000);
+        curtain.remove()
+        this.setWorldAtelier()
+      }, 2000)
     }
   }
-  setNoise(){
-    console.log(this.renderer);
-    console.log(this.scene);
-    console.log(this.camera);
-    this.composer = new EffectComposer(this.renderer);
-    var renderPass = new RenderPass(this.scene, this.camera.camera);
-    
-    this.composer.addPass(renderPass);
+  setNoise() {
+    console.log(this.renderer)
+    console.log(this.scene)
+    console.log(this.camera)
+    this.composer = new EffectComposer(this.renderer)
+    var renderPass = new RenderPass(this.scene, this.camera.camera)
+
+    this.composer.addPass(renderPass)
 
     this.filmPass = new FilmPass(
       0.6, // noise intensity
@@ -184,11 +183,10 @@ export default class App {
     this.composer.addPass(this.filmPass)
     console.log(this.composer)
   }
-  setMovement(){
+  setMovement() {
     this.time.on('tick', () => {
-      this.composer.render();
+      this.composer.render()
     })
-
   }
   setConfig() {
     if (window.location.hash === '#debug') {
