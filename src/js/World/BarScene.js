@@ -56,6 +56,7 @@ import {
       this.setBottle()
       this.addPlanes()
       this.setBackground()
+      this.setChapters()
     }
     setLoader() {
       this.loadDiv = document.querySelector('.loadScreen')
@@ -67,10 +68,10 @@ import {
         this.loadDiv.remove()
       } else {
         this.assets.on('ressourceLoad', () => {
-          this.loadModels.innerHTML = `${
+          /*this.loadModels.innerHTML = `${
             Math.floor((this.assets.done / this.assets.total) * 100) +
             Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-          }%`
+          }%`*/
           this.progress.style.top = `${
             100 -
             (Math.floor((this.assets.done / this.assets.total) * 100) +
@@ -185,6 +186,18 @@ import {
         this.backgroundplane.position.x -= this.scale;
         })
       }
+    setChapters() {
+        var chapter = document.createElement('div');
+        var chaptering = document.createElement('h2');
+        var title = document.createElement('h3');
+        chapter.appendChild(chaptering)
+        chapter.appendChild(title)
+        chapter.classList.add('chapters')
+        title.classList.add('title')
+        chaptering.innerHTML = "Chapitre 2 -&nbsp;";
+        title.innerHTML = "Le Bar";
+        document.body.appendChild(chapter);   
+    }
     addPlanes() {
       var loader = new TextureLoader()
       this.verticalgeometry = new PlaneBufferGeometry(5, 20, 5)

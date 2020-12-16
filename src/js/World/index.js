@@ -58,11 +58,13 @@ export default class WorldUsine {
     this.setBackground()
     this.setSticker()
     this.addAnimation()
+    this.setChapters()
     // this.setSound()
   }
   setSound() {
     this.audio = new Sound()
     // this.audio.soundPlay()
+    
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -161,25 +163,37 @@ export default class WorldUsine {
     })
     this.container.add(this.sticker.container)
   }
-  // setText() {
-  //   var loader = new FontLoader()
-  //   loader.load('/Haboro-Contrast-Regular.json', (font) => {
-  //     // console.log(font)
-  //     this.textGeo = new TextGeometry('My Text', {
-  //       font: font,
-  //       size: 10,
-  //       height: 50,
-  //       curveSegments: 120,
-  //       bevelThickness: 2,
-  //       bevelSize: 1,
-  //       bevelEnabled: true,
-  //     })
-  //     this.textMaterial = new MeshLambertMaterial({ color: 0xff0000 })
-  //     this.mesh = new Mesh(this.textGeo, this.textMaterial)
-  //     this.mesh.position.set(0, 0, 0)
-  //     this.container.add(this.mesh)
-  //   })
-  // }
+  setText() {
+    var loader = new FontLoader()
+    loader.load('../Haboro-Contrast-Regular.json', (font) => {
+      // console.log(font)
+      this.textGeo = new TextGeometry('My Text', {
+        font: font,
+        size: 10,
+        height: 50,
+        curveSegments: 120,
+        bevelThickness: 2,
+        bevelSize: 1,
+        bevelEnabled: true,
+      })
+      this.textMaterial = new MeshLambertMaterial({ color: 0xff0000 })
+      this.mesh = new Mesh(this.textGeo, this.textMaterial)
+      this.mesh.position.set(0, 0, 0)
+      this.container.add(this.mesh)
+    })
+  }
+  setChapters() {
+      var chapter = document.createElement('div');
+      var chaptering = document.createElement('h2');
+      var title = document.createElement('h3');
+      chapter.appendChild(chaptering)
+      chapter.appendChild(title)
+      chapter.classList.add('chapters')
+      title.classList.add('title')
+      chaptering.innerHTML = "Chapitre 1 -&nbsp;";
+      title.innerHTML = "L'Usine";
+      document.body.appendChild(chapter);   
+  }
   addPlanes() {
     var loader = new TextureLoader()
     this.verticalgeometry = new PlaneBufferGeometry(5, 20, 5)
