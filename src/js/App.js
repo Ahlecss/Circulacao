@@ -22,6 +22,7 @@ export default class App {
     this.time = new Time()
     this.sizes = new Sizes()
     this.assets = new Assets()
+    this.composer = 0;
 
     this.setConfig()
     this.setRenderer()

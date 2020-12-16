@@ -66,6 +66,7 @@ export default class WorldUsine {
   setSound() {
     this.audio = new Sound({soundScene: 'usineSound'})
     // this.audio.soundPlay()
+    
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
