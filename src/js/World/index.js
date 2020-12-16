@@ -59,7 +59,8 @@ export default class WorldUsine {
     this.addAnimation()
   }
   setLoader() {
-    this.loadModels = this.loadDiv.querySelector('.load')
+    this.loadDiv = document.querySelector('.loadScreen')
+    // this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progressBar')
 
     if (this.assets.total === 0) {
@@ -67,10 +68,6 @@ export default class WorldUsine {
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
-        this.loadModels.innerHTML = `${
-          Math.floor((this.assets.done / this.assets.total) * 100) +
-          Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-        }%`
         this.progress.style.top = `${
           100 -
           (Math.floor((this.assets.done / this.assets.total) * 100) +
@@ -79,13 +76,12 @@ export default class WorldUsine {
       })
 
       this.assets.on('ressourcesReady', () => {
-        setTimeout(() => {
-          this.init()
+        this.init()
+        this.loadDiv.addEventListener('wheel', (e) => {
           this.loadDiv.style.opacity = 0
-          setTimeout(() => {
-            this.loadDiv.remove()
-          }, 550)
-        }, 1000)
+          this.loadDiv.remove()
+          e.preventDefault()
+        })
       })
     }
   }
