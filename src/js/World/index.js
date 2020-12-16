@@ -11,11 +11,13 @@ import {
   MeshBasicMaterial,
   SpotLight,
 } from 'three'
+import Lottie from 'lottie-web'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
+
 import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
 import DPlanUsine from '@textures/usine/2emePlan_USINE.png'
 import TPlanUsine from '@textures/usine/3emePlan_USINE.png'
@@ -54,10 +56,9 @@ export default class WorldUsine {
     this.addPlanes()
     this.setBackground()
     this.setSticker()
-    this.setChapters()
+    this.addAnimation()
   }
   setLoader() {
-    this.loadDiv = document.querySelector('.loadScreen')
     this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progressBar')
 
@@ -262,5 +263,17 @@ export default class WorldUsine {
       this.thirdplane,
       this.fourthplane
     )
+  }
+  addAnimation() {
+    var container = document.getElementById('anim_container')
+
+    var animData = {
+      container: container,
+      renderer: 'svg',
+      autoplay: true,
+      loop: true,
+      path: '/lueur.json',
+    }
+    var anim = Lottie.loadAnimation(animData)
   }
 }
