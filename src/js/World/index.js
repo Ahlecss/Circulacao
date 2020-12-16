@@ -11,12 +11,13 @@ import {
   MeshBasicMaterial,
   SpotLight,
 } from 'three'
-import Lottie from 'lottie-web'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
+// import Sound from './Sound'
+import Lottie from 'lottie-web'
 
 import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
 import DPlanUsine from '@textures/usine/2emePlan_USINE.png'
@@ -57,10 +58,14 @@ export default class WorldUsine {
     this.setBackground()
     this.setSticker()
     this.addAnimation()
+    // this.setSound()
+  }
+  setSound() {
+    this.audio = new Sound()
+    // this.audio.soundPlay()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
-    // this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progressBar')
 
     if (this.assets.total === 0) {
@@ -68,10 +73,6 @@ export default class WorldUsine {
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
-        // this.loadModels.innerHTML = `${
-        //   Math.floor((this.assets.done / this.assets.total) * 100) +
-        //   Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-        // }%`
         this.progress.style.top = `${
           100 -
           (Math.floor((this.assets.done / this.assets.total) * 100) +
@@ -91,6 +92,7 @@ export default class WorldUsine {
   }
   setScroll() {
     window.addEventListener('wheel', (e) => {
+      // console.log(e)
       if (this.camera.camera.position.x >= 0) {
         this.camera.camera.position.x += e.deltaY * 0.01
         this.bottle.bottle.position.x += e.deltaY * 0.01
@@ -111,13 +113,9 @@ export default class WorldUsine {
       5
     )
     this.material = new MeshPhongMaterial({
-      shininess: 100,
-      specular: 0xaaaaaa,
-      color: 0xaaaaaa,
-      opacity: 0.2,
+      opacity: 1,
       transparent: true,
-      refractionRatio: 1,
-      depthWrite: false,
+      map: texture,
     })
 
     this.plane = new Mesh(this.geometry, this.material)
@@ -154,7 +152,6 @@ export default class WorldUsine {
     this.container.add(this.bottle.container)
   }
   setSticker() {
-    console.log('perer')
     this.sticker = new Sticker({
       time: this.time,
       assets: this.assets,
@@ -164,25 +161,25 @@ export default class WorldUsine {
     })
     this.container.add(this.sticker.container)
   }
-  setText() {
-    var loader = new FontLoader()
-    loader.load('../Haboro-Contrast-Regular.json', (font) => {
-      // console.log(font)
-      this.textGeo = new TextGeometry('My Text', {
-        font: font,
-        size: 10,
-        height: 50,
-        curveSegments: 120,
-        bevelThickness: 2,
-        bevelSize: 1,
-        bevelEnabled: true,
-      })
-      this.textMaterial = new MeshLambertMaterial({ color: 0xff0000 })
-      this.mesh = new Mesh(this.textGeo, this.textMaterial)
-      this.mesh.position.set(0, 0, 0)
-      this.container.add(this.mesh)
-    })
-  }
+  // setText() {
+  //   var loader = new FontLoader()
+  //   loader.load('/Haboro-Contrast-Regular.json', (font) => {
+  //     // console.log(font)
+  //     this.textGeo = new TextGeometry('My Text', {
+  //       font: font,
+  //       size: 10,
+  //       height: 50,
+  //       curveSegments: 120,
+  //       bevelThickness: 2,
+  //       bevelSize: 1,
+  //       bevelEnabled: true,
+  //     })
+  //     this.textMaterial = new MeshLambertMaterial({ color: 0xff0000 })
+  //     this.mesh = new Mesh(this.textGeo, this.textMaterial)
+  //     this.mesh.position.set(0, 0, 0)
+  //     this.container.add(this.mesh)
+  //   })
+  // }
   addPlanes() {
     var loader = new TextureLoader()
     this.verticalgeometry = new PlaneBufferGeometry(5, 20, 5)
@@ -194,6 +191,8 @@ export default class WorldUsine {
 
     this.frontmaterial = new MeshLambertMaterial({
       map: fronttexture,
+      opacity: 1,
+      transparent: true,
     })
 
     this.secondmaterial = new MeshLambertMaterial({

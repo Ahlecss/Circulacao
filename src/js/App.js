@@ -7,7 +7,7 @@ import Assets from '@tools/Loader'
 
 import Camera from './Camera'
 import WorldUsine from '@world/index'
-import WorldBar from '@world/BarScene'
+// import WorldBar from '@world/BarScene'
 
 export default class App {
   constructor(options) {
@@ -22,8 +22,8 @@ export default class App {
     this.setConfig()
     this.setRenderer()
     this.setCamera()
-    //this.setWorldUsine()
-    this.setWorldBar()
+    this.setWorldUsine()
+    // this.setWorldBar()
   }
   setRenderer() {
     // Set scene
@@ -73,18 +73,18 @@ export default class App {
     // Add world to scene
     this.scene.add(this.world.container)
   }
-  setWorldBar() {
-    // Create world instance
-    this.world = new WorldBar({
-      time: this.time,
-      debug: this.debug,
-      assets: this.assets,
-      camera: this.camera,
-      renderer: this.renderer,
-    })
-    // Add world to scene
-    this.scene.add(this.world.container)
-  }
+  // setWorldBar() {
+  //   // Create world instance
+  //   this.world = new WorldBar({
+  //     time: this.time,
+  //     debug: this.debug,
+  //     assets: this.assets,
+  //     camera: this.camera,
+  //     renderer: this.renderer,
+  //   })
+  //   // Add world to scene
+  //   this.scene.add(this.world.container)
+  // }
   setConfig() {
     if (window.location.hash === '#debug') {
       this.debug = new dat.GUI({ width: 420 })
