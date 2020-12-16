@@ -107,7 +107,7 @@ export default class Sticker {
     })
     controls.addEventListener('dragend', function (event) {
       if (event.object.position.x > 1.25) {
-        if (event.object.position.y > .25) {
+        if (event.object.position.y > 0.25) {
           tweenTopRight.play()
           tweenOpacity.play()
         } else if (event.object.position.y < -1.25) {

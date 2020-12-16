@@ -1,4 +1,4 @@
-import { Scene, WebGLRenderer } from 'three'
+import { Scene, WebGLRenderer, SpotLight } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
@@ -13,6 +13,9 @@ import WorldUsine from '@world/index'
 import WorldBar from '@world/BarScene'
 import WorldAtelier from '@world/AtelierScene'
 //import Cirka from 'static/Cirka_Bold.json'
+
+import AmbientLightSource from './World/AmbientLight'
+import PointLightSource from './World/PointLight'
 
 export default class App {
   constructor(options) {
@@ -29,6 +32,8 @@ export default class App {
     this.worldUsine
     this.worldBar
     this.worldAtelier
+    //this.mouseX = 0
+    //this.mouseY = 2
 
     this.setConfig()
     this.setRenderer()
@@ -189,9 +194,12 @@ export default class App {
     })
   }
   setNoise() {
+<<<<<<< HEAD
     console.log(this.renderer)
     console.log(this.scene)
     console.log(this.camera)
+=======
+>>>>>>> lights and scroll in appjs
     this.composer = new EffectComposer(this.renderer)
     var renderPass = new RenderPass(this.scene, this.camera.camera)
 

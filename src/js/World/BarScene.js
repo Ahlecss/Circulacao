@@ -88,24 +88,24 @@ export default class WorldBar {
     this.backgroundplane.castShadow = true
     this.container.add(this.backgroundplane)
   }
-  setAmbientLight() {
-    this.ambientlight = new SpotLight({
-      debug: this.debugFolder,
-    })
-    this.container.add(this.ambientlight.container)
-  }
-  setPointLight() {
-    // console.log(this.camera)
-    this.light = new PointLightSource({
-      debug: this.debugFolder,
-      posX: this.mouseX,
-      posY: this.mouseY,
-      posZ: -10,
-      camera: this.camera,
-    })
-    this.container.add(this.light.container)
-    // When the mouse moves, call the given function
-  }
+  // setAmbientLight() {
+  //   this.ambientlight = new SpotLight({
+  //     debug: this.debugFolder,
+  //   })
+  //   this.container.add(this.ambientlight.container)
+  // }
+  // setPointLight() {
+  //   // console.log(this.camera)
+  //   this.light = new PointLightSource({
+  //     debug: this.debugFolder,
+  //     posX: this.mouseX,
+  //     posY: this.mouseY,
+  //     posZ: -10,
+  //     camera: this.camera,
+  //   })
+  //   this.container.add(this.light.container)
+  //   // When the mouse moves, call the given function
+  // }
   setBottle() {
     this.bottle = new Bottle({
       time: this.time,
