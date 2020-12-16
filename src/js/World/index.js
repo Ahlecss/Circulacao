@@ -17,11 +17,8 @@ import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
-<<<<<<< HEAD
 import Sound from './Sound'
 import Lottie from 'lottie-web'
-=======
->>>>>>> a7675b5 (creating function)
 
 import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
 import DPlanUsine from '@textures/usine/2emePlan_USINE.png'
