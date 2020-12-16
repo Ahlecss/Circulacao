@@ -11,12 +11,13 @@ import {
   MeshBasicMaterial,
   SpotLight,
 } from 'three'
-import Lottie from 'lottie-web'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
+// import Sound from './Sound'
+import Lottie from 'lottie-web'
 
 import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
 import DPlanUsine from '@textures/usine/2emePlan_USINE.png'
@@ -57,10 +58,14 @@ export default class WorldUsine {
     this.setBackground()
     this.setSticker()
     this.addAnimation()
+    // this.setSound()
+  }
+  setSound() {
+    this.audio = new Sound()
+    // this.audio.soundPlay()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
-    // this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progressBar')
 
     if (this.assets.total === 0) {
@@ -87,6 +92,7 @@ export default class WorldUsine {
   }
   setScroll() {
     window.addEventListener('wheel', (e) => {
+      // console.log(e)
       if (this.camera.camera.position.x >= 0) {
         this.camera.camera.position.x += e.deltaY * 0.01
         this.bottle.bottle.position.x += e.deltaY * 0.01
@@ -200,6 +206,8 @@ export default class WorldUsine {
 
     this.frontmaterial = new MeshLambertMaterial({
       map: fronttexture,
+      opacity: 1,
+      transparent: true,
     })
 
     this.secondmaterial = new MeshLambertMaterial({
