@@ -26,8 +26,8 @@ export default class App {
     this.setConfig()
     this.setRenderer()
     this.setCamera()
-    this.setWorldUsine()
-    //this.setWorldBar()
+    //this.setWorldUsine()
+    this.setWorldBar()
     this.setNoise()
     this.setMovement()
     

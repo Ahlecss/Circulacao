@@ -40,6 +40,7 @@ import {
       this.mouseX = 0
       this.mouseY = 2
       this.scale = 1
+      this.meshText;
   
       if (this.debug) {
         this.container.add(new AxesHelper(5))
@@ -167,6 +168,7 @@ import {
         this.tvplane.position.x += this.scale;
         this.verresplane.position.x -= this.scale;
         this.backgroundplane.position.x -= this.scale;
+        this.meshText.position.x += this.scale * 0.7;
         })
       }
     setChapters() {
@@ -180,6 +182,28 @@ import {
         chaptering.innerHTML = "Chapitre 2 -&nbsp;";
         title.innerHTML = "Le Bar";
         document.body.appendChild(chapter);   
+    }
+    setText() {
+      var loader = new FontLoader()
+      loader.load('/Andika_New_Basic_Bold.json', (font) => {
+        this.textGeo = new TextGeometry("Cette dictature est mise en place pour \ngarantir “la sécurité nationale” et \nréprimer les mouvements politiques \ncontestataires. \n\nLes artistes vivant sous cette menace \nconstante de censure violente doivent \ndévelopper de nouvelles stratégies pour \nfaire de l'art socialement significatif. \n\nDans cette démarche, Cildo Meireles \ndécide de mettre l'œuvre d’art entre les \nmains du public.", {
+          font: font,
+          size: 0.12,
+          height: 0,
+          curveSegments: 1,
+          bevelThickness: 2,
+          bevelSize: 30,
+          bevelEnabled: false,
+        })
+        this.textMaterial = new MeshLambertMaterial({ 
+          color: 0x111111,
+          opacity: 1,
+          transparent: true, 
+        })
+        this.meshText = new Mesh(this.textGeo, this.textMaterial)
+        this.meshText.position.set(3.5, 4.25, -2)
+        this.container.add(this.meshText)
+      })
     }
     addPlanes() {
       var loader = new TextureLoader()
@@ -253,7 +277,7 @@ import {
       this.biereplane.scale.set(0.225, 0.75, 0.225)
 
       this.drapeauplane = new Mesh(this.horizontalgeometry, this.drapeauMaterial)
-      this.drapeauplane.position.set(-2, 7, -7)
+      this.drapeauplane.position.set(-2, 6.25, -7)
       this.drapeauplane.scale.set(0.6, 1.2, 0.6)
 
       this.tvplane = new Mesh(this.horizontalgeometry, this.tvMaterial)
