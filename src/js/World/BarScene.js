@@ -233,7 +233,6 @@ export default class WorldBar {
     this.persoplane = new Mesh(this.horizontalgeometry, this.persoMaterial)
     this.persoplane.position.set(-2.25, -0.5, 3)
     this.persoplane.scale.set(0.15, 0.9, 0.15)
-    // this.persoplane.name = "les couilles d'Aymeric"
 
     this.bardevantplane = new Mesh(
       this.horizontalgeometry,
