@@ -33,8 +33,8 @@ export default class App {
     this.setRenderer()
     this.setCamera()
     this.setScroll()
-    // this.setWorldUsine()
-    this.setWorldBar()
+    this.setWorldUsine()
+    // this.setWorldBar()
     this.setAmbientLight()
     this.setPointLight()
     this.setNoise()
@@ -87,8 +87,10 @@ export default class App {
     // When the mouse moves, call the given function
   }
   setScroll() {
+    // console.log(document.getElementById('container'))
     window.addEventListener('wheel', (e) => {
       // console.log(this.light.light.target.position)
+      // console.log(this.camera.camera.position.x)
       if (this.camera.camera.position.x >= 0) {
         this.camera.camera.position.x += e.deltaY * 0.01
         this.world.bottle.bottle.position.x += e.deltaY * 0.01
@@ -123,18 +125,7 @@ export default class App {
       assets: this.assets,
       camera: this.camera,
       renderer: this.renderer,
-    })
-    // Add world to scene
-    this.scene.add(this.world.container)
-  }
-  setWorldBar() {
-    // Create world instance
-    this.world = new WorldBar({
-      time: this.time,
-      debug: this.debug,
-      assets: this.assets,
-      camera: this.camera,
-      renderer: this.renderer,
+      scene: this.scene,
     })
     // Add world to scene
     this.scene.add(this.world.container)
