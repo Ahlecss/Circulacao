@@ -18,6 +18,7 @@ import Bottle from './Bottle'
 import Sticker from './Sticker'
 import Sound from './Sound'
 import Lottie from 'lottie-web'
+import WorldBar from './BarScene'
 
 import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
 import DPlanUsine from '@textures/usine/2emePlan_USINE.png'
@@ -33,12 +34,14 @@ export default class WorldUsine {
     this.assets = options.assets
     this.camera = options.camera
     this.renderer = options.renderer
+    this.scene = options.scene
 
     // Set up
     this.container = new Object3D()
     this.container.name = 'WorldUsine'
     this.mouseX = 0
     this.mouseY = 2
+    this.backgroundWidth = 0
 
     if (this.debug) {
       this.container.add(new AxesHelper(5))
@@ -56,10 +59,11 @@ export default class WorldUsine {
     this.setBottle()
     this.addPlanes()
     this.setBackground()
-    this.setSticker()
+    // this.setSticker()
     this.addAnimation()
     this.setChapters()
-    this.setSound()
+    this.setWorldBar()
+    // this.setSound()
   }
   setSound() {
     this.audio = new Sound({ soundScene: 'usineSound' })
@@ -83,12 +87,18 @@ export default class WorldUsine {
       })
 
       this.assets.on('ressourcesReady', () => {
-        this.init()
-        this.loadDiv.addEventListener('wheel', (e) => {
-          this.loadDiv.style.opacity = 0
-          this.loadDiv.remove()
-          e.preventDefault()
-        })
+        setTimeout(() => {
+          this.init()
+          this.loadDiv.addEventListener('wheel', (e) => {
+            setTimeout(() => {
+              this.loadDiv.style.opacity = 0
+              setTimeout(() => {
+                this.loadDiv.remove()
+              }, 550)
+            }, 1000)
+            e.preventDefault()
+          })
+        }, 1000)
       })
     }
   }
@@ -127,6 +137,18 @@ export default class WorldUsine {
     this.plane2 = this.plane.clone()
     this.plane2.position.set(this.plane.geometry.parameters.width * 10, 0, -20)
     this.container.add(this.plane, this.plane2)
+    this.background = new Mesh(this.geometry, this.material)
+    this.background.position.set(2, 0, -20)
+    this.background.scale.set(10, 10, 10)
+    this.background.receiveShadow = true
+    this.plane2 = this.background.clone()
+    this.plane2.position.set(
+      this.background.geometry.parameters.width * 10,
+      0,
+      -20
+    )
+    this.backgroundWidth = this.background.geometry.parameters.width * 20
+    this.container.add(this.background, this.plane2)
   }
   setAmbientLight() {
     this.ambientlight = new SpotLight({
@@ -250,7 +272,7 @@ export default class WorldUsine {
     this.fourthplane.scale.set(1.25, 0.6, 0.6)
 
     var position = -10
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 18; i++) {
       this.secondplaneclone = this.secondplane.clone()
       this.secondplaneclone.position.set(position, -2.25, 1.1)
       this.secondplaneclone.scale.set(0.7, 0.3, 0.7)
@@ -284,5 +306,18 @@ export default class WorldUsine {
       path: '/lueur.json',
     }
     var anim = Lottie.loadAnimation(animData)
+  }
+  setWorldBar() {
+    // Create world instance
+    this.bar = new WorldBar({
+      time: this.time,
+      debug: this.debug,
+      assets: this.assets,
+      camera: this.camera,
+      renderer: this.renderer,
+    })
+    // Add world to scene
+    this.scene.add(this.bar.container)
+    this.bar.container.position.set(this.backgroundWidth, 0, 0)
   }
 }
