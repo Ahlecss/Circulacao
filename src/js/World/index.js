@@ -19,11 +19,11 @@ import Sticker from './Sticker'
 import Sound from './Sound'
 import Lottie from 'lottie-web'
 
-import PPlanUsine from '@textures/1erPlan_USINE.png'
-import DPlanUsine from '@textures/2emePlan_USINE.png'
-import TPlanUsine from '@textures/3emePlan_USINE.png'
-import QPlanUsine from '@textures/4emePlan_USINE.png'
-import FPlanUsine from '@textures/5emePlan_USINE.png'
+import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
+import DPlanUsine from '@textures/usine/2emePlan_USINE.png'
+import TPlanUsine from '@textures/usine/3emePlan_USINE.png'
+import QPlanUsine from '@textures/usine/4emePlan_USINE.png'
+import FPlanUsine from '@textures/usine/5emePlan_USINE.png'
 
 export default class WorldUsine {
   constructor(options) {
@@ -61,7 +61,7 @@ export default class WorldUsine {
     this.setSound()
   }
   setSound() {
-    this.audio = new Sound()
+    this.audio = new Sound({soundScene: 'usineSound'})
     // this.audio.soundPlay()
   }
   setLoader() {

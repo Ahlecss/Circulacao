@@ -56,6 +56,11 @@ import {
       this.setBottle()
       this.addPlanes()
       this.setBackground()
+      this.setSound()
+    }
+    setSound() {
+      this.audio = new Sound({soundScene: 'barSound'})
+      // this.audio.soundPlay()
     }
     setLoader() {
       this.loadDiv = document.querySelector('.loadScreen')

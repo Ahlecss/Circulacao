@@ -1,16 +1,31 @@
 export default class Sound {
-  constructor() {
+  constructor(options) {
+    // Set options
+    this.soundScene = options.soundScene
     this.init()
+    window.addEventListener('load', this.init, false);
   }
   init() {
-    var AudioContext = window.AudioContext || window.webkitAudioContext
-    var audioCtx = new AudioContext()
 
-    var myAudio = document.querySelector('audio')
+    try {
+      // Fix up for prefixing
+      var AudioContext = window.AudioContext || window.webkitAudioContext
+      var audioCtx = new AudioContext()
+    }
+    catch(e) {
+      alert('Web Audio API is not supported in this browser');
+    }
+    console.log(this.soundScene)
+    var myAudio = document.getElementById(this.soundScene)
+    var button = document.querySelector('button')
     const track = audioCtx.createMediaElementSource(myAudio)
 
-    track.connect(audioCtx.destination)
-    myAudio.play()
+    button.addEventListener('click', () => {
+      console.log('lancé')
+      track.connect(audioCtx.destination)
+      myAudio.play()
+    })
+
   }
   setMovement() {
     document.addEventListener(
