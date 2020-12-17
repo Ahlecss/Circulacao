@@ -16,7 +16,7 @@ import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
-// import Sound from './Sound'
+import Sound from './Sound'
 import Lottie from 'lottie-web'
 
 import PPlanUsine from '@textures/usine/1erPlan_USINE.png'
@@ -59,14 +59,15 @@ export default class WorldUsine {
     this.setSticker()
     this.addAnimation()
     this.setChapters()
-    // this.setSound()
+    this.setSound()
   }
   setSound() {
-    this.audio = new Sound()
+    this.audio = new Sound({ soundScene: 'usineSound' })
     // this.audio.soundPlay()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
+    // this.loadModels = this.loadDiv.querySelector('.load')
     this.progress = this.loadDiv.querySelector('.progressBar')
 
     if (this.assets.total === 0) {

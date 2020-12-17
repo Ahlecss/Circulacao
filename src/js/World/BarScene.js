@@ -12,6 +12,7 @@ import {
   SpotLight,
 } from 'three'
 
+import Sound from './Sound'
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
@@ -58,6 +59,11 @@ export default class WorldBar {
     this.addPlanes()
     this.setBackground()
     this.setChapters()
+    this.setSound()
+  }
+  setSound() {
+    this.audio = new Sound({ soundScene: 'barSound' })
+    // this.audio.soundPlay()
   }
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
@@ -70,9 +76,9 @@ export default class WorldBar {
     } else {
       this.assets.on('ressourceLoad', () => {
         /*this.loadModels.innerHTML = `${
-          Math.floor((this.assets.done / this.assets.total) * 100) +
-          Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-        }%`*/
+            Math.floor((this.assets.done / this.assets.total) * 100) +
+            Math.floor((1 / this.assets.total) * this.assets.currentPercent)
+          }%`*/
         this.progress.style.top = `${
           100 -
           (Math.floor((this.assets.done / this.assets.total) * 100) +
@@ -112,6 +118,52 @@ export default class WorldBar {
     this.backgroundplane.receiveShadow = true
     this.backgroundplane.castShadow = true
     this.container.add(this.backgroundplane)
+  }
+  setAmbientLight() {
+    this.ambientlight = new SpotLight({
+      debug: this.debugFolder,
+    })
+    this.container.add(this.ambientlight.container)
+  }
+  setPointLight() {
+    // console.log(this.camera)
+    this.light = new PointLightSource({
+      debug: this.debugFolder,
+      posX: this.mouseX,
+      posY: this.mouseY,
+      posZ: -10,
+      camera: this.camera,
+    })
+    this.container.add(this.light.container)
+    // When the mouse moves, call the given function
+  }
+  setBottle() {
+    this.bottle = new Bottle({
+      time: this.time,
+      assets: this.assets,
+    })
+    this.container.add(this.bottle.container)
+  }
+  setScroll() {
+    window.addEventListener('wheel', (event) => {
+      this.geometry = new PlaneBufferGeometry(
+        window.innerWidth / 130,
+        window.innerHeight / 130,
+        5
+      )
+      this.material = new MeshPhongMaterial({
+        map: texture,
+        opacity: 1,
+        transparent: true,
+      })
+
+      this.backgroundplane = new Mesh(this.geometry, this.material)
+      this.backgroundplane.position.set(-15, -3, -10)
+      this.backgroundplane.scale.set(0.6, 0.5, 0.6)
+      this.backgroundplane.receiveShadow = true
+      this.backgroundplane.castShadow = true
+      this.container.add(this.backgroundplane)
+    })
   }
   setAmbientLight() {
     this.ambientlight = new SpotLight({
