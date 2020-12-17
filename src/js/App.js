@@ -1,4 +1,7 @@
 import { Scene, WebGLRenderer } from 'three'
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
 import * as dat from 'dat.gui'
 
 import Sizes from '@tools/Sizes'
@@ -8,6 +11,7 @@ import Assets from '@tools/Loader'
 import Camera from './Camera'
 import WorldUsine from '@world/index'
 import WorldBar from '@world/BarScene'
+//import Cirka from 'static/Cirka_Bold.json'
 
 export default class App {
   constructor(options) {
@@ -24,6 +28,9 @@ export default class App {
     this.setCamera()
     //this.setWorldUsine()
     this.setWorldBar()
+    this.setNoise()
+    this.setMovement()
+    
   }
   setRenderer() {
     // Set scene
@@ -84,6 +91,31 @@ export default class App {
     })
     // Add world to scene
     this.scene.add(this.world.container)
+  }
+  setNoise(){
+    console.log(this.renderer);
+    console.log(this.scene);
+    console.log(this.camera);
+    this.composer = new EffectComposer(this.renderer);
+    var renderPass = new RenderPass(this.scene, this.camera.camera);
+    
+    this.composer.addPass(renderPass);
+
+    this.filmPass = new FilmPass(
+      0.6, // noise intensity
+      0, // scanline intensity
+      100, // scanline count
+      false // grayscale
+    )
+    this.filmPass.renderToScreen = true
+    this.composer.addPass(this.filmPass)
+    console.log(this.composer)
+  }
+  setMovement(){
+    this.time.on('tick', () => {
+      this.composer.render();
+    })
+
   }
   setConfig() {
     if (window.location.hash === '#debug') {

@@ -6,6 +6,22 @@
   src url('@fonts/AndikaNewBasic-Regular.woff2')
   font-family Andika New Basic Regular
 
+@font-face
+   src url('@fonts/AndikaNewBasic-Regular.woff2')
+   font-family Andika
+
+@font-face
+   src url('@fonts/Cirka-Bold.woff2')
+   font-family CirkaBold
+
+@font-face
+   src url('@fonts/Cirka-Light.woff2')
+   font-family CirkaLight
+
+@font-face
+   src url('@fonts/Amagro-bold.woff2')
+   font-family Amagro
+
 @import './common.styl'
 @import './loading.styl'
 
@@ -13,10 +29,35 @@
   z-index 100!important
   }
 
-  button{
-    background red
-    position absolute
-    z-index: 1100
-    bottom 200px
-    left 150px
-  }
+button{
+  background red
+  position absolute
+  z-index: 1100
+  bottom 200px
+  left 150px
+}
+.chapters{
+  font-size 26px
+  color white
+  position absolute
+  bottom 100px
+  right 100px
+  z-index 10
+  width 400px
+  height 100px
+  display flex
+  align-items center
+  justify-content center
+  letter-spacing: 4px
+}
+
+h2{
+  font-family CirkaLight
+  font-size 32px
+  text-transform uppercase
+  font-weight: 100;
+}
+
+.title{
+  font-family CirkaBold
+}
