@@ -91,10 +91,8 @@ export default class WorldUsine {
               this.loadDiv.style.opacity = 0
               setTimeout(() => {
                 this.loadDiv.remove()
-                // this.camera.camera.position.x = 0
-                // this.bottle.bottle.position.x = 0
-                // this.bottle.bottle.sticker.position.x = 0
-              }, 550)
+                this.camera.camera.position.z = 5
+              }, 3000)
             }, 1000)
             e.preventDefault()
           })
