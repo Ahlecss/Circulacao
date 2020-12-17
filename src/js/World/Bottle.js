@@ -33,8 +33,9 @@ export default class Bottle {
       opacity: 0.2,
       transparent: true,
       refractionRatio: 1,
-      depthWrite: false
+      depthWrite: true
     })
+
     this.bottle.sticker.visible = false
 
     const textureEtiquetteCoca = new TextureLoader().load(etiquetteCoca);

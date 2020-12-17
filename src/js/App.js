@@ -11,6 +11,7 @@ import Assets from '@tools/Loader'
 import Camera from './Camera'
 import WorldUsine from '@world/index'
 import WorldBar from '@world/BarScene'
+import WorldAtelier from '@world/AtelierScene'
 //import Cirka from 'static/Cirka_Bold.json'
 
 export default class App {
@@ -28,7 +29,8 @@ export default class App {
     this.setRenderer()
     this.setCamera()
     //this.setWorldUsine()
-    this.setWorldBar()
+    //this.setWorldBar()
+    this.setWorldAtelier()
     this.setNoise()
     this.setMovement()
     
@@ -84,6 +86,18 @@ export default class App {
   setWorldBar() {
     // Create world instance
     this.world = new WorldBar({
+      time: this.time,
+      debug: this.debug,
+      assets: this.assets,
+      camera: this.camera,
+      renderer: this.renderer,
+    })
+    // Add world to scene
+    this.scene.add(this.world.container)
+  }
+  setWorldAtelier() {
+    // Create world instance
+    this.world = new WorldAtelier({
       time: this.time,
       debug: this.debug,
       assets: this.assets,

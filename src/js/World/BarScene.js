@@ -144,17 +144,6 @@ import {
       })
       this.container.add(this.bottle.container)
     }
-    setSticker() {
-      console.log('perer')
-      this.sticker = new Sticker({
-        time: this.time,
-        assets: this.assets,
-        bottle: this.bottle,
-        camera: this.camera,
-        renderer: this.renderer,
-      })
-      this.container.add(this.sticker.container)
-    }
     setScroll() {
         window.addEventListener('wheel', (event) => {
 

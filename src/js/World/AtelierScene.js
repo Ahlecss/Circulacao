@@ -10,21 +10,17 @@ import {
     PlaneBufferGeometry,
     MeshBasicMaterial,
     SpotLight,
+    ShadowMaterial
   } from 'three'
   
+  import Sound from './Sound'
   import AmbientLightSource from './AmbientLight'
   import PointLightSource from './PointLight'
   import Bottle from './Bottle'
   import Sticker from './Sticker'
-  import PERSO from '@textures/bar/PERSO.png'
-  import BAR_DEVANT from '@textures/bar/BAR_DEVANT.png'
-  import BAR_FOND from '@textures/bar/BAR_FOND.png'
-  import BIERRE from '@textures/bar/BIERRE.png'
-  import DRAPEAU from '@textures/bar/DRAPEAU.png'
-  import TV from '@textures/bar/TV.png'
-  import VERRES from '@textures/bar/VERRES.png'
+  import atelierBackground from '@textures/atelier/atelierBackground.jpg'
   
-  export default class WorldBar {
+  export default class WorldAtelier {
     constructor(options) {
       // Set options
       this.time = options.time
@@ -56,8 +52,14 @@ import {
       this.setText()
       this.setBottle()
       //this.addPlanes()
-      //this.setBackground()
+      this.setBackground()
       this.setChapters()
+      this.setSticker()
+      this.setSound()
+    }
+    setSound() {
+      this.audio = new Sound({soundScene: 'atelierSound'})
+      // this.audio.soundPlay()
     }
     setLoader() {
       this.loadDiv = document.querySelector('.loadScreen')
@@ -91,9 +93,20 @@ import {
         })
       }
     }
+    setSticker() {
+      console.log('perer')
+      this.sticker = new Sticker({
+        time: this.time,
+        assets: this.assets,
+        bottle: this.bottle,
+        camera: this.camera,
+        renderer: this.renderer,
+      })
+      this.container.add(this.sticker.container)
+    }
     setBackground() {
       var loader = new TextureLoader()
-      var texture = loader.load(BAR_FOND)
+      var texture = loader.load(atelierBackground)
   
       this.geometry = new PlaneBufferGeometry(
         window.innerWidth / 130,
@@ -107,11 +120,24 @@ import {
     })
   
       this.backgroundplane = new Mesh(this.geometry, this.material)
-      this.backgroundplane.position.set(-15, -3, -10)
-      this.backgroundplane.scale.set(0.6, 0.5, 0.6)
+      this.backgroundplane.position.set(0, 0, -1)
+      this.backgroundplane.scale.set(1, 1, 1)
       this.backgroundplane.receiveShadow = true
       this.backgroundplane.castShadow = true
-      this.container.add(this.backgroundplane)
+
+      this.shadowBackgroundMaterial = this.material;
+
+      this.shadowBackgroundMaterial = new ShadowMaterial;
+      this.shadowBackgroundMaterial.opacity = 1;
+
+      this.shadowBackgroundPlane = new Mesh(this.geometry, this.shadowBackgroundMaterial)
+      this.shadowBackgroundPlane.position.set(0, 0, 0)
+      this.shadowBackgroundPlane.scale.set(1, 1, 1)
+      this.shadowBackgroundPlane.receiveShadow = true
+      this.shadowBackgroundPlane.castShadow = true
+      
+      this.container.add(this.backgroundplane)  
+      this.container.add(this.shadowBackgroundPlane)
     }
     setAmbientLight() {
       this.ambientlight = new SpotLight({
@@ -177,15 +203,15 @@ import {
         chapter.classList.add('chapters')
         title.classList.add('title')
         chaptering.innerHTML = "Chapitre 3 -&nbsp;";
-        title.innerHTML = "L'atelier";
+        title.innerHTML = "L'Atelier";
         document.body.appendChild(chapter);   
     }
     setText() {
       var loader = new FontLoader()
       loader.load('/Andika_New_Basic_Bold.json', (font) => {
-        this.textGeo = new TextGeometry("Cette dictature est mise en place pour \ngarantir “la sécurité nationale” et \nréprimer les mouvements politiques \ncontestataires. \n\nLes artistes vivant sous cette menace \nconstante de censure violente doivent \ndévelopper de nouvelles stratégies pour \nfaire de l'art socialement significatif. \n\nDans cette démarche, Cildo Meireles \ndécide de mettre l'œuvre d’art entre les \nmains du public.", {
+        this.textGeo = new TextGeometry("L’artiste cherche un concept qui pourrait à\nla fois capturer l'expérience de la vie sous\nla dictature et repousser ses contraintes\noppressives. ", {
           font: font,
-          size: 0.12,
+          size: 0.08,
           height: 0,
           curveSegments: 1,
           bevelThickness: 2,
@@ -194,15 +220,15 @@ import {
         })
         this.textMaterial = new MeshPhongMaterial({ 
           shininess: 0.5,
-          specular: 0x888888,
-          color: 0x888888,
+          specular: 0x222222,
+          color: 0x222222,
           opacity: 1,
           transparent: true,
           refractionRatio: -1,
           depthWrite: false
         })
         this.meshText = new Mesh(this.textGeo, this.textMaterial)
-        this.meshText.position.set(3.5, 4.25, -2)
+        this.meshText.position.set(-6.25, 0.4, 0.5)
         this.container.add(this.meshText)
       })
     }
