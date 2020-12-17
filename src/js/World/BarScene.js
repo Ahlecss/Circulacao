@@ -48,14 +48,15 @@ import {
         this.debugFolder.open()
       }
   
-      this.setLoader()
+      //this.setLoader()
+      this.init()
     }
     init() {
       this.setAmbientLight()
       this.setPointLight()
       this.setScroll()
       this.setText()
-      this.setBottle()
+      //this.setBottle()
       this.addPlanes()
       this.setBackground()
       this.setChapters()
@@ -64,38 +65,6 @@ import {
     setSound() {
       this.audio = new Sound({soundScene: 'barSound'})
       // this.audio.soundPlay()
-    }
-    setLoader() {
-      this.loadDiv = document.querySelector('.loadScreen')
-      this.loadModels = this.loadDiv.querySelector('.load')
-      this.progress = this.loadDiv.querySelector('.progressBar')
-  
-      if (this.assets.total === 0) {
-        this.init()
-        this.loadDiv.remove()
-      } else {
-        this.assets.on('ressourceLoad', () => {
-          /*this.loadModels.innerHTML = `${
-            Math.floor((this.assets.done / this.assets.total) * 100) +
-            Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-          }%`*/
-          this.progress.style.top = `${
-            100 -
-            (Math.floor((this.assets.done / this.assets.total) * 100) +
-              Math.floor((1 / this.assets.total) * this.assets.currentPercent))
-          }%`
-        })
-  
-        this.assets.on('ressourcesReady', () => {
-          setTimeout(() => {
-            this.init()
-            this.loadDiv.style.opacity = 0
-            setTimeout(() => {
-              this.loadDiv.remove()
-            }, 550)
-          }, 1000)
-        })
-      }
     }
     setBackground() {
       var loader = new TextureLoader()

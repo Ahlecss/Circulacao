@@ -24,15 +24,17 @@ export default class App {
     this.sizes = new Sizes()
     this.assets = new Assets()
     this.composer = 0;
+    this.currentScene = ""
 
     this.setConfig()
     this.setRenderer()
     this.setCamera()
-    //this.setWorldUsine()
+    this.setWorldUsine()
     //this.setWorldBar()
-    this.setWorldAtelier()
+    //this.setWorldAtelier()
     this.setNoise()
     this.setMovement()
+    this.setScroll()
     
   }
   setRenderer() {
@@ -61,6 +63,14 @@ export default class App {
       this.renderer.render(this.scene, this.camera.camera)
     })
   }
+  setScroll() {
+    window.addEventListener('wheel', (event) => {
+      this.setTransition();
+    // For start the experience scene
+    //this.scale = event.deltaY * 0.01;
+    //this.camera.camera.position.z = 0.2 + 5 * this.scale;
+    })
+  }
   setCamera() {
     // Create camera instance
     this.camera = new Camera({
@@ -71,9 +81,19 @@ export default class App {
     // Add camera to scene
     this.scene.add(this.camera.container)
   }
+  setTransition() {
+    console.log(this.camera.camera.position.x)
+    if(this.currentScene === 'usine') {
+      if(this.camera.camera.position.x > 1){
+        this.scene.remove(this.worldUsine.container)
+        this.setWorldBar()
+        return;
+      }
+    }
+  }
   setWorldUsine() {
     // Create world instance
-    this.world = new WorldUsine({
+    this.worldUsine = new WorldUsine({
       time: this.time,
       debug: this.debug,
       assets: this.assets,
@@ -81,11 +101,12 @@ export default class App {
       renderer: this.renderer,
     })
     // Add world to scene
-    this.scene.add(this.world.container)
+    this.scene.add(this.worldUsine.container)
+    this.currentScene = "usine"
   }
   setWorldBar() {
     // Create world instance
-    this.world = new WorldBar({
+    this.worldBar = new WorldBar({
       time: this.time,
       debug: this.debug,
       assets: this.assets,
@@ -93,11 +114,11 @@ export default class App {
       renderer: this.renderer,
     })
     // Add world to scene
-    this.scene.add(this.world.container)
+    this.scene.add(this.worldBar.container)
   }
   setWorldAtelier() {
     // Create world instance
-    this.world = new WorldAtelier({
+    this.worldAtelier = new WorldAtelier({
       time: this.time,
       debug: this.debug,
       assets: this.assets,
@@ -105,7 +126,7 @@ export default class App {
       renderer: this.renderer,
     })
     // Add world to scene
-    this.scene.add(this.world.container)
+    this.scene.add(this.worldAtelier.container)
   }
   setNoise(){
     console.log(this.renderer);

@@ -1,4 +1,4 @@
-import { Object3D, TextureLoader, MeshBasicMaterial} from 'three'
+import { Object3D, TextureLoader, MeshBasicMaterial, MeshPhongMaterial} from 'three'
 import * as THREE from 'three'
 import etiquetteCoca from '@textures/etiquetteCoca.png'
 
@@ -46,6 +46,16 @@ export default class Bottle {
       opacity: 0.3,
       transparent: true,
       refractionRatio: 0.8,
+    })
+
+    this.bottle.cap.material = new MeshPhongMaterial({
+      shininess: 100,
+      specular: 0x000000,
+      color: 0x000000,
+      opacity: 0.2,
+      transparent: true,
+      refractionRatio: 1,
+      depthWrite: true
     })
 
     this.bottle.scale.set(0.1, 0.1, 0.1)
