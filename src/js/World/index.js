@@ -91,9 +91,9 @@ export default class WorldUsine {
               this.loadDiv.style.opacity = 0
               setTimeout(() => {
                 this.loadDiv.remove()
-                this.camera.camera.position.x = 0
-                this.bottle.bottle.position.x = 0
-                this.bottle.bottle.sticker.position.x = 0
+                // this.camera.camera.position.x = 0
+                // this.bottle.bottle.position.x = 0
+                // this.bottle.bottle.sticker.position.x = 0
               }, 550)
             }, 1000)
             e.preventDefault()
@@ -296,6 +296,6 @@ export default class WorldUsine {
     })
     // Add world to scene
     this.scene.add(this.bar.container)
-    this.bar.container.position.set(this.backgroundWidth, 0, 0)
+    this.bar.container.position.set(190, 0, 0)
   }
 }

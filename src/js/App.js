@@ -91,6 +91,10 @@ export default class App {
       //this.camera.camera.position.z = 0.2 + 5 * this.scale;
     })
   }
+  updateChapters(chapter, title) {
+    document.querySelector('.chapters h2').innerHTML = chapter
+    document.querySelector('.chapters h3').innerHTML = title
+  }
   setCamera() {
     // Create camera instance
     this.camera = new Camera({
