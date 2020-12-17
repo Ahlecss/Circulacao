@@ -12,7 +12,6 @@ import {
     SpotLight,
   } from 'three'
   
-  import Sound from './Sound'
   import AmbientLightSource from './AmbientLight'
   import PointLightSource from './PointLight'
   import Bottle from './Bottle'
@@ -56,14 +55,9 @@ import {
       this.setScroll()
       this.setText()
       this.setBottle()
-      this.addPlanes()
-      this.setBackground()
+      //this.addPlanes()
+      //this.setBackground()
       this.setChapters()
-      this.setSound()
-    }
-    setSound() {
-      this.audio = new Sound({soundScene: 'barSound'})
-      // this.audio.soundPlay()
     }
     setLoader() {
       this.loadDiv = document.querySelector('.loadScreen')
@@ -145,7 +139,6 @@ import {
       this.container.add(this.bottle.container)
     }
     setSticker() {
-      console.log('perer')
       this.sticker = new Sticker({
         time: this.time,
         assets: this.assets,
@@ -183,8 +176,8 @@ import {
         chapter.appendChild(title)
         chapter.classList.add('chapters')
         title.classList.add('title')
-        chaptering.innerHTML = "Chapitre 2 -&nbsp;";
-        title.innerHTML = "Le Bar";
+        chaptering.innerHTML = "Chapitre 3 -&nbsp;";
+        title.innerHTML = "L'atelier";
         document.body.appendChild(chapter);   
     }
     setText() {
