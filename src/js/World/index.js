@@ -52,10 +52,10 @@ export default class WorldUsine {
     this.setLoader()
   }
   init() {
-    this.setAmbientLight()
-    this.setPointLight()
+    /*this.setAmbientLight()
+    this.setPointLight()*/
     this.setScroll()
-    this.setText()
+    /*this.setText()*/
     this.setBottle()
     this.addPlanes()
     this.setBackground()
@@ -105,14 +105,9 @@ export default class WorldUsine {
   }
   setScroll() {
     window.addEventListener('wheel', (e) => {
-      // console.log(e)
-      if (this.camera.camera.position.x >= 0) {
-        this.camera.camera.position.x += e.deltaY * 0.01
-        this.bottle.bottle.position.x += e.deltaY * 0.01
-        this.bottle.bottle.sticker.position.x += e.deltaY * 0.01
-      } else {
-        this.bottle.bottle.position.x = 0
-        this.camera.camera.position.x = 0
+       console.log(this.camera.camera.position)
+      if (this.camera.camera.position.x >= 180 ) {
+         console.log("DEETE LA SCENE")
       }
     })
   }
@@ -148,7 +143,8 @@ export default class WorldUsine {
       0,
       -20
     )
-    this.backgroundWidth = this.background.geometry.parameters.width * 15
+    this.backgroundWidth = this.background.geometry.parameters.width * 2
+    console.log(this.background.geometry.parameters.width)
     this.container.add(this.background, this.plane2)
   }
   setAmbientLight() {

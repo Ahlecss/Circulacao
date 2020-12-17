@@ -96,8 +96,8 @@ export default class App {
         this.camera.camera.position.x <= 190
       ) {
         this.camera.camera.position.x += e.deltaY * 0.4
-        this.world.bottle.bottle.position.x += e.deltaY * 0.4
-        this.world.bottle.bottle.sticker.position.x += e.deltaY * 0.4
+        this.bottle.bottle.position.x += e.deltaY * 0.4
+        this.bottle.bottle.sticker.position.x += e.deltaY * 0.4
         this.light.params.positionX = (e.clientX / window.innerWidth) * 2 - 1
         if (this.camera.camera.position.x > 180) {
           this.updateChapters('Chapitre 2 -&nbsp;', 'Le Bar')
@@ -139,6 +139,15 @@ export default class App {
     })
     // Add world to scene
     this.scene.add(this.world.container)
+
+    // setTimeout(() => {
+    //   console.log(this.scene)
+    //   this.scene.remove(this.world.container)
+    //   console.log(this.scene)
+    //   console.log('prout')
+    //   this.setWorldAtelier()
+    //   console.log('proutdelissandre')
+    // }, 5000)
   }
   setWorldAtelier() {
     // Create world instance

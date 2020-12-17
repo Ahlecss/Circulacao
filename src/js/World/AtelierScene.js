@@ -46,10 +46,10 @@ export default class WorldAtelier {
     this.setLoader()
   }
   init() {
-    this.setAmbientLight()
+    /*this.setAmbientLight()
     this.setPointLight()
     this.setScroll()
-    this.setText()
+    this.setText()*/
     this.setBottle()
     //this.addPlanes()
     this.setBackground()

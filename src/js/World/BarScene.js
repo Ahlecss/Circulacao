@@ -52,11 +52,11 @@ export default class WorldBar {
     this.init()
   }
   init() {
-    this.setAmbientLight()
+    /*this.setAmbientLight()
     this.setPointLight()
     this.setScroll()
     this.setText()
-    this.setBottle()
+    this.setBottle()*/
     this.addPlanes()
     this.setBackground()
     // this.setChapters()
