@@ -194,12 +194,9 @@ export default class App {
     })
   }
   setNoise() {
-<<<<<<< HEAD
     console.log(this.renderer)
     console.log(this.scene)
     console.log(this.camera)
-=======
->>>>>>> lights and scroll in appjs
     this.composer = new EffectComposer(this.renderer)
     var renderPass = new RenderPass(this.scene, this.camera.camera)
 

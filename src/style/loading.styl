@@ -1,70 +1,241 @@
-#anim_container {
-  width 1000px
-  height 1000px
-  z-index 20}
 
-.loadScreen 
+.loadScreen {
   position absolute
   top 0
   width 100%
   height 100%
   background-color #fff
-  display flex
-  flex-direction column
-  justify-content center
   align-items center
   transition 0.55s opacity ease-out
-  z-index 100
-
-h1,h2, .loadScrollGif
-  color #fff
-  z-index 2 
-  font-family Amagro Bold
-  text-transform uppercase
-  text-align center
-
-h1
-  font-size 3em
-  letter-spacing 0.5em
-
-video
-    z-index 100
-    border 1px solid red
-
-h2
-  font-family Andika New Basic Regular
-
-.load
-  margin 0 0 30px 0
-  padding 0
-  color #fff
+  z-index 20
   user-select none
-  z-index: 2
+  color #fff
+  word-break break-all
 
-.progressBar
-  top 100%
-  width 100%
-  height 100%
-  background-color #0d0e0b
-  position absolute
-  // animation liquid 8s infinite
-  z-index: 1
-  transition:top 1s ease-in-out;
+  .progressBar {
+    display flex
+    flex-direction column
+    justify-content center
+    top 100%
+    width 100%
+    height 100%
+    background-color #0d0e0b
+    position absolute
+    // animation liquid 8s infinite
+    transition top 1s ease-in-out 
+    text-align center
+    letter-spacing 0.25em
+  }
+    
+  h1,h2{
+    font-family Amagro
+    text-transform uppercase
+  }
 
-@keyframes liquid 
+  h1 {
+    letter-spacing 0.25em
+    font-size 4em
+  }
+
+  h2 {
+    font-size 1em
+    line-height 1.5em
+  }
+
+  p {
+    font-family CirkaLight
+  }
+  
+  .instruction {
+    position absolute
+    bottom 30px
+    left 50%
+    transform translateX(-50%)
+  }
+
+  #anim_container {
+    position relative
+    height 1000px
+    width 1000px
+    z-index 110
+
+    svg {
+      display: flex;
+      position: absolute;
+      bottom: -45%;
+    }
+
+  }
+
+  #background-bubble {
+    bottom: 0;
+    left: 0;
+    position: absolute
+    right: 0;
+    top: 0;
+    z-index: 9;
+    width 100%
+    height 100%
+
+  
+    .bubble {
+      -webkit-border-radius: 50%
+      -moz-border-radius: 50%
+      border-radius: 50%
+      opacity: 1
+      height: 20px
+      width: 20px
+      top 100%
+      position: absolute
+      animation: liquid 3.5s ease-out infinite;
+    }
+
+    .bubble:after{
+      background: radial-gradient(ellipse at bottom,  rgba(0,0,0,1) 0%,rgba(150,150,150,0.2) 100%);
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 10px;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .x1 {
+      height 50px
+      width 50px
+      left 100px
+      animation-delay 4s
+    }
+
+    .x1:after {
+      height 50px
+      width 50px
+    }
+
+    .x2 {
+      left 2300px
+      animation-delay 1s
+    }
+
+    .x3 {
+      left 600px
+      animation-delay 3s
+    }
+
+    .x4 {
+      height 30px
+      width 30px
+      left 1200px
+      animation-delay 3s
+    }
+
+    .x4:after {
+      height 30px
+      width 30px
+    }
+
+    .x5 {
+      left 800px
+      animation-delay 4s
+    }
+
+    .x6 {
+      left 1600px
+      animation-delay 1s
+    }
+
+    .x7 {
+      left 600px
+      animation-delay 5s
+    }
+
+    .x8 {
+      left 1900px
+      height 40px
+      width 40px
+      animation-delay 3s
+    }
+
+    .x8:after {
+      height 40px
+      width 40px
+    }
+
+    .x9 {
+      left 3000px
+      animation-delay 4s
+    }
+
+    .x10 {
+      left 2600px
+      animation-delay 1s
+    }
+
+    .x11 {
+      left 80px
+      animation-delay 2s
+    }
+
+    .x12 {
+      left 2800px
+    }
+
+    .x13 {
+      left 890px
+    }
+
+    .x14 {
+      left 689px
+      animation-delay 2s
+    }
+
+    .x15 {
+      left 2765px
+      animation-delay 4s
+    }
+
+    .x16 {
+      left 2489px
+      height 40px
+      width 40px
+      animation-delay 3s
+    }
+
+    .x16:after {
+      height 40px
+      width 40px
+    }
+
+    .x17 {
+      left 266px
+      animation-delay 2s
+    }
+
+    .x18 {
+      left 666px
+      animation-delay 1s
+    }
+
+    .x19 {
+      left 849px
+      animation-delay 3s
+    }
+
+    .x20 {
+      left 1985px
+    }
+  }
+}
+
+@keyframes liquid {
   0% {
     top 100%
   } 
   100% {
-    top 0
+    top -50%
   } 
+}
 
-
-// .progress
-//   border-radius 8px
-//   width 0px
-//   height 7px
-//   background-color #fff
 
 
 
