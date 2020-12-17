@@ -52,7 +52,7 @@ export default class WorldUsine {
     this.setAmbientLight()
     this.setPointLight()
     this.setScroll()
-    // this.setText()
+    this.setText()
     this.setBottle()
     this.addPlanes()
     this.setBackground()
@@ -114,14 +114,14 @@ export default class WorldUsine {
       5
     )
     this.material = new MeshPhongMaterial({
-      opacity: 1,
-      transparent: true,
       map: texture,
+      opacity: 0.6,
+      transparent: true,
     })
 
     this.plane = new Mesh(this.geometry, this.material)
     this.plane.position.set(2, 0, -20)
-    this.plane.scale.set(10, 10, 10)
+    this.plane.scale.set(4, 4, 4)
     this.plane.receiveShadow = true
     this.plane2 = this.plane.clone()
     this.plane2.position.set(this.plane.geometry.parameters.width * 10, 0, -20)
@@ -164,20 +164,26 @@ export default class WorldUsine {
   }
   setText() {
     var loader = new FontLoader()
-    loader.load('../Haboro-Contrast-Regular.json', (font) => {
-      // console.log(font)
-      this.textGeo = new TextGeometry('My Text', {
-        font: font,
-        size: 10,
-        height: 50,
-        curveSegments: 120,
-        bevelThickness: 2,
-        bevelSize: 1,
-        bevelEnabled: true,
+    loader.load('/Andika_New_Basic_Bold.json', (font) => {
+      this.textGeo = new TextGeometry(
+        'En 1964, avec le soutien des Américains, le \nmaréchal Castelo Branco renverse le \nprésident Brésilien Joao Goulart afin de faire \nbarrière à l’ascension du communisme en \nAmérique latine. \n\nCe coup d’État marque le début d’une \ndictature qui dure jusqu’en 1985.',
+        {
+          font: font,
+          size: 0.12,
+          height: 0,
+          curveSegments: 1,
+          bevelThickness: 2,
+          bevelSize: 30,
+          bevelEnabled: false,
+        }
+      )
+      this.textMaterial = new MeshLambertMaterial({
+        color: 0x111111,
+        opacity: 1,
+        transparent: true,
       })
-      this.textMaterial = new MeshLambertMaterial({ color: 0xff0000 })
       this.mesh = new Mesh(this.textGeo, this.textMaterial)
-      this.mesh.position.set(0, 0, 0)
+      this.mesh.position.set(-9.75, 0.55, -2)
       this.container.add(this.mesh)
     })
   }
@@ -231,26 +237,26 @@ export default class WorldUsine {
     this.firstplane.scale.set(0.05, 0.5, 0.05)
 
     this.secondplane = new Mesh(this.horizontalgeometry, this.secondmaterial)
-    this.secondplane.position.set(-10, -2, 1)
+    this.secondplane.position.set(-10, -6, 1)
     this.secondplane.scale.set(0.5, 0.5, 0.5)
 
     this.thirdplane = new Mesh(this.horizontalgeometry, this.thirdmaterial)
-    this.thirdplane.position.set(-10, 0, -1)
+    this.thirdplane.position.set(-10, -1, -1)
     this.thirdplane.scale.set(1, 2, 0.5)
 
     this.fourthplane = new Mesh(this.verticalgeometry, this.fourthmaterial)
-    this.fourthplane.position.set(-8, -2, -4)
-    this.fourthplane.scale.set(2, 1, 0.5)
+    this.fourthplane.position.set(-8, 0, -2)
+    this.fourthplane.scale.set(1.25, 0.6, 0.6)
 
     var position = -10
     for (let i = 0; i < 20; i++) {
       this.secondplaneclone = this.secondplane.clone()
-      this.secondplaneclone.position.set(position, -2, 1)
-      this.secondplaneclone.scale.set(0.5, 0.5, 0.5)
+      this.secondplaneclone.position.set(position, -2.25, 1.1)
+      this.secondplaneclone.scale.set(0.7, 0.3, 0.7)
       this.container.add(this.secondplaneclone)
 
       this.thirdplaneclone = this.thirdplane.clone()
-      this.thirdplaneclone.position.set(position, 0, -1)
+      this.thirdplaneclone.position.set(position, -1, -1)
       this.thirdplaneclone.scale.set(1, 2, 0.5)
       this.container.add(this.thirdplaneclone)
       position = position + 10

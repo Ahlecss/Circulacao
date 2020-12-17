@@ -104,7 +104,7 @@ export default class App {
     this.filmPass = new FilmPass(
       0.6, // noise intensity
       0, // scanline intensity
-      100, // scanline count
+      0, // scanline count
       false // grayscale
     )
     this.filmPass.renderToScreen = true
