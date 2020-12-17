@@ -55,8 +55,8 @@ import {
       this.setScroll()
       this.setText()
       this.setBottle()
-      this.addPlanes()
-      this.setBackground()
+      //this.addPlanes()
+      //this.setBackground()
       this.setChapters()
     }
     setLoader() {
@@ -139,7 +139,6 @@ import {
       this.container.add(this.bottle.container)
     }
     setSticker() {
-      console.log('perer')
       this.sticker = new Sticker({
         time: this.time,
         assets: this.assets,
@@ -177,8 +176,8 @@ import {
         chapter.appendChild(title)
         chapter.classList.add('chapters')
         title.classList.add('title')
-        chaptering.innerHTML = "Chapitre 2 -&nbsp;";
-        title.innerHTML = "Le Bar";
+        chaptering.innerHTML = "Chapitre 3 -&nbsp;";
+        title.innerHTML = "L'atelier";
         document.body.appendChild(chapter);   
     }
     setText() {
