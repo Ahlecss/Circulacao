@@ -91,22 +91,31 @@ export default class App {
     // console.log(document.getElementById('container'))
     window.addEventListener('wheel', (e) => {
       // console.log(this.light.light.target.position)
-      // console.log(this.camera.camera.position.x)
-      if (this.camera.camera.position.x >= 0) {
-        this.camera.camera.position.x += e.deltaY * 0.01
-        this.world.bottle.bottle.position.x += e.deltaY * 0.01
-        this.world.bottle.bottle.sticker.position.x += e.deltaY * 0.01
-        // this.light.params.positionX = (e.clientX / window.innerWidth) * 2 - 1
-        // this.light.light.target.position.set +=
-        //   (e.deltaX / window.innerWidth) * 2 - 1
-      } else {
+      if (
+        this.camera.camera.position.x >= 0 &&
+        this.camera.camera.position.x <= 190
+      ) {
+        this.camera.camera.position.x += e.deltaY * 0.6
+        this.world.bottle.bottle.position.x += e.deltaY * 0.6
+        this.world.bottle.bottle.sticker.position.x += e.deltaY * 0.6
+        this.light.params.positionX = (e.clientX / window.innerWidth) * 2 - 1
+        if (this.camera.camera.position.x > 185) {
+          this.updateChapters('Chapitre 2 -&nbsp;', 'Le Bar')
+        } else {
+          this.updateChapters('Chapitre 1 -&nbsp;', "L'Usine")
+        }
+      } else if (this.camera.camera.position.x >= 190) {
+        this.world.bottle.bottle.position.x = 190
+        this.camera.camera.position.x = 190
+      } else if (this.camera.camera.position.x <= 0) {
         this.world.bottle.bottle.position.x = 0
         this.camera.camera.position.x = 0
-        // this.light.params.positionX = (e.clientX / window.innerWidth) * 2 - 1
-        // this.light.light.target.position.set +=
-        //   (e.deltaX / window.innerWidth) * 2 - 1
       }
     })
+  }
+  updateChapters(chapter, title) {
+    document.querySelector('.chapters h2').innerHTML = chapter
+    document.querySelector('.chapters h3').innerHTML = title
   }
   setCamera() {
     // Create camera instance
