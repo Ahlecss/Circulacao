@@ -121,7 +121,7 @@ export default class WorldAtelier {
 
     this.backgroundplane = new Mesh(this.geometry, this.material)
     this.backgroundplane.position.set(0, 0, -1)
-    this.backgroundplane.scale.set(1, 1, 1)
+    this.backgroundplane.scale.set(1.6, 1.6, 1.6)
     this.backgroundplane.receiveShadow = true
     this.backgroundplane.castShadow = true
 
