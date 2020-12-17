@@ -95,11 +95,11 @@ export default class App {
         this.camera.camera.position.x >= 0 &&
         this.camera.camera.position.x <= 190
       ) {
-        this.camera.camera.position.x += e.deltaY * 0.6
-        this.world.bottle.bottle.position.x += e.deltaY * 0.6
-        this.world.bottle.bottle.sticker.position.x += e.deltaY * 0.6
+        this.camera.camera.position.x += e.deltaY * 0.4
+        this.world.bottle.bottle.position.x += e.deltaY * 0.4
+        this.world.bottle.bottle.sticker.position.x += e.deltaY * 0.4
         this.light.params.positionX = (e.clientX / window.innerWidth) * 2 - 1
-        if (this.camera.camera.position.x > 185) {
+        if (this.camera.camera.position.x > 180) {
           this.updateChapters('Chapitre 2 -&nbsp;', 'Le Bar')
         } else {
           this.updateChapters('Chapitre 1 -&nbsp;', "L'Usine")
