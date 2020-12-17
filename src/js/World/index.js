@@ -11,7 +11,6 @@ import {
   MeshBasicMaterial,
   SpotLight,
 } from 'three'
-import Lottie from 'lottie-web'
 
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
