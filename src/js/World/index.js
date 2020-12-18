@@ -70,6 +70,7 @@ export default class WorldUsine {
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
     this.progress = this.loadDiv.querySelector('.progressBar')
+    this.startExperience = document.querySelector('#start-experience')
 
     if (this.assets.total === 0) {
       this.init()
@@ -86,7 +87,7 @@ export default class WorldUsine {
       this.assets.on('ressourcesReady', () => {
         setTimeout(() => {
           this.init()
-          this.loadDiv.addEventListener('wheel', (e) => {
+          this.startExperience.addEventListener('click', (e) => {
             setTimeout(() => {
               this.loadDiv.style.opacity = 0
               setTimeout(() => {
