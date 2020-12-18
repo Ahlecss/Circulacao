@@ -10,6 +10,10 @@ import {
     PlaneBufferGeometry,
     MeshBasicMaterial,
     SpotLight,
+    Texture,
+    LinearFilter,
+    RGBAFormat,
+    VideoTexture
   } from 'three'
   
   import AmbientLightSource from './AmbientLight'
@@ -163,7 +167,7 @@ import {
         this.bardevantplane.position.x += this.scale;
         this.biereplane.position.x += this.scale;
         this.drapeauplane.position.x += this.scale;
-        this.tvplane.position.x += this.scale;
+        this.videooneplane.position.x += this.scale;
         this.verresplane.position.x -= this.scale;
         this.backgroundplane.position.x -= this.scale;
         this.meshText.position.x += this.scale * 0.7;
@@ -204,6 +208,27 @@ import {
       })
     }
     addPlanes() {
+      const video1 = document.getElementById( 'video1' );
+      const video2 = document.getElementById( 'video2' );
+      video1.play();
+      video2.play();
+      
+      var videoImage = document.createElement( 'canvas' );
+      videoImage.width = 240 * 2;
+      videoImage.height = 102 * 2;
+      
+      var videoImageContext = videoImage.getContext( '2d' );
+      videoImageContext.fillStyle = '#000000';
+      videoImageContext.fillRect( 0, 0, videoImage.width, videoImage.height );
+      
+      
+      var textureVideoOne = new VideoTexture( video1 );
+      var textureVideoTwo = new VideoTexture( video2 );
+      
+      textureVideoTwo.format = RGBAFormat;
+      
+      
+      textureVideoOne.format = RGBAFormat;
       var loader = new TextureLoader()
       this.verticalgeometry = new PlaneBufferGeometry(5, 20, 5)
       this.horizontalgeometry = new PlaneBufferGeometry(20, 5, 5)
@@ -211,7 +236,8 @@ import {
       var barDevant = loader.load(BAR_DEVANT)
       var biere = loader.load(BIERRE)
       var drapeau = loader.load(DRAPEAU)
-      var tv = loader.load(TV)
+      //var videoOne = loader.load(textureVideoOne)
+      //var videoTwo = loader.load(textureVideoTwo)
       var verres = loader.load(VERRES)
 
       this.persoMaterial = new MeshPhongMaterial({
@@ -237,9 +263,15 @@ import {
         opacity: 1,
         transparent: true,
       })
+      
+      this.videoOneMaterial = new MeshPhongMaterial({
+        map: textureVideoOne,
+        opacity: 1,
+        transparent: true,
+      })
 
-      this.tvMaterial = new MeshPhongMaterial({
-        map: tv,
+      this.videoTwoMaterial = new MeshPhongMaterial({
+        map: textureVideoTwo,
         opacity: 1,
         transparent: true,
       })
@@ -278,23 +310,28 @@ import {
       this.drapeauplane.position.set(-2, 6.25, -7)
       this.drapeauplane.scale.set(0.6, 1.2, 0.6)
 
-      this.tvplane = new Mesh(this.horizontalgeometry, this.tvMaterial)
-      this.tvplane.position.set(14, 6, -6)
-      this.tvplane.scale.set(0.25, 1, 0.25)
+      this.videooneplane = new Mesh(this.horizontalgeometry, this.videoOneMaterial)
+      this.videooneplane.position.set(0, 0, 2)
+      this.videooneplane.scale.set(1, 1, 1)
+
+      this.videotwoplane = new Mesh(this.horizontalgeometry, this.videoTwoMaterial)
+      this.videotwoplane.position.set(0, 0, 0)
+      this.videotwoplane.scale.set(0.25, 1, 0.25)
 
       this.verresplane = new Mesh(this.horizontalgeometry, this.verresMaterial)
       this.verresplane.position.set(-14, 3, -6)
       this.verresplane.scale.set(0.5, 0.5, 0.5)
   
-      this.persoplane.castShadow = this.bardevantplane.castShadow = this.biereplane.castShadow = this.drapeauplane.castShadow = this.tvplane.castShadow = this.verresplane.castShadow = true
-      this.persoplane.receiveShadow = this.bardevantplane.receiveShadow = this.biereplane.receiveShadow = this.drapeauplane.receiveShadow = this.tvplane.drapeauplane = this.verresplane.drapeauplane = true
+      this.persoplane.castShadow = this.bardevantplane.castShadow = this.biereplane.castShadow = this.drapeauplane.castShadow = this.videooneplane.castShadow = this.verresplane.castShadow = true
+      this.persoplane.receiveShadow = this.bardevantplane.receiveShadow = this.biereplane.receiveShadow = this.drapeauplane.receiveShadow = this.videooneplane.drapeauplane = this.verresplane.drapeauplane = true
   
       this.container.add(
         this.persoplane, 
         this.bardevantplane,
         this.biereplane,
         this.drapeauplane,
-        this.tvplane,
+        //this.videooneplane,
+        this.videotwoplane,
         this.verresplane
         )
     }
