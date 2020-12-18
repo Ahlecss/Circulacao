@@ -42,7 +42,7 @@ button{
   position absolute
   bottom 100px
   right 100px
-  z-index 10
+  z-index 999
   width 400px
   height 100px
   display flex
@@ -60,4 +60,26 @@ h2{
 
 .title{
   font-family CirkaBold
+}
+
+.screen-change {
+    animation-name: screen-change;
+    animation-duration: 3s;
+}
+
+#curtain {
+    background: black;
+    opacity: 0;
+    z-index : 1000
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
+@keyframes screen-change {
+    0% {opacity: 0;}
+    30% {opacity: 1;}
+    /* Waiting time */
+    70% {opacity: 1;}
+    100% {opacity: 0;}
 }

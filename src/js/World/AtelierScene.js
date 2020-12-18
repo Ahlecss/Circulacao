@@ -1,127 +1,103 @@
 import {
-    Object3D,
-    AxesHelper,
-    FontLoader,
-    TextGeometry,
-    MeshPhongMaterial,
-    Mesh,
-    MeshLambertMaterial,
-    TextureLoader,
-    PlaneBufferGeometry,
-    MeshBasicMaterial,
-    SpotLight,
-    ShadowMaterial
-  } from 'three'
-  
-  import Sound from './Sound'
-  import AmbientLightSource from './AmbientLight'
-  import PointLightSource from './PointLight'
-  import Bottle from './Bottle'
-  import Sticker from './Sticker'
-  import atelierBackground from '@textures/atelier/atelierBackground.jpg'
-  
-  export default class WorldAtelier {
-    constructor(options) {
-      // Set options
-      this.time = options.time
-      this.debug = options.debug
-      this.assets = options.assets
-      this.camera = options.camera
-      this.renderer = options.renderer
-  
-      // Set up
-      this.container = new Object3D()
-      this.container.name = 'WorldBar'
-      this.mouseX = 0
-      this.mouseY = 2
-      this.scale = 1
-      this.meshText;
-  
-      if (this.debug) {
-        this.container.add(new AxesHelper(5))
-        this.debugFolder = this.debug.addFolder('WorldBar')
-        this.debugFolder.open()
-      }
-  
-      this.setLoader()
+  Object3D,
+  AxesHelper,
+  FontLoader,
+  TextGeometry,
+  MeshPhongMaterial,
+  Mesh,
+  MeshLambertMaterial,
+  TextureLoader,
+  PlaneBufferGeometry,
+  MeshBasicMaterial,
+  SpotLight,
+  ShadowMaterial,
+} from 'three'
+
+import Sound from './Sound'
+import AmbientLightSource from './AmbientLight'
+import PointLightSource from './PointLight'
+import Bottle from './Bottle'
+import Sticker from './Sticker'
+import Decalcomanie from './Decalcomanie'
+import atelierBackground from '@textures/atelier/atelierBackground.jpg'
+
+export default class WorldAtelier {
+  constructor(options) {
+    // Set options
+    this.time = options.time
+    this.debug = options.debug
+    this.assets = options.assets
+    this.camera = options.camera
+    this.renderer = options.renderer
+
+    // Set up
+    this.container = new Object3D()
+    this.container.name = 'WorldBar'
+    this.mouseX = 0
+    this.mouseY = 2
+    this.scale = 1
+    this.meshText
+
+    if (this.debug) {
+      this.container.add(new AxesHelper(5))
+      this.debugFolder = this.debug.addFolder('WorldBar')
+      this.debugFolder.open()
     }
-    init() {
-      this.setAmbientLight()
-      this.setPointLight()
-      this.setScroll()
-      this.setText()
-      this.setBottle()
-      //this.addPlanes()
-      this.setBackground()
-      this.setChapters()
-      this.setSticker()
-      this.setSound()
-    }
-    setSound() {
-      this.audio = new Sound({soundScene: 'atelierSound'})
-      // this.audio.soundPlay()
-    }
-    setLoader() {
-      this.loadDiv = document.querySelector('.loadScreen')
-      this.loadModels = this.loadDiv.querySelector('.load')
-      this.progress = this.loadDiv.querySelector('.progressBar')
-  
-      if (this.assets.total === 0) {
-        this.init()
-        this.loadDiv.remove()
-      } else {
-        this.assets.on('ressourceLoad', () => {
-          /*this.loadModels.innerHTML = `${
-            Math.floor((this.assets.done / this.assets.total) * 100) +
-            Math.floor((1 / this.assets.total) * this.assets.currentPercent)
-          }%`*/
-          this.progress.style.top = `${
-            100 -
-            (Math.floor((this.assets.done / this.assets.total) * 100) +
-              Math.floor((1 / this.assets.total) * this.assets.currentPercent))
-          }%`
-        })
-  
-        this.assets.on('ressourcesReady', () => {
-          setTimeout(() => {
-            this.init()
-            this.loadDiv.style.opacity = 0
-            setTimeout(() => {
-              this.loadDiv.remove()
-            }, 550)
-          }, 1000)
-        })
-      }
-    }
-    setSticker() {
-      console.log('perer')
-      this.sticker = new Sticker({
-        time: this.time,
-        assets: this.assets,
-        bottle: this.bottle,
-        camera: this.camera,
-        renderer: this.renderer,
-      })
-      this.container.add(this.sticker.container)
-    }
-    setBackground() {
-      var loader = new TextureLoader()
-      var texture = loader.load(atelierBackground)
-  
-      this.geometry = new PlaneBufferGeometry(
-        window.innerWidth / 130,
-        window.innerHeight / 130,
-        5
-      )
-      this.material = new MeshPhongMaterial({
-        map: texture,
-        opacity: 1,
-        transparent: true,
+
+
+    this.setAmbientLight()
+    this.setPointLight()
+    this.setScroll()
+    this.setText()
+    this.setBottle()
+    this.setBackground()
+    this.setChapters()
+    this.setSticker()
+    this.setSound()
+    this.setDecalcomanie()
+  }
+  setSound() {
+    this.audio = new Sound({ soundScene: 'atelierSound' })
+    // this.audio.soundPlay()
+  }
+  setSticker() {
+    this.sticker = new Sticker({
+      time: this.time,
+      assets: this.assets,
+      bottle: this.bottle,
+      camera: this.camera,
+      renderer: this.renderer,
+    })
+    this.container.add(this.sticker.container)
+  }
+  setDecalcomanie() {
+    this.decalcomanie = new Decalcomanie({
+      time: this.time,
+      assets: this.assets,
+      bottle: this.bottle,
+      camera: this.camera,
+      renderer: this.renderer,
+    })
+    this.container.add(this.decalcomanie.container)
+  }
+  setBackground() {
+    var loader = new TextureLoader()
+    var texture = loader.load(atelierBackground)
+
+    this.geometry = new PlaneBufferGeometry(
+      window.innerWidth / 130,
+      window.innerHeight / 130,
+      5
+    )
+    this.material = new MeshPhongMaterial({
+      map: texture,
+      opacity: 1,
+      transparent: true,
     })
   
       this.backgroundplane = new Mesh(this.geometry, this.material)
       this.backgroundplane.position.set(0, 0, -1)
-      this.backgroundplane.scale.set(1, 1, 1)
+      this.backgroundplane.scale.set(1.55, 1.55, 1.55)
       this.backgroundplane.receiveShadow = true
       this.backgroundplane.castShadow = true
 
@@ -176,26 +152,12 @@ import {
     }
     setScroll() {
         window.addEventListener('wheel', (event) => {
-
-        // For start the experience scene
-        this.scale = event.deltaY * 0.01;
-        //this.camera.camera.position.z = 0.2 + 5 * this.scale;
-        console.log(this.scale)
-
-        this.bottle.bottle.position.z;
-
-        this.persoplane.position.x -= this.scale;
-        this.bardevantplane.position.x += this.scale;
-        this.biereplane.position.x += this.scale;
-        this.drapeauplane.position.x += this.scale;
-        this.tvplane.position.x += this.scale;
-        this.verresplane.position.x -= this.scale;
-        this.backgroundplane.position.x -= this.scale;
-        this.meshText.position.x += this.scale * 0.7;
+          this.bottle.bottle.position.x = 0;
         })
       }
     setChapters() {
         var chapter = document.createElement('div');
+        chapter.innerHTML = "";
         var chaptering = document.createElement('h2');
         var title = document.createElement('h3');
         chapter.appendChild(chaptering)
@@ -204,7 +166,6 @@ import {
         title.classList.add('title')
         chaptering.innerHTML = "Chapitre 3 -&nbsp;";
         title.innerHTML = "L'Atelier";
-        document.body.appendChild(chapter);   
     }
     setText() {
       var loader = new FontLoader()

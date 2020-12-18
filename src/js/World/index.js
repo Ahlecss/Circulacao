@@ -15,7 +15,6 @@ import {
 import AmbientLightSource from './AmbientLight'
 import PointLightSource from './PointLight'
 import Bottle from './Bottle'
-import Sticker from './Sticker'
 import Sound from './Sound'
 import Lottie from 'lottie-web'
 
@@ -57,10 +56,9 @@ export default class WorldUsine {
     this.setBottle()
     this.addPlanes()
     this.setBackground()
-    this.setSticker()
     this.addAnimation()
     this.setChapters()
-    this.setSound()
+    //this.setSound()
   }
   setSound() {
     this.audio = new Sound({soundScene: 'usineSound'})
@@ -95,17 +93,17 @@ export default class WorldUsine {
     }
   }
   setScroll() {
-    window.addEventListener('wheel', (e) => {
+     window.addEventListener('wheel', (e) => {
       // console.log(e)
       if (this.camera.camera.position.x >= 0) {
         this.camera.camera.position.x += e.deltaY * 0.01
         this.bottle.bottle.position.x += e.deltaY * 0.01
-        this.bottle.bottle.sticker.position.x += e.deltaY * 0.01
       } else {
         this.bottle.bottle.position.x = 0
         this.camera.camera.position.x = 0
       }
     })
+   // window.removeEventListener('wheel', wheelScroll)
   }
   setBackground() {
     var loader = new TextureLoader()
@@ -155,16 +153,6 @@ export default class WorldUsine {
     })
     this.container.add(this.bottle.container)
   }
-  setSticker() {
-    this.sticker = new Sticker({
-      time: this.time,
-      assets: this.assets,
-      bottle: this.bottle,
-      camera: this.camera,
-      renderer: this.renderer,
-    })
-    this.container.add(this.sticker.container)
-  }
   setText() {
     var loader = new FontLoader()
     loader.load('/Andika_New_Basic_Bold.json', (font) => {
@@ -188,7 +176,8 @@ export default class WorldUsine {
     })
   }
   setChapters() {
-      var chapter = document.createElement('div');
+      var chapter = document.getElementById('chapters');
+      chapter.innerHTML = "";
       var chaptering = document.createElement('h2');
       var title = document.createElement('h3');
       chapter.appendChild(chaptering)
@@ -196,8 +185,7 @@ export default class WorldUsine {
       chapter.classList.add('chapters')
       title.classList.add('title')
       chaptering.innerHTML = "Chapitre 1 -&nbsp;";
-      title.innerHTML = "L'Usine";
-      document.body.appendChild(chapter);   
+      title.innerHTML = "L'Usine"; 
   }
   addPlanes() {
     var loader = new TextureLoader()

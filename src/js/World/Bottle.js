@@ -10,7 +10,7 @@ export default class Bottle {
 
     // Set up
     this.container = new Object3D()
-    this.container.name = 'Bottle'
+    this.container.name = 'bottle'
 
     this.createBottle()
     //this.setMovement()

@@ -24,14 +24,18 @@ export default class App {
     this.sizes = new Sizes()
     this.assets = new Assets()
     this.composer = 0;
-    this.currentScene = ""
+    this.reachedValue = 0;
+    this.currentScene = "usine";
+    this.worldUsine;
+    this.worldBar;
+    this.worldAtelier;
 
     this.setConfig()
     this.setRenderer()
     this.setCamera()
     this.setWorldUsine()
-    //this.setWorldBar()
-    //this.setWorldAtelier()
+    this.setWorldBar()
+    this.setWorldAtelier()
     this.setNoise()
     this.setMovement()
     this.setScroll()
@@ -64,11 +68,23 @@ export default class App {
     })
   }
   setScroll() {
+    //pour être sur de ne pas rendre trop de fois les scènes (en scrollant comme un porc), on met des booleans qui renforcent les conditions
+    var callOnceBar = false;
+    var callOnceAtelier = false;
     window.addEventListener('wheel', (event) => {
-      this.setTransition();
-    // For start the experience scene
-    //this.scale = event.deltaY * 0.01;
-    //this.camera.camera.position.z = 0.2 + 5 * this.scale;
+      if(this.camera.camera.position.x > 100 && !callOnceBar){
+        callOnceBar = true;
+        this.setTransition();
+      }
+      // On ne peut pas faire remonter la position d'un plane de l'atelier vers ici, donc on simule avec reachedValue (approximatif mais ça marche :p )
+      this.scale = event.deltaY * 0.01;
+      this.reachedValue += this.scale
+      console.log(this.reachedValue)
+      if(this.reachedValue > 150 && !callOnceAtelier) {
+        callOnceAtelier = true;
+        this.setTransition();
+      }
+      //this.camera.camera.position.z = 0.2 + 5 * this.scale;
     })
   }
   setCamera() {
@@ -81,16 +97,6 @@ export default class App {
     // Add camera to scene
     this.scene.add(this.camera.container)
   }
-  setTransition() {
-    console.log(this.camera.camera.position.x)
-    if(this.currentScene === 'usine') {
-      if(this.camera.camera.position.x > 1){
-        this.scene.remove(this.worldUsine.container)
-        this.setWorldBar()
-        return;
-      }
-    }
-  }
   setWorldUsine() {
     // Create world instance
     this.worldUsine = new WorldUsine({
@@ -102,31 +108,62 @@ export default class App {
     })
     // Add world to scene
     this.scene.add(this.worldUsine.container)
-    this.currentScene = "usine"
   }
   setWorldBar() {
-    // Create world instance
-    this.worldBar = new WorldBar({
-      time: this.time,
-      debug: this.debug,
-      assets: this.assets,
-      camera: this.camera,
-      renderer: this.renderer,
-    })
-    // Add world to scene
-    this.scene.add(this.worldBar.container)
+    if(this.currentScene === 'bar') {
+      // Create world instance
+      this.worldBar = new WorldBar({
+        time: this.time,
+        debug: this.debug,
+        assets: this.assets,
+        camera: this.camera,
+        renderer: this.renderer,
+      })
+      // Add world to scene
+      this.scene.add(this.worldBar.container)
+    }
   }
   setWorldAtelier() {
-    // Create world instance
-    this.worldAtelier = new WorldAtelier({
-      time: this.time,
-      debug: this.debug,
-      assets: this.assets,
-      camera: this.camera,
-      renderer: this.renderer,
-    })
-    // Add world to scene
-    this.scene.add(this.worldAtelier.container)
+    if(this.currentScene === "atelier") {
+      // Create world instance
+      this.worldAtelier = new WorldAtelier({
+        time: this.time,
+        debug: this.debug,
+        assets: this.assets,
+        camera: this.camera,
+        renderer: this.renderer,
+      })
+      // Add world to scene
+      this.scene.add(this.worldAtelier.container)
+    }
+  }
+  setTransition() {
+    console.log(this.camera.camera.position.x)
+    var curtain = document.getElementById("curtain");
+    curtain.classList.remove("screen-change");
+    curtain.offsetWidth;
+    curtain.classList.add("screen-change");
+
+    if(this.currentScene === 'usine') {
+      setTimeout(() => {
+        console.log(this.worldUsine)
+        this.scene.remove(this.worldUsine.container)
+        this.currentScene = "bar"
+        this.setWorldBar();
+        this.camera.camera.position.x = 0;
+      }, 2000);
+    }
+
+    if(this.currentScene === 'bar') {
+      setTimeout(() => {
+        console.log(this.worldBar)
+        this.scene.remove(this.worldBar.container)
+        this.currentScene = "atelier"
+        //On vire le masque qui passait devant le sticker pour pouvoir le drag n drop
+        curtain.remove();
+        this.setWorldAtelier();
+      }, 2000);
+    }
   }
   setNoise(){
     console.log(this.renderer);

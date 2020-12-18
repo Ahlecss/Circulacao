@@ -60,7 +60,7 @@ import {
       this.addPlanes()
       this.setBackground()
       this.setChapters()
-      this.setSound()
+      //this.setSound()
     }
     setSound() {
       this.audio = new Sound({soundScene: 'barSound'})
@@ -118,10 +118,9 @@ import {
 
         // For start the experience scene
         this.scale = event.deltaY * 0.01;
-        //this.camera.camera.position.z = 0.2 + 5 * this.scale;
-        console.log(this.scale)
+        this.camera.camera.position.x = 0;
 
-        this.bottle.bottle.position.z;
+        //this.bottle.bottle.position.z;
 
         this.persoplane.position.x -= this.scale;
         this.bardevantplane.position.x += this.scale;
@@ -131,10 +130,12 @@ import {
         this.verresplane.position.x -= this.scale;
         this.backgroundplane.position.x -= this.scale;
         this.meshText.position.x += this.scale * 0.7;
+          
         })
       }
     setChapters() {
-        var chapter = document.createElement('div');
+        var chapter = document.getElementById('chapters');
+        chapter.innerHTML = "";
         var chaptering = document.createElement('h2');
         var title = document.createElement('h3');
         chapter.appendChild(chaptering)
@@ -143,7 +144,6 @@ import {
         title.classList.add('title')
         chaptering.innerHTML = "Chapitre 2 -&nbsp;";
         title.innerHTML = "Le Bar";
-        document.body.appendChild(chapter);   
     }
     setText() {
       var loader = new FontLoader()
