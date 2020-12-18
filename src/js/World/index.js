@@ -54,7 +54,7 @@ export default class WorldUsine {
   init() {
     // this.setAmbientLight()
     // this.setPointLight()
-    // this.setScroll()
+    this.setScroll()
     // this.setText()
     this.setBottle()
     this.addPlanes()
@@ -72,6 +72,7 @@ export default class WorldUsine {
   setLoader() {
     this.loadDiv = document.querySelector('.loadScreen')
     this.progress = this.loadDiv.querySelector('.progressBar')
+    this.startExperience = document.querySelector('#start-experience')
 
     if (this.assets.total === 0) {
       this.init()
@@ -88,7 +89,7 @@ export default class WorldUsine {
       this.assets.on('ressourcesReady', () => {
         setTimeout(() => {
           this.init()
-          this.loadDiv.addEventListener('wheel', (e) => {
+          this.startExperience.addEventListener('click', (e) => {
             setTimeout(() => {
               this.loadDiv.style.opacity = 0
               setTimeout(() => {
@@ -103,17 +104,14 @@ export default class WorldUsine {
     }
   }
   setScroll() {
-    window.addEventListener('wheel', (e) => {
-      // console.log(e)
-      if (this.camera.camera.position.x >= 0) {
-        this.camera.camera.position.x += e.deltaY * 0.01
-        this.bottle.bottle.position.x += e.deltaY * 0.01
-        this.bottle.bottle.sticker.position.x += e.deltaY * 0.01
-      } else {
-        this.bottle.bottle.position.x = 0
-        this.camera.camera.position.x = 0
-      }
-    })
+    // if (this.camera.camera.position.x >= 0) {
+    //   this.camera.camera.position.x += e.deltaY * 0.01
+    //   this.bottle.bottle.position.x += e.deltaY * 0.01
+    //   this.bottle.bottle.sticker.position.x += e.deltaY * 0.01
+    // } else {
+    //   this.bottle.bottle.position.x = 0
+    //   this.camera.camera.position.x = 0
+    // }
   }
   setBackground() {
     var loader = new TextureLoader()
