@@ -3,6 +3,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
 import * as dat from 'dat.gui'
+import gsap from 'gsap'
 
 import Sizes from '@tools/Sizes'
 import Time from '@tools/Time'
@@ -104,11 +105,31 @@ export default class App {
           this.updateChapters('Chapitre 1 -&nbsp;', "L'Usine")
         }
       } else if (this.camera.camera.position.x >= 190) {
-        this.world.bottle.bottle.position.x = 190
-        this.camera.camera.position.x = 190
+        gsap.to(this.camera.camera.position, {
+          duration: 0.25,
+          x: 190,
+        })
+        gsap.to(this.world.bottle.bottle.position, {
+          duration: 0.25,
+          x: 190,
+        })
       } else if (this.camera.camera.position.x <= 0) {
-        this.world.bottle.bottle.position.x = 0
-        this.camera.camera.position.x = 0
+        gsap.to(this.camera.camera.position, {
+          duration: 0.25,
+          x: 0,
+        })
+        gsap.to(this.world.bottle.bottle.position, {
+          duration: 0.25,
+          x: 0,
+        })
+      }
+
+      var scrollinstructions = document.querySelector('.scroll-instructions')
+      if (scrollinstructions) {
+        scrollinstructions.style.opacity = 0
+        setTimeout(() => {
+          scrollinstructions.remove()
+        }, 1600)
       }
     })
   }

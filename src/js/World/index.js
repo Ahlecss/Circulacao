@@ -11,6 +11,7 @@ import {
   PlaneBufferGeometry,
   MeshBasicMaterial,
 } from 'three'
+import gsap from 'gsap'
 
 // import AmbientLightSource from './AmbientLight'
 // import PointLightSource from './PointLight'
@@ -42,6 +43,7 @@ export default class WorldUsine {
     this.mouseX = 0
     this.mouseY = 2
     this.backgroundWidth = 0
+    this.tweenCam = 0
 
     if (this.debug) {
       this.container.add(new AxesHelper(5))
@@ -60,9 +62,11 @@ export default class WorldUsine {
     this.addPlanes()
     this.setBackground()
     // this.setSticker()
-    this.addAnimation()
     this.setChapters()
+    this.setScrollInstructions()
+    // this.setDragInstructions()
     this.setWorldBar()
+    this.addAnimation()
     // this.setSound()
   }
   setSound() {
@@ -94,7 +98,10 @@ export default class WorldUsine {
               this.loadDiv.style.opacity = 0
               setTimeout(() => {
                 this.loadDiv.remove()
-                this.camera.camera.position.z = 5
+                gsap.to(this.camera.camera.position, {
+                  duration: 2,
+                  z: 5,
+                })
               }, 3000)
             }, 1000)
             e.preventDefault()
@@ -104,14 +111,14 @@ export default class WorldUsine {
     }
   }
   setScroll() {
-    // if (this.camera.camera.position.x >= 0) {
-    //   this.camera.camera.position.x += e.deltaY * 0.01
-    //   this.bottle.bottle.position.x += e.deltaY * 0.01
-    //   this.bottle.bottle.sticker.position.x += e.deltaY * 0.01
-    // } else {
-    //   this.bottle.bottle.position.x = 0
-    //   this.camera.camera.position.x = 0
-    // }
+    var instructions = document.createElement('div')
+    var animation = document.createElement('div')
+
+    instructions.appendChild(animation)
+    instructions.classList.add('scroll-instructions')
+    animation.id = 'scroll-container'
+
+    document.body.appendChild(instructions)
   }
   setBackground() {
     var loader = new TextureLoader()
@@ -207,6 +214,61 @@ export default class WorldUsine {
     title.innerHTML = "L'Usine"
     document.body.appendChild(chapter)
   }
+  setScrollInstructions() {
+    var instructions = document.createElement('div')
+    var animation = document.createElement('div')
+    var paragraph = document.createElement('p')
+    var button = document.createElement('button')
+
+    instructions.appendChild(animation)
+    instructions.appendChild(paragraph)
+    instructions.appendChild(button)
+    instructions.classList.add('instructions')
+    animation.id = 'lueur-container'
+    button.id = 'instruction-close'
+
+    paragraph.innerHTML =
+      "Déplace ton curseur dans la scène pour découvrir l'histoire de l'oeuvre"
+    button.innerHTML = 'close'
+
+    document.body.appendChild(instructions)
+    document
+      .querySelector('#instruction-close')
+      .addEventListener('click', (e) => {
+        document.querySelector('.instructions').style.opacity = 0
+        setTimeout(() => {
+          document.querySelector('.instructions').remove()
+        }, 1600)
+        e.preventDefault()
+      })
+  }
+  setDragInstructions() {
+    var instructions = document.createElement('div')
+    var animation = document.createElement('div')
+    var paragraph = document.createElement('p')
+    var button = document.createElement('button')
+
+    instructions.appendChild(animation)
+    instructions.appendChild(paragraph)
+    instructions.appendChild(button)
+    instructions.classList.add('drag-instructions')
+    animation.id = 'drag-container'
+    button.id = 'instruction-close'
+
+    paragraph.innerHTML = "Drag pour décoller l'étiquette"
+    button.innerHTML = 'close'
+
+    document.body.appendChild(instructions)
+    document
+      .querySelector('#instruction-close')
+      .addEventListener('click', (e) => {
+        document.querySelector('.drag-instructions').style.opacity = 0
+        setTimeout(() => {
+          document.querySelector('.drag-instructions').remove()
+        }, 1600)
+        e.preventDefault()
+      })
+  }
   addPlanes() {
     var loader = new TextureLoader()
     this.verticalgeometry = new PlaneBufferGeometry(5, 20, 5)
@@ -281,16 +343,35 @@ export default class WorldUsine {
     )
   }
   addAnimation() {
-    var container = document.getElementById('anim_container')
-
-    var animData = {
-      container: container,
+    var lueurcontainer = document.getElementById('lueur-container')
+    var lueuranimData = {
+      container: lueurcontainer,
       renderer: 'svg',
       autoplay: true,
       loop: true,
       path: '/lueur.json',
     }
-    var anim = Lottie.loadAnimation(animData)
+    Lottie.loadAnimation(lueuranimData)
+
+    var scrollcontainer = document.getElementById('scroll-container')
+    var scrollanimData = {
+      container: scrollcontainer,
+      renderer: 'svg',
+      autoplay: true,
+      loop: true,
+      path: '/scroll.json',
+    }
+    Lottie.loadAnimation(scrollanimData)
+
+    var dragcontainer = document.getElementById('drag-container')
+    var draganimData = {
+      container: dragcontainer,
+      renderer: 'svg',
+      autoplay: true,
+      loop: true,
+      path: '/etiquette.json',
+    }
+    Lottie.loadAnimation(draganimData)
   }
   setWorldBar() {
     // Create world instance
