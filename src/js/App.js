@@ -3,6 +3,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
 import * as dat from 'dat.gui'
+import gsap from 'gsap'
 
 import Sizes from '@tools/Sizes'
 import Time from '@tools/Time'
@@ -89,6 +90,12 @@ export default class App {
         this.setTransition()
       }
       //this.camera.camera.position.z = 0.2 + 5 * this.scale;
+      var scrollinstructions = document.querySelector('.scroll-instructions')
+      if (scrollinstructions) {
+        scrollinstructions.style.opacity = 0
+        setTimeout(() => {
+          scrollinstructions.remove()
+        }, 1600)
     })
   }
   updateChapters(chapter, title) {

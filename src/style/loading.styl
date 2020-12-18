@@ -1,258 +1,293 @@
 
 .loadScreen {
-  position absolute
-  top 0
-  width 100%
-  height 100%
-  background-color #fff
-  align-items center
-  transition 0.55s opacity ease-out
-  z-index 20
-  user-select none
-  color #fff
-  word-break break-all
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  align-items: center;
+  transition: 0.55s opacity ease-out;
+  z-index: 20;
+  user-select: none;
+  color: #fff;
+  word-break: break-all;
 
   .progressBar {
-    display flex
-    flex-direction column
-    justify-content center
-    align-items center
-    top 100%
-    width 100%
-    height 100%
-    background-color rgba(50,50,50,1)
-    position absolute
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(25, 25, 25, 1);
+    position: absolute;
     // animation liquid 8s infinite
-    transition top 1s ease-in-out 
-    text-align center
-    letter-spacing 0.25em
+    transition: top 1s ease-in-out;
+    text-align: center;
+    letter-spacing: 0.25em;
   }
-    
-  h1,h2{
-    font-family Amagro
-    text-transform uppercase
+
+  h1, h2 {
+    font-family: Amagro;
+    text-transform: uppercase;
   }
 
   h1 {
-    letter-spacing 0.25em
-    font-size 4em
+    letter-spacing: 0.25em;
+    font-size: 4em;
   }
 
   h2 {
-    font-size 1em
-    line-height 1.5em
+    font-size: 1em;
+    line-height: 1.5em;
   }
 
   p {
-    font-family CirkaLight
+    font-family: CirkaLight;
   }
-  
-  .instruction {
-    position absolute
-    bottom 30px
-    left 50%
-    transform translateX(-50%)
+}
+
+.scroll-instructions {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transform: opacity 1s ease-in;
+}
+
+#scroll-container {
+  position: relative;
+  height: 100px;
+  width: 100px;
+}
+
+#scroll-container svg {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+}
+
+button {
+  font-family: CirkaLight;
+  background: transparent;
+  border: 1.5px solid #fff;
+  width: max-content;
+  color: #fff;
+  padding: 0.75em 1.25em;
+  border-radius: 50px;
+  letter-spacing: 0.25em;
+  font-size: 1em;
+  margin: 20px 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#background-bubble {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+
+  .bubble {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    opacity: 1;
+    height: 20px;
+    width: 20px;
+    top: 100%;
+    position: absolute;
+    animation: liquid 3.5s ease-out infinite;
   }
 
-  #anim_container {
-    position relative
-    height 1000px
-    width 1000px
-    z-index 110
-
-    svg {
-      display: flex;
-      position: absolute;
-      bottom: -45%;
-    }
-
+  .bubble:after {
+    background: radial-gradient(ellipse at bottom, rgba(0, 0, 0, 1) 0%, rgba(150, 150, 150, 0.2) 100%);
+    content: '';
+    height: 20px;
+    width: 20px;
+    left: 10px;
+    position: absolute;
+    border-radius: 50%;
   }
 
-  button {
-    font-family CirkaLight
-    background transparent
-    border 1.5px solid #fff
-    width max-content
-    color #fff
-    padding  0.75em 1.25em
-    border-radius 50px
-    letter-spacing 0.25em
-    font-size 1em
-    margin 20px 0
-    cursor pointer
-    z-index 10
+  .x1 {
+    height: 50px;
+    width: 50px;
+    left: 100px;
+    animation-delay: 4s;
   }
 
-  #background-bubble {
-    bottom: 0;
-    left: 0;
-    position: absolute
-    right: 0;
-    top: 0;
-    z-index: 9;
-    width 100%
-    height 100%
+  .x1:after {
+    height: 50px;
+    width: 50px;
+  }
 
-  
-    .bubble {
-      -webkit-border-radius: 50%
-      -moz-border-radius: 50%
-      border-radius: 50%
-      opacity: 1
-      height: 20px
-      width: 20px
-      top 100%
-      position: absolute
-      animation: liquid 3.5s ease-out infinite;
-    }
+  .x2 {
+    left: 2300px;
+    animation-delay: 1s;
+  }
 
-    .bubble:after{
-      background: radial-gradient(ellipse at bottom,  rgba(0,0,0,1) 0%,rgba(150,150,150,0.2) 100%);
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 10px;
-      position: absolute;
-      border-radius: 50%;
-    }
+  .x3 {
+    left: 600px;
+    animation-delay: 3s;
+  }
 
-    .x1 {
-      height 50px
-      width 50px
-      left 100px
-      animation-delay 4s
-    }
+  .x4 {
+    height: 30px;
+    width: 30px;
+    left: 1200px;
+    animation-delay: 3s;
+  }
 
-    .x1:after {
-      height 50px
-      width 50px
-    }
+  .x4:after {
+    height: 30px;
+    width: 30px;
+  }
 
-    .x2 {
-      left 2300px
-      animation-delay 1s
-    }
+  .x5 {
+    left: 800px;
+    animation-delay: 4s;
+  }
 
-    .x3 {
-      left 600px
-      animation-delay 3s
-    }
+  .x6 {
+    left: 1600px;
+    animation-delay: 1s;
+  }
 
-    .x4 {
-      height 30px
-      width 30px
-      left 1200px
-      animation-delay 3s
-    }
+  .x7 {
+    left: 600px;
+    animation-delay: 5s;
+  }
 
-    .x4:after {
-      height 30px
-      width 30px
-    }
+  .x8 {
+    left: 1900px;
+    height: 40px;
+    width: 40px;
+    animation-delay: 3s;
+  }
 
-    .x5 {
-      left 800px
-      animation-delay 4s
-    }
+  .x8:after {
+    height: 40px;
+    width: 40px;
+  }
 
-    .x6 {
-      left 1600px
-      animation-delay 1s
-    }
+  .x9 {
+    left: 3000px;
+    animation-delay: 4s;
+  }
 
-    .x7 {
-      left 600px
-      animation-delay 5s
-    }
+  .x10 {
+    left: 2600px;
+    animation-delay: 1s;
+  }
 
-    .x8 {
-      left 1900px
-      height 40px
-      width 40px
-      animation-delay 3s
-    }
+  .x11 {
+    left: 80px;
+    animation-delay: 2s;
+  }
 
-    .x8:after {
-      height 40px
-      width 40px
-    }
+  .x12 {
+    left: 2800px;
+  }
 
-    .x9 {
-      left 3000px
-      animation-delay 4s
-    }
+  .x13 {
+    left: 890px;
+  }
 
-    .x10 {
-      left 2600px
-      animation-delay 1s
-    }
+  .x14 {
+    left: 689px;
+    height: 30px;
+    width: 30px;
+    animation-delay: 2s;
+  }
 
-    .x11 {
-      left 80px
-      animation-delay 2s
-    }
+  .x14:after {
+    height: 30px;
+    width: 30px;
+  }
 
-    .x12 {
-      left 2800px
-    }
+  .x15 {
+    left: 2765px;
+    animation-delay: 4s;
+  }
 
-    .x13 {
-      left 890px
-    }
+  .x16 {
+    left: 2489px;
+    height: 40px;
+    width: 40px;
+    animation-delay: 3s;
+  }
 
-    .x14 {
-      left 689px
-      animation-delay 2s
-    }
+  .x16:after {
+    height: 40px;
+    width: 40px;
+  }
 
-    .x15 {
-      left 2765px
-      animation-delay 4s
-    }
+  .x17 {
+    left: 266px;
+    animation-delay: 2s;
+  }
 
-    .x16 {
-      left 2489px
-      height 40px
-      width 40px
-      animation-delay 3s
-    }
+  .x18 {
+    left: 666px;
+    animation-delay: 1s;
+  }
 
-    .x16:after {
-      height 40px
-      width 40px
-    }
+  .x19 {
+    left: 849px;
+    animation-delay: 3s;
+  }
 
-    .x17 {
-      left 266px
-      animation-delay 2s
-    }
+  .x20 {
+    left: 1985px;
+  }
 
-    .x18 {
-      left 666px
-      animation-delay 1s
-    }
+  .x21 {
+    left: 1509px;
+    animation-delay: 3s;
+  }
 
-    .x19 {
-      left 849px
-      animation-delay 3s
-    }
+  .x22 {
+    left: 2409px;
+    width: 50px;
+    height: 50px;
+  }
 
-    .x20 {
-      left 1985px
-    }
+  .x22:after {
+    width: 50px;
+    height: 50px;
+  }
+
+  .x23 {
+    left: 1390px;
+    animation-delay: 3s;
+  }
+
+  .x24 {
+    left: 48px;
+  }
+
+  .x25 {
+    left: 789px;
   }
 }
 
 @keyframes liquid {
   0% {
-    top 100%
-  } 
+    top: 100%;
+  }
+
   100% {
-    top -50%
-  } 
+    top: -50%;
+  }
 }
-
-
-
-
-
