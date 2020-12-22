@@ -56,7 +56,7 @@ export default class WorldBar {
     this.setPointLight()
     this.setScroll()
     this.setText()
-    //this.setBottle()
+    this.setBottle()
     this.addPlanes()
     this.setBackground()
     this.setChapters()
@@ -83,29 +83,29 @@ export default class WorldBar {
 
     this.backgroundplane = new Mesh(this.geometry, this.material)
     this.backgroundplane.position.set(-15, -4, -10)
-    this.backgroundplane.scale.set(0.6, 0.5, 0.6)
+    this.backgroundplane.scale.set(1.4, 1.2, 1.4)
     this.backgroundplane.receiveShadow = true
     this.backgroundplane.castShadow = true
     this.container.add(this.backgroundplane)
   }
-  // setAmbientLight() {
-  //   this.ambientlight = new SpotLight({
-  //     debug: this.debugFolder,
-  //   })
-  //   this.container.add(this.ambientlight.container)
-  // }
-  // setPointLight() {
-  //   // console.log(this.camera)
-  //   this.light = new PointLightSource({
-  //     debug: this.debugFolder,
-  //     posX: this.mouseX,
-  //     posY: this.mouseY,
-  //     posZ: -10,
-  //     camera: this.camera,
-  //   })
-  //   this.container.add(this.light.container)
-  //   // When the mouse moves, call the given function
-  // }
+  setAmbientLight() {
+    this.ambientlight = new SpotLight({
+      debug: this.debugFolder,
+    })
+    this.container.add(this.ambientlight.container)
+  }
+  setPointLight() {
+    // console.log(this.camera)
+    this.light = new PointLightSource({
+      debug: this.debugFolder,
+      posX: this.mouseX,
+      posY: this.mouseY,
+      posZ: -10,
+      camera: this.camera,
+    })
+    this.container.add(this.light.container)
+    // When the mouse moves, call the given function
+  }
   setBottle() {
     this.bottle = new Bottle({
       time: this.time,
@@ -119,7 +119,7 @@ export default class WorldBar {
       this.scale = event.deltaY * 0.01
       this.camera.camera.position.x = 0
 
-      //this.bottle.bottle.position.z;
+      this.bottle.bottle.position.x = 0
 
       this.persoplane.position.x -= this.scale
       this.bardevantplane.position.x += this.scale
@@ -240,8 +240,6 @@ export default class WorldBar {
     )
     this.bardevantplane.position.set(1.5, -1.87, -1)
     this.bardevantplane.scale.set(0.8, 0.8, 0.8)
-    this.bardevantplaneclone = this.bardevantplane.clone()
-    this.bardevantplaneclone.position.set(-12, -1.87, -1)
 
     this.biereplane = new Mesh(this.horizontalgeometry, this.biereMaterial)
     this.biereplane.position.set(3.5, -1, -2)
@@ -258,8 +256,6 @@ export default class WorldBar {
     this.verresplane = new Mesh(this.horizontalgeometry, this.verresMaterial)
     this.verresplane.position.set(-14, 3, -6)
     this.verresplane.scale.set(0.5, 0.5, 0.5)
-    this.verresplaneclone = this.verresplane.clone()
-    this.verresplaneclone.position.set(-23.5, 3, -6)
 
     this.persoplane.castShadow = this.bardevantplane.castShadow = this.biereplane.castShadow = this.drapeauplane.castShadow = this.tvplane.castShadow = this.verresplane.castShadow = true
     this.persoplane.receiveShadow = this.bardevantplane.receiveShadow = this.biereplane.receiveShadow = this.drapeauplane.receiveShadow = this.tvplane.drapeauplane = this.verresplane.drapeauplane = true
@@ -267,12 +263,10 @@ export default class WorldBar {
     this.container.add(
       this.persoplane,
       this.bardevantplane,
-      this.bardevantplaneclone,
       this.biereplane,
       this.drapeauplane,
       this.tvplane,
-      this.verresplane,
-      this.verresplaneclone
+      this.verresplane
     )
   }
 }

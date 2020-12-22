@@ -39,9 +39,9 @@ export default class App {
     this.setConfig()
     this.setRenderer()
     this.setCamera()
+    this.setWorldAtelier()
     this.setWorldUsine()
     this.setWorldBar()
-    this.setWorldAtelier()
     this.setNoise()
     this.setMovement()
     this.setScroll()
@@ -77,15 +77,16 @@ export default class App {
     var callOnceBar = false
     var callOnceAtelier = false
     window.addEventListener('wheel', (event) => {
-      if (this.camera.camera.position.x > 100 && !callOnceBar) {
+      if (this.camera.camera.position.x > 75 && !callOnceBar) {
         callOnceBar = true
         this.setTransition()
       }
       // On ne peut pas faire remonter la position d'un plane de l'atelier vers ici, donc on simule avec reachedValue (approximatif mais ça marche :p )
       this.scale = event.deltaY * 0.01
       this.reachedValue += this.scale
-      console.log(this.reachedValue)
-      if (this.reachedValue > 150 && !callOnceAtelier) {
+      // console.log(this.reachedValue)
+      if (this.reachedValue > 100 && !callOnceAtelier) {
+        console.log('call atelier')
         callOnceAtelier = true
         this.setTransition()
       }
@@ -96,6 +97,7 @@ export default class App {
         setTimeout(() => {
           scrollinstructions.remove()
         }, 1600)
+      }
     })
   }
   updateChapters(chapter, title) {
@@ -140,6 +142,7 @@ export default class App {
   }
   setWorldAtelier() {
     if (this.currentScene === 'atelier') {
+      console.log('crzation atelier')
       // Create world instance
       this.worldAtelier = new WorldAtelier({
         time: this.time,
@@ -172,11 +175,13 @@ export default class App {
     if (this.currentScene === 'bar') {
       setTimeout(() => {
         console.log(this.worldBar)
+        console.log(this.currentScene)
         this.scene.remove(this.worldBar.container)
         this.currentScene = 'atelier'
         //On vire le masque qui passait devant le sticker pour pouvoir le drag n drop
-        curtain.remove()
         this.setWorldAtelier()
+        curtain.remove()
+        this.camera.camera.position.x = 0
       }, 2000)
     }
   }

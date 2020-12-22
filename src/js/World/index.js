@@ -13,8 +13,8 @@ import {
 } from 'three'
 import gsap from 'gsap'
 
-// import AmbientLightSource from './AmbientLight'
-// import PointLightSource from './PointLight'
+import AmbientLightSource from './AmbientLight'
+import PointLightSource from './PointLight'
 import Bottle from './Bottle'
 import Sticker from './Sticker'
 import Sound from './Sound'
@@ -61,12 +61,11 @@ export default class WorldUsine {
     this.setBottle()
     this.addPlanes()
     this.setBackground()
-    // this.setSticker()
     this.setChapters()
-    this.setScrollInstructions()
-    // this.setDragInstructions()
-    this.setWorldBar()
     this.addAnimation()
+    // this.setSticker()
+    // this.setDragInstructions()
+    //this.setWorldBar()
     // this.setSound()
   }
   setSound() {
@@ -96,12 +95,14 @@ export default class WorldUsine {
           this.startExperience.addEventListener('click', (e) => {
             setTimeout(() => {
               this.loadDiv.style.opacity = 0
+              gsap.to(this.camera.camera.position, {
+                duration: 2,
+                z: 5,
+              })
+              this.addAnimation()
+              this.setScrollInstructions()
               setTimeout(() => {
                 this.loadDiv.remove()
-                gsap.to(this.camera.camera.position, {
-                  duration: 2,
-                  z: 5,
-                })
               }, 3000)
             }, 1000)
             e.preventDefault()
@@ -121,7 +122,7 @@ export default class WorldUsine {
         this.camera.camera.position.x = 0
       }
     })
-    // window.removeEventListener('wheel', wheelScroll)
+
     var instructions = document.createElement('div')
     var animation = document.createElement('div')
 
@@ -148,7 +149,7 @@ export default class WorldUsine {
 
     this.plane = new Mesh(this.geometry, this.material)
     this.plane.position.set(2, 0, -20)
-    this.plane.scale.set(4, 4, 4)
+    this.plane.scale.set(10, 10, 10)
     this.plane.receiveShadow = true
     this.plane2 = this.plane.clone()
     this.plane2.position.set(this.plane.geometry.parameters.width * 10, 0, -20)
@@ -217,23 +218,23 @@ export default class WorldUsine {
     title.innerHTML = "L'Usine"
   }
   setScrollInstructions() {
-    var instructions = document.createElement('div')
-    var animation = document.createElement('div')
-    var paragraph = document.createElement('p')
-    var button = document.createElement('button')
+    var scrollinstructions = document.createElement('div')
+    var scrollanimation = document.createElement('div')
+    var scrollparagraph = document.createElement('p')
+    var scrollbutton = document.createElement('button')
 
-    instructions.appendChild(animation)
-    instructions.appendChild(paragraph)
-    instructions.appendChild(button)
-    instructions.classList.add('instructions')
-    animation.id = 'lueur-container'
-    button.id = 'instruction-close'
+    scrollinstructions.appendChild(scrollanimation)
+    scrollinstructions.appendChild(scrollparagraph)
+    scrollinstructions.appendChild(scrollbutton)
+    scrollinstructions.classList.add('instructions')
+    scrollanimation.id = 'lueur-container'
+    scrollbutton.id = 'instruction-close'
 
-    paragraph.innerHTML =
+    scrollparagraph.innerHTML =
       "Déplace ton curseur dans la scène pour découvrir l'histoire de l'oeuvre"
-    button.innerHTML = 'close'
+    scrollbutton.innerHTML = 'close'
 
-    document.body.appendChild(instructions)
+    document.body.appendChild(scrollinstructions)
     document
       .querySelector('#instruction-close')
       .addEventListener('click', (e) => {
@@ -364,16 +365,6 @@ export default class WorldUsine {
       path: '/scroll.json',
     }
     Lottie.loadAnimation(scrollanimData)
-
-    var dragcontainer = document.getElementById('drag-container')
-    var draganimData = {
-      container: dragcontainer,
-      renderer: 'svg',
-      autoplay: true,
-      loop: true,
-      path: '/etiquette.json',
-    }
-    Lottie.loadAnimation(draganimData)
   }
   setWorldBar() {
     // Create world instance

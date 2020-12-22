@@ -3,21 +3,19 @@ export default class Sound {
     // Set options
     this.soundScene = options.soundScene
     this.init()
-    window.addEventListener('load', this.init, false);
+    window.addEventListener('load', this.init, false)
   }
   init() {
-
     try {
       // Fix up for prefixing
       var AudioContext = window.AudioContext || window.webkitAudioContext
       var audioCtx = new AudioContext()
-    }
-    catch(e) {
-      alert('Web Audio API is not supported in this browser');
+    } catch (e) {
+      alert('Web Audio API is not supported in this browser')
     }
     console.log(this.soundScene)
     var myAudio = document.getElementById(this.soundScene)
-    var button = document.querySelector('button')
+    var button = document.getElementById('start-experience')
     const track = audioCtx.createMediaElementSource(myAudio)
 
     button.addEventListener('click', () => {
@@ -25,7 +23,6 @@ export default class Sound {
       track.connect(audioCtx.destination)
       myAudio.play()
     })
-
   }
   setMovement() {
     document.addEventListener(

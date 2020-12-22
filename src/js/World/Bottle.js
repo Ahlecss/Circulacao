@@ -1,4 +1,9 @@
-import { Object3D, TextureLoader, MeshBasicMaterial, MeshPhongMaterial} from 'three'
+import {
+  Object3D,
+  TextureLoader,
+  MeshBasicMaterial,
+  MeshPhongMaterial,
+} from 'three'
 import * as THREE from 'three'
 import etiquetteCoca from '@textures/etiquetteCoca.png'
 
@@ -33,12 +38,12 @@ export default class Bottle {
       opacity: 0.2,
       transparent: true,
       refractionRatio: 1,
-      depthWrite: true
+      depthWrite: true,
     })
 
     this.bottle.sticker.visible = false
 
-    const textureEtiquetteCoca = new TextureLoader().load(etiquetteCoca);
+    const textureEtiquetteCoca = new TextureLoader().load(etiquetteCoca)
 
     this.bottle.label.material = new THREE.MeshBasicMaterial({
       color: 0xffffff,
@@ -55,7 +60,7 @@ export default class Bottle {
       opacity: 0.2,
       transparent: true,
       refractionRatio: 1,
-      depthWrite: true
+      depthWrite: true,
     })
 
     this.bottle.scale.set(0.1, 0.1, 0.1)
