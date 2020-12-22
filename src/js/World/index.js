@@ -76,12 +76,14 @@ export default class WorldUsine {
     this.loadDiv = document.querySelector('.loadScreen')
     this.progress = this.loadDiv.querySelector('.progressBar')
     this.startExperience = document.querySelector('#start-experience')
-
+    console.log(this.assets.total)
     if (this.assets.total === 0) {
+      console.log(this.assets.total)
       this.init()
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
+        console.log('initui')
         this.progress.style.top = `${
           100 -
           (Math.floor((this.assets.done / this.assets.total) * 100) +
@@ -91,6 +93,7 @@ export default class WorldUsine {
 
       this.assets.on('ressourcesReady', () => {
         setTimeout(() => {
+          console.log('initui')
           this.init()
           this.startExperience.addEventListener('click', (e) => {
             setTimeout(() => {
