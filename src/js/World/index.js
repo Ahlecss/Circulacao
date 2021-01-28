@@ -66,10 +66,10 @@ export default class WorldUsine {
     // this.setSticker()
     // this.setDragInstructions()
     //this.setWorldBar()
-    // this.setSound()
+     this.setSound()
   }
   setSound() {
-    this.audio = new Sound({ soundScene: 'usineSound' })
+    this.audio = new Sound({ soundScene: 'usineSound', autoplay: false })
     // this.audio.soundPlay()
   }
   setLoader() {
@@ -165,10 +165,9 @@ export default class WorldUsine {
     this.container.add(this.ambientlight.container)
   }
   setPointLight() {
-    // console.log(this.camera)
     this.light = new PointLightSource({
       debug: this.debugFolder,
-      posX: this.mouseX,
+      posX: this.mouseX + this.camera.camera.position.x,
       posY: this.mouseY,
       posZ: -10,
       camera: this.camera,

@@ -74,7 +74,7 @@ export default class PointLightSource {
           .clone()
           .add(dir.multiplyScalar(distance))
         // I changed Z of pos to have a nicer light angle
-        pos.z = 5
+        pos.z = 15
         this.light.position.copy(pos)
       },
       false

@@ -60,10 +60,10 @@ export default class WorldBar {
     this.addPlanes()
     this.setBackground()
     this.setChapters()
-    //this.setSound()
+    this.setSound()
   }
   setSound() {
-    this.audio = new Sound({ soundScene: 'barSound' })
+    this.audio = new Sound({ soundScene: 'barSound', autoplay: true })
     // this.audio.soundPlay()
   }
   setBackground() {

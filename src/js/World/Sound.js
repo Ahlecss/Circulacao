@@ -2,6 +2,7 @@ export default class Sound {
   constructor(options) {
     // Set options
     this.soundScene = options.soundScene
+    this.autoplay = options.autoplay
     this.init()
     window.addEventListener('load', this.init, false)
   }
@@ -18,11 +19,16 @@ export default class Sound {
     var button = document.getElementById('start-experience')
     const track = audioCtx.createMediaElementSource(myAudio)
 
+    if(this.autoplay) {
+      track.connect(audioCtx.destination)
+      myAudio.play()
+    } else {
     button.addEventListener('click', () => {
       console.log('lancé')
       track.connect(audioCtx.destination)
       myAudio.play()
     })
+    }
   }
   setMovement() {
     document.addEventListener(

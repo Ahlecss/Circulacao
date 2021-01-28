@@ -53,7 +53,7 @@ export default class WorldAtelier {
     this.setBackground()
     this.setChapters()
     this.setSticker()
-    // this.setSound()
+    this.setSound()
     this.setDecalcomanie()
   }
   addAnimation() {
@@ -94,7 +94,7 @@ export default class WorldAtelier {
     Lottie.loadAnimation(draganimData)
   }
   setSound() {
-    this.audio = new Sound({ soundScene: 'atelierSound' })
+    this.audio = new Sound({ soundScene: 'atelierSound', autoplay: true })
     // this.audio.soundPlay()
   }
   setSticker() {
