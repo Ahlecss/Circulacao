@@ -66,7 +66,7 @@ export default class WorldUsine {
     // this.setSticker()
     // this.setDragInstructions()
     //this.setWorldBar()
-     this.setSound()
+    this.setSound()
   }
   setSound() {
     this.audio = new Sound({ soundScene: 'usineSound', autoplay: false })
@@ -83,7 +83,11 @@ export default class WorldUsine {
       this.loadDiv.remove()
     } else {
       this.assets.on('ressourceLoad', () => {
-        console.log('initui')
+        console.log(this.progress)
+        console.log(
+          Math.floor((this.assets.done / this.assets.total) * 100) +
+            Math.floor((1 / this.assets.total) * this.assets.currentPercent)
+        )
         this.progress.style.top = `${
           100 -
           (Math.floor((this.assets.done / this.assets.total) * 100) +
@@ -93,7 +97,6 @@ export default class WorldUsine {
 
       this.assets.on('ressourcesReady', () => {
         setTimeout(() => {
-          console.log('initui')
           this.init()
           this.startExperience.addEventListener('click', (e) => {
             setTimeout(() => {
